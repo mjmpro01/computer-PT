@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_seletions",
+  "info": {
+    "singularName": "product-seletion",
+    "pluralName": "product-seletions",
+    "displayName": "product seletion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    },
+    "is_price_range": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

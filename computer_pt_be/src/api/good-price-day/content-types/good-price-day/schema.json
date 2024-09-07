@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "good_price_days",
+  "info": {
+    "singularName": "good-price-day",
+    "pluralName": "good-price-days",
+    "displayName": "Giá tốt mỗi ngày",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

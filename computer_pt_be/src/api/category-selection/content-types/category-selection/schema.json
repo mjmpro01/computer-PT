@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_selections",
+  "info": {
+    "singularName": "category-selection",
+    "pluralName": "category-selections",
+    "displayName": "category selection",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "product_seletions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-seletion.product-seletion"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

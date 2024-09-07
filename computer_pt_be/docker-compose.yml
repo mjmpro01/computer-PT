@@ -1,0 +1,36 @@
+version: "3.1"
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    restart: always
+    volumes:
+      - meilisearch:/computer_db/meili_data
+    ports:
+      - 7702:7700
+  postgres:
+    image: postgres:latest
+    container_name: postgres_computer_pt
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-computer_pt}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-Admin@123}
+      - POSTGRES_DB=${POSTGRES_DB:-computer_pt_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/computer_db/data
+    ports:
+      - "5435:5432"
+    restart: always
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    restart: always
+volumes:
+  meilisearch:
+  postgres_data:
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge

@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "promotion_price": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "price": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "product_code": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[A-Z]{4}[0-9]{6}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "total_purchase": {
+      "type": "integer",
+      "default": 0
+    },
+    "total_view": {
+      "type": "integer",
+      "default": 0
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "rating": {
+      "type": "decimal",
+      "default": 0
+    },
+    "slug": {
+      "type": "string"
+    }
+  }
+}

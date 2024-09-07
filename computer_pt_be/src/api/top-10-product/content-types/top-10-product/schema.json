@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "top_10_products",
+  "info": {
+    "singularName": "top-10-product",
+    "pluralName": "top-10-products",
+    "displayName": "Top 10 sản phẩm",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}
