@@ -14,8 +14,8 @@ const HeaderComponent = () => {
   const user = false;
 
   return (
-    <div className="border-b fixed w-full">
-      <div className="max-w-[1440px] mx-auto h-[7rem] w-full flex justify-between items-center">
+    <div className="border-b fixed w-full flex items-center justify-center bg-white">
+      <div className="max-w-[1440px] px-[8rem] h-[7rem] w-full flex justify-between items-center">
         <div className="flex items-center gap-[0.8rem]">
           <img
             src={images.logo}
@@ -24,7 +24,7 @@ const HeaderComponent = () => {
           />
           <p className="text-black text-[2rem] font-medium">Computer P&T</p>
         </div>
-        <div className="flex items-center gap-[1.2rem]">
+        <div className="flex items-center gap-[1.2rem] flex-1 px-[4rem]">
           <Popover
             content={<CategoriesComponent />}
             trigger="click"
@@ -37,7 +37,7 @@ const HeaderComponent = () => {
               </p>
             </div>
           </Popover>
-          <div className="w-[55rem] bg-[#F5F5F5] h-[4rem] border rounded-[0.4rem] flex items-center gap-[0.8rem] p-[1rem] text-[1.4rem]">
+          <div className="flex-1 bg-[#F5F5F5] h-[3.2rem] border rounded-[0.4rem] flex items-center gap-[0.8rem] p-[0.8rem_1rem] text-[1.4rem]">
             <input
               className="h-full flex-1 bg-transparent focus:outline-none"
               placeholder="Nhập từ khóa tìm kiếm"

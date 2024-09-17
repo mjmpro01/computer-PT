@@ -11,7 +11,24 @@ export default {
   ],
   darkMode: ["class", '[data-mode="dark"]'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: [
+          "Roboto",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "Open Sans",
+          "Helvetica Neue",
+          "sans-serif",
+        ],
+      },
+    },
   },
   plugins: [
     // require("tw-elements/dist/plugin.cjs"),
