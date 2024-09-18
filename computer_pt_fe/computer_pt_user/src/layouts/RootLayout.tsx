@@ -11,7 +11,7 @@ export default function RootLayout() {
     <div className="container-fluid p-0 flex flex-col min-h-screen relative">
       <HeaderComponent />
       <div className="flex items-center justify-center">
-        <div className="h-[100vh] pt-[7rem] w-full max-w-[1440px] px-[8rem]">
+        <div className="min-h-[100vh] pt-[7rem] w-full max-w-[1440px] px-[8rem]">
           <Outlet
 
           //   context={{ setIsLoadingDone } satisfies RootLayoutContextType}
