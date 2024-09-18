@@ -14,7 +14,7 @@ const HeaderComponent = () => {
   const user = false;
 
   return (
-    <div className="border-b fixed w-full flex items-center justify-center bg-white">
+    <div className="border-b fixed w-full flex items-center justify-center bg-white z-50">
       <div className="max-w-[1440px] px-[8rem] h-[7rem] w-full flex justify-between items-center">
         <div className="flex items-center gap-[0.8rem]">
           <img
