@@ -12,6 +12,11 @@ import dienMayGiaDung from "./dien-may-gia-dung.webp";
 import phuKien from "./phu-kien.webp";
 import thietBiAnNinh from "./thiet-bi-an-ninh.webp";
 import thietBiMang from "./thiet-bi-mang.webp";
+import emptyCart from "./empty_cart.png";
+import banner1 from "./banner-1.jpg";
+import banner2 from "./banner-2.jpg";
+import banner3 from "./banner-3.jpg";
+import banner4 from "./banner-4.jpg";
 const images = {
   logo,
   vnPay,
@@ -27,6 +32,11 @@ const images = {
   phuKien,
   thietBiAnNinh,
   thietBiMang,
+  emptyCart,
+  banner1,
+  banner2,
+  banner3,
+  banner4,
 };
 
 export default images;

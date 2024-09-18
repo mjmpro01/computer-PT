@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Popover } from "antd";
 import CategoriesComponent from "../common/Categories";
+import CartHeader from "../common/CartHeader";
 
 const HeaderComponent = () => {
   const user = false;
@@ -59,15 +60,22 @@ const HeaderComponent = () => {
               Xây dựng cấu hình
             </p>
           </div>
-          <div className="group flex items-center cursor-pointer flex-col">
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
-            />
-            <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
-              Giỏ hàng (0)
-            </p>
-          </div>
+
+          <Popover
+            content={<CartHeader />}
+            trigger="hover"
+            placement="bottomRight"
+          >
+            <div className="group flex items-center cursor-pointer flex-col">
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+              />
+              <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
+                Giỏ hàng (0)
+              </p>
+            </div>
+          </Popover>
           <div className="group flex items-center cursor-pointer flex-col">
             <FontAwesomeIcon
               icon={faUser}
