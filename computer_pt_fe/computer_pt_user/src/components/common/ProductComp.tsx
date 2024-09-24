@@ -1,6 +1,9 @@
+import paths from "@/utils/constants/paths";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function ProductComp() {
+  const navigate = useNavigate();
   return (
     <div className="h-[40rem] flex flex-col p-[1rem] border rounded-[0.4rem] bg-white">
       <div className="relative h-[50%]">
@@ -19,7 +22,10 @@ function ProductComp() {
         <p className="text-[1.4rem] font-medium uppercase text-[#82869e]">
           Lenovo
         </p>
-        <p className="text-[1.2rem] line-clamp-3 text-[#434657]">
+        <p
+          className="text-[1.2rem] line-clamp-3 text-[#434657] cursor-pointer"
+          onClick={() => navigate(`${paths.PRODUCTS}/123`)}
+        >
           Laptop gaming Lenovo LOQ 15IAX9 - 83GS004BVN (i5-12450HX/RAM
           12GB/GeForce RTX 3050/512GB SSD/ Windows 11)
         </p>
