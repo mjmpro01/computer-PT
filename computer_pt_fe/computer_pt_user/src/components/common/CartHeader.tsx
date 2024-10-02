@@ -1,8 +1,11 @@
 import images from "@/assets/images";
 import { Button } from "antd";
 import CartProduct from "./CartProduct";
+import { useNavigate } from "react-router-dom";
+import paths from "@/utils/constants/paths";
 
 function CartHeader() {
+  const navigate = useNavigate();
   const cart = [1, 2];
   if (cart.length === 0) {
     return (
@@ -28,7 +31,12 @@ function CartHeader() {
       <CartProduct />
       <CartProduct />
       <CartProduct />
-      <Button className="bg-[#1435C3] text-white h-[4rem]">Xem giỏ hàng</Button>
+      <Button
+        className="bg-[#1435C3] text-white h-[4rem]"
+        onClick={() => navigate(paths.CART)}
+      >
+        Xem giỏ hàng
+      </Button>
     </div>
   );
 }
