@@ -10,10 +10,12 @@ import {
 import { Popover } from "antd";
 import CategoriesComponent from "../common/Categories";
 import CartHeader from "../common/CartHeader";
+import paths from "@/utils/constants/paths";
+import { useNavigate } from "react-router-dom";
 
 const HeaderComponent = () => {
   const user = false;
-
+  const navigate = useNavigate();
   return (
     <div className="border-b fixed w-full flex items-center justify-center bg-white z-50">
       <div className="max-w-[1440px] px-[8rem] h-[7rem] w-full flex justify-between items-center">
@@ -51,7 +53,10 @@ const HeaderComponent = () => {
         </div>
 
         <div className="flex items-center gap-[1.2rem]">
-          <div className="group flex items-center cursor-pointer flex-col">
+          <div
+            className="group flex items-center cursor-pointer flex-col"
+            onClick={() => navigate(paths.BUILD_PC)}
+          >
             <FontAwesomeIcon
               icon={faComputer}
               className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"

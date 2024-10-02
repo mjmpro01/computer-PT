@@ -5,6 +5,7 @@ import paths from "@/utils/constants/paths";
 import RootLayout from "@/layouts/RootLayout";
 import ProductDetails from "@/pages/ProductDetails";
 import Cart from "@/pages/Cart";
+import BuildPC from "@/pages/BuildPC";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: paths.CART,
         element: <Cart />,
+      },
+      {
+        path: paths.BUILD_PC,
+        element: <BuildPC />,
       },
     ],
   },

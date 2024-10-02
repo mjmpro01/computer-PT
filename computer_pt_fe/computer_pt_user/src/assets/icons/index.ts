@@ -1,5 +1,6 @@
 import minus from "./minus.svg";
 import plus from "./plus.svg";
-const icons = { minus, plus };
+import trash from "./trash.svg";
+const icons = { minus, plus, trash };
 
 export default icons;
