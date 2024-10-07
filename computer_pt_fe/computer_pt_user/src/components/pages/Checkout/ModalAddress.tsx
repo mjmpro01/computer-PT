@@ -21,7 +21,13 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
   };
   return (
     <>
-      <Modal open={open} onOk={handleOk} onCancel={handleCancel} footer={null}>
+      <Modal
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        centered
+      >
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-[1.2rem]"
