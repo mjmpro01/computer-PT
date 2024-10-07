@@ -1,9 +1,11 @@
 import CartItem from "@/components/pages/Cart/CartItem";
+import paths from "@/utils/constants/paths";
 import { Breadcrumb, Button, Checkbox } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const items = 5;
-
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="px-[8rem] h-full w-full max-w-[1440px]">
@@ -63,8 +65,11 @@ function Cart() {
             <p className="text-[1.3rem] text-[#82869E] font-medium text-end">
               (Đã bao gồm VAT)
             </p>
-            <Button className="bg-[#1453c3] h-[4rem] uppercase text-[1.4rem] text-white">
-              Thanh toán
+            <Button
+              className="bg-[#1453c3] h-[4rem] uppercase text-[1.4rem] text-white"
+              onClick={() => navigate(paths.CHECKOUT)}
+            >
+              Tiếp tục
             </Button>
           </div>
         </div>

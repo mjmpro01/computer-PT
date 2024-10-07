@@ -6,6 +6,7 @@ import RootLayout from "@/layouts/RootLayout";
 import ProductDetails from "@/pages/ProductDetails";
 import Cart from "@/pages/Cart";
 import BuildPC from "@/pages/BuildPC";
+import Checkout from "@/pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: paths.BUILD_PC,
         element: <BuildPC />,
+      },
+      {
+        path: paths.CHECKOUT,
+        element: <Checkout />,
       },
     ],
   },
