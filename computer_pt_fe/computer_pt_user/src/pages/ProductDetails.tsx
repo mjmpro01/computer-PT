@@ -1,10 +1,34 @@
+import productApi from "@/api/productApi";
 import images from "@/assets/images";
 import InfoTable from "@/components/common/InfoTable";
-import SwiperProduct from "@/components/common/SwiperProduct";
+// import SwiperProduct from "@/components/common/SwiperProduct";
 import BlockProduct from "@/components/pages/ProductDetail/BlockProduct";
+import { BaseData } from "@/types/base/baseData";
+import { ProductType } from "@/types/common/product";
 import { Breadcrumb } from "antd";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function ProductDetails() {
+  const location = useLocation();
+  const currentUrl = location.pathname;
+  const slug = currentUrl.split("/").pop();
+  const [product, setProduct] = useState<BaseData<ProductType>>();
+  useEffect(() => {
+    if (slug) {
+      const fetchProduct = async () => {
+        await productApi
+          .getBySlug(slug)
+          .then((res) => {
+            if (res) {
+              setProduct(res?.data);
+            }
+          })
+          .then((error) => console.log(error));
+      };
+      fetchProduct();
+    }
+  }, []);
   return (
     <div className="flex flex-col items-center bg-[#F8F8FC] min-h-[100vh]">
       <div className="max-w-[1440px] w-full px-[8rem]">
@@ -20,7 +44,7 @@ function ProductDetails() {
           className="my-[1.2rem]"
         />
         <div className="flex gap-[1.2rem]">
-          <BlockProduct />
+          {product && <BlockProduct product={product} />}
           <div className="w-[30%] flex flex-col gap-[1.2rem]">
             <div className="flex items-center gap-[0.4rem] bg-white rounded-[0.4rem]">
               <img
@@ -64,7 +88,7 @@ function ProductDetails() {
             <InfoTable />
           </div>
         </div>
-        <SwiperProduct />
+        {/* <SwiperProduct /> */}
       </div>
     </div>
   );

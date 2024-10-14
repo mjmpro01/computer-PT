@@ -1,0 +1,25 @@
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+    content: 'next';
+    font-size: 24px;
+    color: #1435C3;
+    padding: 10px;
+}
+.swiper-button-next{
+    background: rgba(235, 228, 228, 0.5);
+    border-radius: 100px;
+  width: 50px;
+  height: 50px;
+}
+
+.swiper-button-prev:after, .swiper-rtl .swiper-button-prev:after {
+    content: 'prev';
+    font-size: 24px;
+    color: #1435C3;
+    padding: 10px;
+}
+.swiper-button-prev{
+    background: rgba(235, 228, 228, 0.5);
+    border-radius: 100px;
+  width: 50px;
+  height: 50px;
+}
