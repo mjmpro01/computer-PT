@@ -1,37 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import icons from "@/assets/icons";
+import baseUrl from "@/types/base/baseUrl";
+import { CartItem } from "@/types/common/cart";
+import { formatMoney } from "@/utils/functions/formatMoney";
 import { Checkbox } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useCartStore from "@/stores/useCartStore";
 
-function CartItem() {
-  const [count, setCount] = useState<number>(1);
+interface CartItemProps {
+  cartItem: CartItem;
+  isSelected: boolean; // New prop to determine if item is selected
+  onCheckboxChange: (id: number) => void; // New prop for checkbox change handling
+}
+
+const CartItemComponent: React.FC<CartItemProps> = ({
+  cartItem,
+  isSelected,
+  onCheckboxChange,
+}) => {
+  const { addItem, removeItem } = useCartStore();
+  const [count, setCount] = useState<number>(cartItem?.quantity);
+  const promotionPrice = Number(cartItem?.promotionPrice);
+  const price = Number(cartItem?.price);
+
+  const totalPrice =
+    promotionPrice > 0 ? promotionPrice * count : price * count;
+
+  useEffect(() => {
+    if (count !== cartItem.quantity) {
+      const updatedCartItem = { ...cartItem, quantity: count };
+      addItem(updatedCartItem);
+    }
+  }, [count]);
+
+  useEffect(() => {
+    if (count === 0) {
+      removeItem(cartItem.id);
+    }
+  }, [count]);
+
   return (
     <div className="bg-white grid grid-cols-[5%_50%_10%_25%_10%] p-[1rem]">
-      <Checkbox></Checkbox>
+      <Checkbox
+        checked={isSelected}
+        onChange={() => onCheckboxChange(cartItem.id)}
+      />
       <div className="flex items-center gap-[0.4rem]">
         <div className="size-[6.4rem]">
           <img
-            src="https://lh3.googleusercontent.com/UE9L3DwlVtE3pZnCwR29zgrf_SjHNOdopT3sunQbPWvIdYB3NYNanTkL-g9YNubL65chw7m1j4z7mEs53g=w500-rw"
+            src={`${baseUrl}${cartItem?.avatar}`}
             className="w-full h-full"
           />
         </div>
         <div>
-          <p className="text-[1.3rem]">
-            Ổ cứng SSD Kingston A400 240GB Sata 3 (SA400S37/240G)
-          </p>
+          <p className="text-[1.3rem]">{cartItem?.name}</p>
           <p className="text-[#82869e] text-[1.2rem]">SKU:123123231</p>
-          <p className="text-[#82869e] text-[1.2rem]">240gb,Đen</p>
         </div>
       </div>
       <div className="flex flex-col gap-[0.2rem]">
-        <p className="text-[1.6rem] font-bold">640.000đ</p>
-        <p className="text-[1.3rem] line-through text-[#82869e]">740.000đ</p>
+        <p className="text-[1.6rem] font-bold">{formatMoney(price)}</p>
+        {promotionPrice > 0 && (
+          <p className="text-[1.3rem] line-through text-[#82869e]">
+            {formatMoney(promotionPrice)}
+          </p>
+        )}
       </div>
       <div className="flex items-center justify-center gap-[0.4rem]">
         <button
           onClick={() => {
-            if (count === 1) {
-              return;
-            } else {
+            if (count > 1) {
               setCount(count - 1);
             }
           }}
@@ -46,10 +83,10 @@ function CartItem() {
         </button>
       </div>
       <div>
-        <p className="text-[1.6rem] font-bold">640.000đ</p>
+        <p className="text-[1.6rem] font-bold">{formatMoney(totalPrice)}</p>
       </div>
     </div>
   );
-}
+};
 
-export default CartItem;
+export default CartItemComponent;

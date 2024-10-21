@@ -29,8 +29,8 @@ function CategoriesComponent() {
     },
   ];
   return (
-    <div className="w-[50rem]">
-      <ul className="flex flex-col gap-[1.2rem]">
+    <div className="min-w-[50rem] min-h-[30rem]">
+      <ul className="flex gap-[2.4rem]">
         {categories.map((item, index) => (
           <li
             key={index}

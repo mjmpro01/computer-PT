@@ -12,10 +12,13 @@ import CategoriesComponent from "../common/Categories";
 import CartHeader from "../common/CartHeader";
 import paths from "@/utils/constants/paths";
 import { useNavigate } from "react-router-dom";
+import useCartStore from "@/stores/useCartStore";
 
 const HeaderComponent = () => {
   const user = false;
   const navigate = useNavigate();
+  const { getTotalQuantity } = useCartStore();
+  const totalQuantity = getTotalQuantity();
   return (
     <div className="border-b fixed w-full flex items-center justify-center bg-white z-50">
       <div className="max-w-[1440px] px-[8rem] h-[7rem] w-full flex justify-between items-center">
@@ -80,7 +83,7 @@ const HeaderComponent = () => {
                 className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
               />
               <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
-                Giỏ hàng (0)
+                {` Giỏ hàng (${totalQuantity})`}
               </p>
             </div>
           </Popover>

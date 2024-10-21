@@ -3,11 +3,13 @@ import { Button } from "antd";
 import CartProduct from "./CartProduct";
 import { useNavigate } from "react-router-dom";
 import paths from "@/utils/constants/paths";
+import useCartStore from "@/stores/useCartStore";
 
 function CartHeader() {
   const navigate = useNavigate();
-  const cart = [1, 2];
-  if (cart.length === 0) {
+  const { items } = useCartStore();
+
+  if (items.length === 0) {
     return (
       <div className="flex flex-col gap-[2.4rem] items-center w-[35rem] min-h-[35rem]">
         <div className="flex flex-col gap-[1.2rem] items-center">
@@ -26,13 +28,14 @@ function CartHeader() {
   }
 
   return (
-    <div className="w-[35rem] min-h-[35rem] flex flex-col justify-between">
-      <CartProduct />
-      <CartProduct />
-      <CartProduct />
-      <CartProduct />
+    <div className="w-[35rem] flex flex-col justify-between gap-[2.4rem]">
+      <div className="flex flex-col gap-[1.2rem]">
+        {items.map((item) => (
+          <CartProduct key={item.id} cartItem={item} />
+        ))}
+      </div>
       <Button
-        className="bg-[#1435C3] text-white h-[4rem]"
+        className="bg-[#1435C3] text-white"
         onClick={() => navigate(paths.CART)}
       >
         Xem giỏ hàng

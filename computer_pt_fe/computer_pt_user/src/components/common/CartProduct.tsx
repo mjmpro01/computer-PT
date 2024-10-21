@@ -1,17 +1,30 @@
-function CartProduct() {
+import baseUrl from "@/types/base/baseUrl";
+import { CartItem } from "@/types/common/cart";
+import { formatMoney } from "@/utils/functions/formatMoney";
+
+interface CartProductProps {
+  cartItem: CartItem;
+}
+function CartProduct({ cartItem }: CartProductProps) {
   return (
     <div className="flex gap-[0.8rem]">
       <img
-        src="https://lh3.googleusercontent.com/H_IYdCggl7PzlnWqNw2m6xlhYoN_Xps-t5UTXML5zRqaB5Z7peaAajgntlaolhNoPHhj2BBXmnFbN8ejVhfJ8ssFl2uLbvuw=w230-rw"
+        src={`${baseUrl}${cartItem?.avatar}`}
         alt="image"
         className="size-[7rem] object-cover"
       />
       <div className="flex flex-col">
         <p className="text-[1.4rem] font-medium line-clamp-1">
-          Laptop Acer Gaming Aspire 7 A715-76G-59MW (i5-12450H) (Đen)
+          {cartItem?.name}
         </p>
-        <p className="text-[1.2rem] text-[#808080]">Số lượng: 1</p>
-        <p className="text-[1.6rem] font-bold">700.000đ</p>
+        <p className="text-[1.2rem] text-[#808080]">
+          Số lượng: {cartItem?.quantity}
+        </p>
+        <p className="text-[1.6rem] font-bold">
+          {Number(cartItem?.promotionPrice) > 0
+            ? formatMoney(Number(cartItem.promotionPrice))
+            : formatMoney(Number(cartItem?.price))}
+        </p>
       </div>
     </div>
   );

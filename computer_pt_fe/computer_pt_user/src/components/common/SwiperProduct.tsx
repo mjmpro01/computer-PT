@@ -13,7 +13,7 @@ interface SwiperProductProps {
 }
 function SwiperProduct({ categories }: SwiperProductProps) {
   return (
-    <div className="bg-white  shadow-sm border p-[1rem] flex flex-col gap-[0.8rem]">
+    <div className="bg-white p-[1rem] flex flex-col gap-[0.8rem]">
       <div className="flex items-center justify-between pb-[1rem] text-black">
         <h3 className="text-[2rem] font-bold uppercase">
           {categories?.attributes?.name}

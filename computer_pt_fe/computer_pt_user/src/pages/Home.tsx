@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -27,6 +26,24 @@ const Home = () => {
     };
     fetchCategories();
   }, []);
+  const banners = [
+    {
+      name: "banner-1",
+      image: images.banner1,
+    },
+    {
+      name: "banner-2",
+      image: images.banner2,
+    },
+    {
+      name: "banner-3",
+      image: images.banner3,
+    },
+    {
+      name: "banner-4",
+      image: images.banner4,
+    },
+  ];
   return (
     <>
       <div className="h-[40rem]">
@@ -35,34 +52,15 @@ const Home = () => {
           modules={[Navigation]}
           className="mySwiper h-[50rem] w-full"
         >
-          <SwiperSlide>
-            <img
-              src={images.banner1}
-              alt="banner"
-              className="w-full h-full object-cover"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={images.banner2}
-              alt="banner"
-              className="w-full h-full object-cover"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={images.banner3}
-              alt="banner"
-              className="w-full h-full object-cover"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={images.banner4}
-              alt="banner"
-              className="w-full h-full object-cover"
-            />
-          </SwiperSlide>
+          {banners.map((item, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={item?.image}
+                alt={item?.name}
+                className="w-full h-full object-cover"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div className="flex items-center justify-center">

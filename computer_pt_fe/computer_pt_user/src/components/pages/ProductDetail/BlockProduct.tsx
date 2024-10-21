@@ -11,6 +11,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { BaseData } from "@/types/base/baseData";
 import { ProductType } from "@/types/common/product";
 import { formatMoney } from "@/utils/functions/formatMoney";
+import baseUrl from "@/types/base/baseUrl";
 
 interface BlockProductProps {
   product: BaseData<ProductType>;
@@ -39,7 +40,7 @@ function BlockProduct({ product }: BlockProductProps) {
           {product?.attributes?.gallery?.data?.length > 0 &&
             product?.attributes?.gallery?.data?.map((item, index) => (
               <SwiperSlide key={index}>
-                <img src={`http://localhost:1337${item?.attributes?.url}`} />
+                <img src={`${baseUrl}${item?.attributes?.url}`} />
               </SwiperSlide>
             ))}
         </Swiper>
@@ -56,7 +57,7 @@ function BlockProduct({ product }: BlockProductProps) {
           {product?.attributes?.gallery?.data?.length > 0 &&
             product?.attributes?.gallery?.data?.map((item, index) => (
               <SwiperSlide key={index}>
-                <img src={`http://localhost:1337${item?.attributes?.url}`} />
+                <img src={`${baseUrl}${item?.attributes?.url}`} />
               </SwiperSlide>
             ))}
         </Swiper>
@@ -81,7 +82,7 @@ function BlockProduct({ product }: BlockProductProps) {
               ? formatMoney(promotionPrice)
               : formatMoney(price)}
           </p>
-          {price !== promotionPrice && promotionPrice && (
+          {price !== promotionPrice && promotionPrice > 0 && (
             <p className="text-[#82869E] text-[1.2rem]">
               <span className="line-through">{formatMoney(price)}</span>{" "}
               <span className="text-[#1435C3]">
