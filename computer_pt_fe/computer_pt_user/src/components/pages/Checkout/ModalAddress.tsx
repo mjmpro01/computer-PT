@@ -71,13 +71,15 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
               control={control}
               label="Tỉnh, thành phố"
               name="role"
+              isRequired
               // options={roles}
             />
             <SelectComponent
               containerClasName="w-full"
               control={control}
-              label="Quận huyện"
+              label="Quận, huyện"
               name="role"
+              isRequired
               // options={roles}
             />
           </div>
@@ -85,8 +87,9 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
             <SelectComponent
               containerClasName="w-full"
               control={control}
-              label="Xã phường"
+              label="Xã, phường"
               name="role"
+              isRequired
               // options={roles}
             />
             <InputComponent
