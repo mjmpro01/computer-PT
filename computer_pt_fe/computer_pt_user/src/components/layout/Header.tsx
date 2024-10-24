@@ -13,10 +13,11 @@ import CartHeader from "../common/CartHeader";
 import paths from "@/utils/constants/paths";
 import { useNavigate } from "react-router-dom";
 import useCartStore from "@/stores/useCartStore";
+import { getUserProfile } from "@/utils/functions/getUser";
 
 const HeaderComponent = () => {
-  const user = false;
   const navigate = useNavigate();
+  const profile = getUserProfile();
   const { getTotalQuantity } = useCartStore();
   const totalQuantity = getTotalQuantity();
   return (
@@ -87,13 +88,16 @@ const HeaderComponent = () => {
               </p>
             </div>
           </Popover>
-          <div className="group flex items-center cursor-pointer flex-col">
+          <div
+            className="group flex items-center cursor-pointer flex-col"
+            onClick={() => navigate(paths.LOGIN)}
+          >
             <FontAwesomeIcon
               icon={faUser}
               className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
             />
             <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
-              {user ? "Gia Phúc" : "Đăng nhập/ Đăng ký"}
+              {profile?.id ? profile?.email : "Đăng nhập/ Đăng ký"}
             </p>
           </div>
         </div>

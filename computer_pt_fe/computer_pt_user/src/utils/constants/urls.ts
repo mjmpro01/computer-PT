@@ -4,5 +4,8 @@ const urls = {
   SLUGIFY: "slugify",
   SLUGS: "slugs",
   PRODUCT: "product",
+  AUTH: "auth",
+  LOCAL: "local",
+  REGISTER: "register",
 };
 export default urls;
