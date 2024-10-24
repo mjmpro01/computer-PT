@@ -67,6 +67,12 @@
     },
     "address": {
       "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "fullname": {
+      "type": "string"
     }
   }
 }

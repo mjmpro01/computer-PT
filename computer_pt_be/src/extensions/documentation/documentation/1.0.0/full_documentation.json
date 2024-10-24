@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-10-21T10:39:56.918Z"
+    "x-generation-date": "2024-10-24T09:18:31.792Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5873,6 +5873,12 @@
                       "address": {
                         "type": "string"
                       },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "fullname": {
+                        "type": "string"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -6549,6 +6555,12 @@
                         }
                       },
                       "address": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "fullname": {
                         "type": "string"
                       },
                       "createdAt": {
@@ -9181,6 +9193,12 @@
                       "address": {
                         "type": "string"
                       },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "fullname": {
+                        "type": "string"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -10652,6 +10670,12 @@
                                     }
                                   },
                                   "address": {
+                                    "type": "string"
+                                  },
+                                  "phone": {
+                                    "type": "string"
+                                  },
+                                  "fullname": {
                                     "type": "string"
                                   },
                                   "createdAt": {
