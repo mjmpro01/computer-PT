@@ -61,6 +61,12 @@
     "transport_fee": {
       "type": "biginteger",
       "default": "35000"
+    },
+    "order_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-detail.order-detail",
+      "mappedBy": "order"
     }
   }
 }

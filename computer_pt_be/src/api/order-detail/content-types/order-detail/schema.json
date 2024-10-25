@@ -4,7 +4,8 @@
   "info": {
     "singularName": "order-detail",
     "pluralName": "order-details",
-    "displayName": "Order detail"
+    "displayName": "Order detail",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,8 +25,9 @@
     },
     "order": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::order.order"
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "order_details"
     }
   }
 }

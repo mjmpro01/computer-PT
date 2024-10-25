@@ -1148,6 +1148,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     transport_fee: Attribute.BigInteger & Attribute.DefaultTo<'35000'>;
+    order_details: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-detail.order-detail'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1172,6 +1177,7 @@ export interface ApiOrderDetailOrderDetail extends Schema.CollectionType {
     singularName: 'order-detail';
     pluralName: 'order-details';
     displayName: 'Order detail';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1186,7 +1192,7 @@ export interface ApiOrderDetailOrderDetail extends Schema.CollectionType {
     >;
     order: Attribute.Relation<
       'api::order-detail.order-detail',
-      'oneToOne',
+      'manyToOne',
       'api::order.order'
     >;
     createdAt: Attribute.DateTime;
