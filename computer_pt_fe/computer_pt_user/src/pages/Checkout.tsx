@@ -1,11 +1,32 @@
 import AddressFrom from "@/components/pages/Checkout/AddressForm";
 import CheckoutProductItem from "@/components/pages/Checkout/CheckoutProductItem";
+import useCartStore from "@/stores/useCartStore";
 import paths from "@/utils/constants/paths";
+import { formatMoney } from "@/utils/functions/formatMoney";
+import { getUserProfile } from "@/utils/functions/getUser";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const navigate = useNavigate();
+  const { items, getTotalPrice, getTotalQuantity } = useCartStore();
+  const totalPrice = getTotalPrice();
+  const totalQuantity = getTotalQuantity();
+  const SHIPPING_FEE = 30000;
+  const profile = getUserProfile();
+  const handleOrder = async () => {
+    const data = {
+      customer_email: profile?.email,
+      customer_full_name: profile?.fullname,
+      customer_phone: profile?.phone,
+      shipping_address: profile?.address,
+      shipping_method: "Giao hàng qua đối tác",
+      payment_method: "COD",
+      total: totalPrice,
+      user: profile?.id,
+      transport_fee: SHIPPING_FEE,
+    };
+  };
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="px-[8rem] h-full w-full max-w-[1440px]">
@@ -22,29 +43,39 @@ function Checkout() {
               </button>
             </div>
             <div className="mt-[1.2rem] flex flex-col gap-[1.2rem]">
-              <CheckoutProductItem />
-              <CheckoutProductItem />
-              <CheckoutProductItem />
+              {items?.length > 0 &&
+                items?.map((item, index) => (
+                  <CheckoutProductItem key={index} cartItem={item} />
+                ))}
             </div>
             <div className="mt-[2.4rem]">
               <div className="flex flex-col gap-[0.4rem]">
                 <div className="flex items-center justify-between">
                   <p className="text-[1.4rem]">Tổng tạm tính</p>
-                  <p className="text-[1.4rem] font-bold">669.000</p>
+                  <p className="text-[1.4rem] font-bold">
+                    {formatMoney(totalPrice)}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-[1.4rem]">Số lượng sản phẩm</p>
+                  <p className="text-[1.4rem] font-bold">{totalQuantity}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-[1.4rem]">Phí vận chuyển</p>
-                  <p className="text-[1.4rem] font-bold">25.000</p>
+                  <p className="text-[1.4rem] font-bold">
+                    {formatMoney(SHIPPING_FEE)}
+                  </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-[1.4rem]">Thành tiền</p>
                   <p className="text-[1.6rem] font-bold text-[#eb2101]">
-                    25.000
+                    {formatMoney(totalPrice + SHIPPING_FEE)}
                   </p>
                 </div>
                 <Button
                   className="h-[4rem] bg-[#1435C3] rounded-[0.4rem] mt-[2.4rem]"
                   type="primary"
+                  onClick={handleOrder}
                 >
                   Thanh toán
                 </Button>

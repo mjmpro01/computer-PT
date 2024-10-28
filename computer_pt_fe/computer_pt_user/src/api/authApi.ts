@@ -31,6 +31,19 @@ const authApi = {
       throw error;
     }
   },
+  async update(payload: any, id: number) {
+    try {
+      const res = await axiosClient.put<LoginResponseType>(
+        `${urls.USERS}/${id}`,
+        payload
+      );
+
+      return res?.data;
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
+  },
 };
 
 export default authApi;

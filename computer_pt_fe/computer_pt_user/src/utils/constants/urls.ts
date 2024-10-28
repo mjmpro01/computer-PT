@@ -7,5 +7,6 @@ const urls = {
   AUTH: "auth",
   LOCAL: "local",
   REGISTER: "register",
+  USERS: "users",
 };
 export default urls;
