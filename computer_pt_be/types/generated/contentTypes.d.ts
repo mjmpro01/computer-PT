@@ -994,7 +994,7 @@ export interface ApiCommentComment extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     product: Attribute.Relation<
@@ -1012,7 +1012,6 @@ export interface ApiCommentComment extends Schema.CollectionType {
     is_admin: Attribute.Boolean & Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::comment.comment',
       'oneToOne',
@@ -1034,9 +1033,10 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
     singularName: 'feedback';
     pluralName: 'feedbacks';
     displayName: 'Feedback';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     user: Attribute.Relation<
@@ -1061,7 +1061,6 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
     comment: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::feedback.feedback',
       'oneToOne',
@@ -1118,9 +1117,10 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     singularName: 'order';
     pluralName: 'orders';
     displayName: 'order';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     customer_email: Attribute.String & Attribute.Required;
@@ -1155,7 +1155,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::order.order',
       'oneToOne',
@@ -1180,7 +1179,7 @@ export interface ApiOrderDetailOrderDetail extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     unit_price: Attribute.BigInteger;
@@ -1197,7 +1196,6 @@ export interface ApiOrderDetailOrderDetail extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::order-detail.order-detail',
       'oneToOne',
