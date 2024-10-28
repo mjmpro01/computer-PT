@@ -1,3 +1,4 @@
+import orderApi from "@/api/orderApi";
 import AddressFrom from "@/components/pages/Checkout/AddressForm";
 import CheckoutProductItem from "@/components/pages/Checkout/CheckoutProductItem";
 import useCartStore from "@/stores/useCartStore";
@@ -6,15 +7,20 @@ import { formatMoney } from "@/utils/functions/formatMoney";
 import { getUserProfile } from "@/utils/functions/getUser";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Checkout() {
   const navigate = useNavigate();
-  const { items, getTotalPrice, getTotalQuantity } = useCartStore();
+  const { items, getTotalPrice, getTotalQuantity, clearCart } = useCartStore();
   const totalPrice = getTotalPrice();
   const totalQuantity = getTotalQuantity();
   const SHIPPING_FEE = 30000;
   const profile = getUserProfile();
   const handleOrder = async () => {
+    const newData = items?.map((item) => ({
+      product_id: item?.id,
+      quantity: item?.quantity,
+    }));
     const data = {
       customer_email: profile?.email,
       customer_full_name: profile?.fullname,
@@ -22,10 +28,18 @@ function Checkout() {
       shipping_address: profile?.address,
       shipping_method: "Giao hàng qua đối tác",
       payment_method: "COD",
-      total: totalPrice,
-      user: profile?.id,
-      transport_fee: SHIPPING_FEE,
+      items: newData,
     };
+    await orderApi
+      .create({ data })
+      .then((res) => {
+        if (res) {
+          toast.success("Đặt hàng thành công");
+          clearCart();
+          navigate("/");
+        }
+      })
+      .catch(() => toast.error("Đặt hàng không thành công"));
   };
   return (
     <div className="flex flex-col items-center justify-center">
