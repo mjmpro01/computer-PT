@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog",
     "pluralName": "blogs",
-    "displayName": "blog"
+    "displayName": "blog",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,14 +16,15 @@
       "type": "string"
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "content": {
       "type": "blocks"
@@ -32,6 +34,9 @@
       "relation": "manyToOne",
       "target": "api::blog-category.blog-category",
       "inversedBy": "blogs"
+    },
+    "slug": {
+      "type": "string"
     }
   }
 }

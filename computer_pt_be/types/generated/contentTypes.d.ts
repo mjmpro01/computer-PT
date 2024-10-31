@@ -629,6 +629,53 @@ export interface PluginSlugifySlug extends Schema.CollectionType {
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -782,59 +829,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiBlogBlog extends Schema.CollectionType {
   collectionName: 'blogs';
   info: {
     singularName: 'blog';
     pluralName: 'blogs';
     displayName: 'blog';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -848,6 +849,7 @@ export interface ApiBlogBlog extends Schema.CollectionType {
       'manyToOne',
       'api::blog-category.blog-category'
     >;
+    slug: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1111,6 +1113,48 @@ export interface ApiGoodPriceDayGoodPriceDay extends Schema.SingleType {
   };
 }
 
+export interface ApiMessageMessage extends Schema.CollectionType {
+  collectionName: 'messages';
+  info: {
+    singularName: 'message';
+    pluralName: 'messages';
+    displayName: 'message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    room: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'api::room-chat.room-chat'
+    >;
+    content: Attribute.Text;
+    media: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    sender: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    sender_role: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1307,6 +1351,43 @@ export interface ApiProductSeletionProductSeletion
   };
 }
 
+export interface ApiRoomChatRoomChat extends Schema.CollectionType {
+  collectionName: 'room_chats';
+  info: {
+    singularName: 'room-chat';
+    pluralName: 'room-chats';
+    displayName: 'room-chat';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    room_id: Attribute.UID &
+      Attribute.CustomField<'plugin::strapi-advanced-uuid.uuid'>;
+    user: Attribute.Relation<
+      'api::room-chat.room-chat',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    seen_status: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::room-chat.room-chat',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::room-chat.room-chat',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTop10ProductTop10Product extends Schema.SingleType {
   collectionName: 'top_10_products';
   info: {
@@ -1388,10 +1469,10 @@ declare module '@strapi/types' {
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::slugify.slug': PluginSlugifySlug;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::blog.blog': ApiBlogBlog;
       'api::blog-category.blog-category': ApiBlogCategoryBlogCategory;
       'api::category.category': ApiCategoryCategory;
@@ -1399,10 +1480,12 @@ declare module '@strapi/types' {
       'api::comment.comment': ApiCommentComment;
       'api::feedback.feedback': ApiFeedbackFeedback;
       'api::good-price-day.good-price-day': ApiGoodPriceDayGoodPriceDay;
+      'api::message.message': ApiMessageMessage;
       'api::order.order': ApiOrderOrder;
       'api::order-detail.order-detail': ApiOrderDetailOrderDetail;
       'api::product.product': ApiProductProduct;
       'api::product-seletion.product-seletion': ApiProductSeletionProductSeletion;
+      'api::room-chat.room-chat': ApiRoomChatRoomChat;
       'api::top-10-product.top-10-product': ApiTop10ProductTop10Product;
       'api::video.video': ApiVideoVideo;
     }

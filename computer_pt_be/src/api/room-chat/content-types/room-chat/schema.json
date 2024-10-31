@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "room_chats",
+  "info": {
+    "singularName": "room-chat",
+    "pluralName": "room-chats",
+    "displayName": "room-chat",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "room_id": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "seen_status": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

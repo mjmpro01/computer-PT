@@ -1,37 +1,36 @@
-
 export default ({ env }) => ({
   slugify: {
     enabled: true,
     config: {
       contentTypes: {
         category: {
-          field: 'slug',
-          references: 'name',
+          field: "slug",
+          references: "name",
           options: {
-            locale: 'vi',
+            locale: "vi",
           },
         },
         product: {
-          field: 'slug',
-          references: 'name',
+          field: "slug",
+          references: "name",
           options: {
-            locale: 'vi',
+            locale: "vi",
           },
         },
-        blog: {
-          field: 'slug',
-          references: 'name',
+        "blog": {
+          field: "slug",
+          references: "title",
           options: {
-            locale: 'vi',
-          }
-        },
-        blog_category: {
-          field: 'slug',
-          references: 'name',
-          options: {
-            locale: 'vi',
+            locale: "vi",
           },
-        }
+        },
+        "blog_category": {
+          field: "slug",
+          references: "name",
+          options: {
+            locale: "vi",
+          },
+        },
       },
     },
   },
@@ -39,15 +38,15 @@ export default ({ env }) => ({
     enabled: true,
     config: {
       // Your meili host
-      host: env('MEILISEARCH_HOST','http://103.167.150.102:7707'),
+      host: env("MEILISEARCH_HOST", "http://103.167.150.102:7707"),
       // Your master key or private key
-      apiKey: env('MEILISEARCH_API_KEY','masterKey'),
+      apiKey: env("MEILISEARCH_API_KEY", "masterKey"),
 
       product: {
         settings: {
-          searchableAttributes: ['name', 'description', 'categories']
-        }
-      }
-    }
+          searchableAttributes: ["name", "description", "categories"],
+        },
+      },
+    },
   },
 });
