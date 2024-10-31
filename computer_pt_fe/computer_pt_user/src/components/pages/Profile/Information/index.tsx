@@ -3,7 +3,7 @@ import { Button } from "antd";
 import ModalAdress from "../../Checkout/ModalAddress";
 import { useState } from "react";
 
-function Address() {
+function Information() {
   const profile = getUserProfile();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,4 +49,4 @@ function Address() {
   );
 }
 
-export default Address;
+export default Information;

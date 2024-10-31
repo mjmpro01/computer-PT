@@ -4,15 +4,15 @@ import paths from "@/utils/constants/paths";
 import { getUserProfile } from "@/utils/functions/getUser";
 import {
   faClipboardCheck,
-  faLocationArrow,
   faUser,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
-import Information from "@/components/pages/Profile/Infomation";
 import Orders from "@/components/pages/Profile/Orders";
-import Address from "@/components/pages/Profile/Address";
+import Information from "@/components/pages/Profile/Information";
+import variables from "@/utils/constants/variables";
 
 function Profile() {
   const profile = getUserProfile();
@@ -25,21 +25,24 @@ function Profile() {
   const tabs = [
     {
       title: "Thông tin tài khoản",
+      isLogout: false,
       icons: faUser,
       path: paths.INFORMATION,
       content: <Information />,
     },
     {
       title: "Quản lý đơn hàng",
+      isLogout: false,
       icons: faClipboardCheck,
       path: paths.ORDERS,
       content: <Orders />,
     },
     {
-      title: "Quản lý địa chỉ",
-      icons: faLocationArrow,
-      path: paths.ADDRESS,
-      content: <Address />,
+      title: "Đăng xuất",
+      isLogout: true,
+      icons: faRightFromBracket,
+      path: paths.HOME,
+      content: <Orders />,
     },
   ];
 
@@ -47,7 +50,12 @@ function Profile() {
     const activeTabData = tabs.find(
       (tab) => `${paths.PROFILE}/${tab.path}` === activeTab
     );
-    return activeTabData ? activeTabData.content : null;
+    return activeTabData ? activeTabData.content : <p>No content available</p>;
+  };
+  const logout = () => {
+    localStorage.removeItem(variables.PROFILE);
+    localStorage.removeItem(variables.ACCESS_TOKEN);
+    navigate("/");
   };
 
   return (
@@ -68,10 +76,14 @@ function Profile() {
               {tabs.map((item, index) => (
                 <li key={index}>
                   <button
-                    className={`flex items-center gap-[1.2rem] group`}
+                    className="flex items-center gap-[1.2rem] group"
                     onClick={() => {
-                      navigate(`${paths.PROFILE}/${item?.path}`);
-                      setActiveTab(`${paths.PROFILE}/${item?.path}`);
+                      if (item?.isLogout) {
+                        logout();
+                      } else {
+                        navigate(`${paths.PROFILE}/${item.path}`);
+                        setActiveTab(`${paths.PROFILE}/${item.path}`);
+                      }
                     }}
                   >
                     <FontAwesomeIcon
