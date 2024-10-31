@@ -8,10 +8,10 @@ export type CategoriesType = {
   createdAt: string;
   updatedAt: string;
   chid: {
-    data: [];
+    data: BaseData<CategoriesType>[];
   };
   parent: {
-    data: null;
+    data: BaseData<CategoriesType>;
   };
   products: {
     data: BaseData<ProductType>[];

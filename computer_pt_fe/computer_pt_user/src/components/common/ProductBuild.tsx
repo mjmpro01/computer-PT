@@ -1,10 +1,29 @@
 import icons from "@/assets/icons";
+import userBuildPcStore from "@/stores/useBuildPcStrore";
+import baseUrl from "@/types/base/baseUrl";
+import { BuildPCType } from "@/types/common/buildPC";
+import { formatMoney } from "@/utils/functions/formatMoney";
 import { Image } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function ProductBuild() {
+interface ProductBuildProps {
+  product: BuildPCType;
+  onRemove: () => void;
+}
+
+function ProductBuild({ product, onRemove }: ProductBuildProps) {
+  const { updateProductQuantity } = userBuildPcStore();
   const [quantity, setQuantity] = useState<number>(1);
-  const price = 21990000;
+  const price = Number(product?.price);
+  const promotionPrice = Number(product?.promotionPrice);
+  const totalPrice =
+    promotionPrice > 0 && promotionPrice < price
+      ? formatMoney(promotionPrice * quantity)
+      : formatMoney(price * quantity);
+
+  useEffect(() => {
+    updateProductQuantity(product.id, quantity);
+  }, [quantity, product.id, updateProductQuantity]);
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -17,26 +36,22 @@ function ProductBuild() {
     <div className="px-[2rem] flex gap-[1.2rem]">
       <div className="w-[6rem] h-[6rem]">
         <Image
-          src="https://lh3.googleusercontent.com/2n6AmF7YzgI1yRunu8acH4ZWKR-S-cINiL8IT3zSBBOzJ96nbqaOV1gJcC4vVVW6rboqnQSMgR-M2VWy6vQU4QW3jmd7dchE=w500-rw"
+          src={`${baseUrl}${product?.avatar}`}
           alt="image"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="w-[50rem]">
-        <p className="text-[1.4rem] font-bold truncate">
-          Laptop gaming Lenovo LOQ 15IAX9 - 83GS004BVN (i5-12450HX/RAM
-          12GB/GeForce RTX 3050/512GB SSD/ Windows 11)
-        </p>
+        <p className="text-[1.4rem] font-bold truncate">{product?.name}</p>
         <p className="text-[1.2rem] text-[#99999] font-medium truncate">
-          Bảo hành: 36 tháng
-        </p>
-        <p className="text-[1.2rem] text-[#99999] font-medium truncate">
-          SKU: 12312312321
+          SKU: {`product-${product?.id}`}
         </p>
       </div>
       <div className="flex items-center gap-[1.2rem]">
         <p className="font-medium text-[1.2rem]">
-          {price.toLocaleString("vi-VN")}đ
+          {promotionPrice > 0 && promotionPrice < price
+            ? formatMoney(promotionPrice)
+            : formatMoney(price)}
         </p>
         <p className="font-medium text-[1.2rem]">x</p>
         <div className="bg-[#F8F8FC] rounded-[0.4rem] w-[5rem] border-black border-[0.1rem] overflow-hidden p-[0.2rem]">
@@ -45,13 +60,12 @@ function ProductBuild() {
             className="w-full bg-transparent focus-within:outline-none"
             value={quantity}
             onChange={handleQuantityChange}
+            min={1}
           />
         </div>
         <p className="font-medium text-[1.2rem]">=</p>
-        <p className="font-medium text-[1.2rem]">
-          {(price * quantity).toLocaleString("vi-VN")}đ
-        </p>
-        <button className="w-[2.4rem] h-[2.4rem]">
+        <p className="font-medium text-[1.2rem]">{totalPrice}</p>
+        <button className="w-[2.4rem] h-[2.4rem]" onClick={onRemove}>
           <img src={icons.trash} alt="icon" />
         </button>
       </div>

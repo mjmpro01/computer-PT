@@ -9,6 +9,8 @@ import BuildPC from "@/pages/BuildPC";
 import Checkout from "@/pages/Checkout";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import Categories from "@/pages/Categories";
+import Profile from "@/pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: paths.REGISTER,
         element: <Register />,
+      },
+      {
+        path: `${paths.CATEGORIES}/:slug`,
+        element: <Categories />,
+      },
+      {
+        path: paths.PROFILE,
+        element: <Profile />,
       },
     ],
   },

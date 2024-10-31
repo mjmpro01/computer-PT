@@ -1,48 +1,75 @@
-import { faDesktop, faKeyboard } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import categoriesApi from "@/api/categoriesApi";
+import { BaseData } from "@/types/base/baseData";
+import { CategoriesType } from "@/types/common/categories";
+import paths from "@/utils/constants/paths";
+import variables from "@/utils/constants/variables";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CategoriesComponent() {
-  const categories = [
-    {
-      icon: <FontAwesomeIcon icon={faDesktop} />,
-      name: "Màn hình",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faKeyboard} />,
-      name: "Bàn phím",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faDesktop} />,
-      name: "Link kiện PC",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faDesktop} />,
-      name: "Thiết bị văn phòng",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faDesktop} />,
-      name: "PC",
-    },
-    {
-      icon: <FontAwesomeIcon icon={faDesktop} />,
-      name: "PC",
-    },
-  ];
+  const [categories, setCategories] = useState<BaseData<CategoriesType>[]>([]);
+  const [selectedCategories, setSelectedCategories] =
+    useState<BaseData<CategoriesType>>();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchCategories = async () => {
+      await categoriesApi
+        .getAll()
+        .then((res) => {
+          if (res) {
+            setCategories(res?.data);
+          }
+        })
+        .catch((errors) => console.log(errors));
+    };
+    fetchCategories();
+  }, []);
   return (
-    <div className="min-w-[50rem] min-h-[30rem]">
-      <ul className="flex gap-[2.4rem]">
+    <div className="min-w-[80rem] min-h-[30rem] flex gap-[1.2rem]">
+      <ul className="flex flex-col gap-[1.2rem] w-[15rem] border-r">
         {categories.map((item, index) => (
           <li
             key={index}
             className="flex items-center gap-[0.8rem] cursor-pointer"
           >
-            <span>{item?.icon}</span>
-            <span className="text-[1.4rem] font-medium hover:text-[#1435C3] duration-300">
-              {item?.name}
-            </span>
+            {item?.attributes?.level === variables.LEVEL_1 && (
+              <span
+                className={`text-[1.6rem] font-medium hover:text-[#1435C3] duration-300 ${
+                  selectedCategories?.id === item?.id ? "text-[#1435C3]" : ""
+                }`}
+                onClick={() => setSelectedCategories(item)}
+              >
+                {item?.attributes?.name}
+              </span>
+            )}
           </li>
         ))}
       </ul>
+      <div className="px-[1rem]">
+        <ul className="grid grid-cols-4 gap-[1.2rem]">
+          {selectedCategories &&
+            selectedCategories?.attributes?.chid?.data?.map((item, index) => (
+              <li key={index} className="flex flex-col gap-[0.8rem]">
+                <span className="font-medium">{item?.attributes?.name}</span>
+                {item?.attributes?.chid?.data?.length > 0 &&
+                  item?.attributes?.chid?.data?.map((item3, index3) => (
+                    <span
+                      key={index3}
+                      className="text-[1.2rem] hover:text-[#1435C3] duration-300 cursor-pointer"
+                      onClick={() =>
+                        navigate(
+                          `${paths.CATEGORIES}/${item3?.attributes?.slug}`
+                        )
+                      }
+                    >
+                      {item3?.attributes?.name}
+                    </span>
+                  ))}
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }

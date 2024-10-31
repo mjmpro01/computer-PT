@@ -17,7 +17,11 @@ import banner1 from "./banner-1.jpg";
 import banner2 from "./banner-2.jpg";
 import banner3 from "./banner-3.jpg";
 import banner4 from "./banner-4.jpg";
+import messenger from "./facebook_messenger.png";
+import zalo from "./zalo.png";
 const images = {
+  messenger,
+  zalo,
   logo,
   vnPay,
   bct,
