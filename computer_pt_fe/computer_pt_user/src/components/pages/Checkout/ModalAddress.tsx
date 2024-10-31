@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import authApi from "@/api/authApi";
 import InputComponent from "@/components/common/InputComponent";
@@ -17,7 +18,7 @@ interface ModalAdressProps {
   handleCancel: () => void;
 }
 interface AddressFrom {
-  name: string;
+  fullname: string;
   phone: string;
   email: string;
   city: string;
@@ -46,15 +47,7 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
         .update(newData, profile?.id)
         .then((res) => {
           if (res) {
-            const updatedProfile = {
-              ...profile,
-              address: newData.address,
-              city: data.city,
-              district: data.district,
-              ward: data.ward,
-            };
-
-            localStorage.setItem("profile", JSON.stringify(updatedProfile));
+            localStorage.setItem("profile", JSON.stringify(res));
 
             toast.success("Cập nhật địa chỉ thành công");
             handleOk();
@@ -73,7 +66,7 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
   useEffect(() => {
     const addressData = splitAddress(profile?.address);
     setValue("email", profile?.email);
-    setValue("name", profile?.fullname);
+    setValue("fullname", profile?.fullname);
     setValue("phone", profile?.phone);
     setValue("city", addressData?.province);
     setValue("district", addressData?.district);
@@ -112,12 +105,12 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
           </h2>
           <InputComponent
             isRequired
-            name="name"
+            name="fullname"
             control={control}
             label="Họ tên"
             placeholder="Họ tên"
             rules={formValidation.fullName}
-            errors={errors.name}
+            errors={errors.fullname}
           />
           <div className="grid grid-cols-2 gap-[1.2rem]">
             <InputComponent
