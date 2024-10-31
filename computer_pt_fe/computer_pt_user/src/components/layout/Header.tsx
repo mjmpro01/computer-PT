@@ -67,7 +67,7 @@ const HeaderComponent = () => {
   };
   const handleNavigate = () => {
     if (profile?.id) {
-      navigate(paths.PROFILE);
+      navigate(`${paths.PROFILE}/${paths.INFORMATION}`);
     } else {
       navigate(paths.LOGIN);
     }

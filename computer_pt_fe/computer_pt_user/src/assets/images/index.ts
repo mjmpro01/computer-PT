@@ -19,7 +19,9 @@ import banner3 from "./banner-3.jpg";
 import banner4 from "./banner-4.jpg";
 import messenger from "./facebook_messenger.png";
 import zalo from "./zalo.png";
+import user from "./user.png";
 const images = {
+  user,
   messenger,
   zalo,
   logo,
