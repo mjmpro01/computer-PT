@@ -17,7 +17,7 @@ interface BlockProductProps {
   product: BaseData<ProductType>;
 }
 function BlockProduct({ product }: BlockProductProps) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper] = useState(null);
   const price = Number(product?.attributes?.price);
   const promotionPrice = Number(product?.attributes?.promotion_price);
 

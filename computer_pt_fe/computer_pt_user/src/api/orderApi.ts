@@ -1,11 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import urls from "@/utils/constants/urls";
 import axiosClient from "./axiosClient";
+import { BaseResponse } from "@/types/base/baseResponse";
+import { BaseData } from "@/types/base/baseData";
+import { OrderType } from "@/types/reponse/order";
 
 const orderApi = {
   async create(payload: any) {
     try {
       const res = await axiosClient.post<any>(`${urls.ORDERS}`, payload);
+
+      return res?.data;
+    } catch (error) {
+      console.error("Order error:", error);
+      throw error;
+    }
+  },
+  async getAll(id: number, status: string) {
+    try {
+      const res = await axiosClient.get<BaseResponse<BaseData<OrderType>[]>>(
+        `${urls.ORDERS}/?filters[user]=${id}&populate=deep,4${
+          status === "all" ? "" : `&filters[status]=${status}&sort=id:DESC`
+        }`
+      );
 
       return res?.data;
     } catch (error) {

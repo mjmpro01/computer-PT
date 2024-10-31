@@ -8,6 +8,9 @@ const paths = {
   REGISTER: "/register",
   CATEGORIES: "/categories",
   PROFILE: "/profile",
+  INFORMATION: "information",
+  ADDRESS: "address",
+  ORDERS: "orders",
 };
 
 export default paths;

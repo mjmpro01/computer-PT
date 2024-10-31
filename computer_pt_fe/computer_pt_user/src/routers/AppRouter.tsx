@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <Categories />,
       },
       {
-        path: paths.PROFILE,
+        path: `${paths.PROFILE}/:slug`,
         element: <Profile />,
       },
     ],

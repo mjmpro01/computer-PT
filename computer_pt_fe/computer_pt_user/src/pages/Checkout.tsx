@@ -29,6 +29,7 @@ function Checkout() {
       shipping_method: "Giao hàng qua đối tác",
       payment_method: "COD",
       items: newData,
+      user: profile?.id,
     };
     await orderApi
       .create({ data })
