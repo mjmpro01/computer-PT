@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, TabsProps } from "antd";
 import OrderItem from "../OrderItem";
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import { OrderType } from "@/types/reponse/order";
 
 function Orders() {
   const [orders, setOrders] = useState<BaseData<OrderType>[]>([]);
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string>("all");
   const profile = getUserProfile();
 
   const onChange = (key: string) => {
