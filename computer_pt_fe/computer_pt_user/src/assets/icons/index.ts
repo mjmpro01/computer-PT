@@ -1,6 +1,8 @@
 import minus from "./minus.svg";
 import plus from "./plus.svg";
 import trash from "./trash.svg";
-const icons = { minus, plus, trash };
+import xIcon from "./x.svg";
+import search from "./search.svg";
+const icons = { minus, plus, trash, xIcon, search };
 
 export default icons;

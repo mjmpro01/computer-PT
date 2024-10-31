@@ -10,5 +10,6 @@ const urls = {
   USERS: "users",
   ORDERS: "orders",
   ORDER_DETAILS: "order-details",
+  PRODUCT_SELETIONS: "product-seletions",
 };
 export default urls;

@@ -57,7 +57,7 @@ function AddressFrom() {
         <h2 className="text-[1.8rem] font-bold m-0">Phương thức giao hàng</h2>
         <div className="flex items-center justify-between">
           <Radio checked>Phí giao hàng tiêu chuẩn</Radio>
-          <p className="text-[1.6rem] font-bold">30.000đ</p>
+          <p className="text-[1.6rem] font-bold">35.000đ</p>
         </div>
       </div>
       <div className="flex flex-col gap-[0.8rem]">

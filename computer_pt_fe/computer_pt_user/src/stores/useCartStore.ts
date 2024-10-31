@@ -1,13 +1,12 @@
 import { create } from "zustand";
-import { CartItem } from "@/types/common/cart"; // Ensure CartItem is defined with the required properties
-
+import { CartItem } from "@/types/common/cart";
 interface CartState {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (id: number) => void;
   clearCart: () => void;
-  getTotalPrice: () => number; // Method to calculate total price
-  getTotalQuantity: () => number; // Method to calculate total quantity
+  getTotalPrice: () => number;
+  getTotalQuantity: () => number;
 }
 
 const useCartStore = create<CartState>((set) => {

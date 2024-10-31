@@ -28,7 +28,7 @@ function ProductDetails() {
       };
       fetchProduct();
     }
-  }, []);
+  }, [slug]);
   return (
     <div className="flex flex-col items-center bg-[#F8F8FC] min-h-[100vh]">
       <div className="max-w-[1440px] w-full px-[8rem]">
