@@ -5,6 +5,7 @@ import {
   faComputer,
   faList,
   faMagnifyingGlass,
+  faNewspaper,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Image, Popover } from "antd";
@@ -171,7 +172,18 @@ const HeaderComponent = () => {
               <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">{` Giỏ hàng (${totalQuantity})`}</p>
             </div>
           </Popover>
-
+          <div
+            className="group flex items-center cursor-pointer flex-col"
+            onClick={() => navigate(paths.BLOGS)}
+          >
+            <FontAwesomeIcon
+              icon={faNewspaper}
+              className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+            />
+            <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
+              Tin tức công nghệ
+            </p>
+          </div>
           <div
             className="group flex items-center cursor-pointer flex-col"
             onClick={handleNavigate}
