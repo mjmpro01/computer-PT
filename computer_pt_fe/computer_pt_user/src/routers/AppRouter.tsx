@@ -11,6 +11,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Categories from "@/pages/Categories";
 import Profile from "@/pages/Profile";
+import Blogs from "@/pages/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: paths.REGISTER,
         element: <Register />,
+      },
+      {
+        path: paths.BLOGS,
+        element: <Blogs />,
       },
       {
         path: `${paths.CATEGORIES}/:slug`,

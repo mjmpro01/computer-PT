@@ -12,7 +12,7 @@ export default function RootLayout() {
   return (
     <div className="container-fluid p-0 flex flex-col min-h-screen relative bg-[#F8F8FC]">
       <HeaderComponent />
-      <div className="pt-[7rem] min-h-[100vh]">
+      <div className="pt-[7rem] min-h-[100vh] pb-[72rem]">
         <Outlet
 
         //   context={{ setIsLoadingDone } satisfies RootLayoutContextType}
