@@ -11,5 +11,7 @@ const urls = {
   ORDERS: "orders",
   ORDER_DETAILS: "order-details",
   PRODUCT_SELETIONS: "product-seletions",
+  BLOGS: "blogs",
+  BLOG: "blog",
 };
 export default urls;
