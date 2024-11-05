@@ -18,7 +18,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({
   isSelected,
   onCheckboxChange,
 }) => {
-  const { addItem, removeItem } = useCartStore();
+  const { addItem, removeItem, decrementItem } = useCartStore();
   const [count, setCount] = useState<number>(cartItem?.quantity);
   const promotionPrice = Number(cartItem?.promotionPrice);
   const price = Number(cartItem?.price);
@@ -70,6 +70,7 @@ const CartItemComponent: React.FC<CartItemProps> = ({
           onClick={() => {
             if (count > 1) {
               setCount(count - 1);
+              decrementItem(cartItem.id);
             }
           }}
           className={`size-[1.6rem] ${count === 1 && "cursor-not-allowed"}`}

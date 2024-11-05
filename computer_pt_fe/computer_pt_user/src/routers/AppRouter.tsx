@@ -12,6 +12,7 @@ import Register from "@/pages/Register";
 import Categories from "@/pages/Categories";
 import Profile from "@/pages/Profile";
 import Blogs from "@/pages/Blogs";
+import BlogDetails from "@/pages/BlogDetails";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: paths.BLOGS,
         element: <Blogs />,
+      },
+      {
+        path: `${paths.BLOGS}/:slug`,
+        element: <BlogDetails />,
       },
       {
         path: `${paths.CATEGORIES}/:slug`,
