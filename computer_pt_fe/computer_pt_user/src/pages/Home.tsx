@@ -67,9 +67,12 @@ const Home = () => {
         <div className="min-h-[100vh] pt-[7rem] w-full max-w-[1440px] px-[8rem] flex flex-col gap-[2.4rem]">
           <CategoriesContent />
           {categories?.length > 0 &&
-            categories?.map((item, index) => (
-              <SwiperProduct categories={item} key={index} />
-            ))}
+            categories.map(
+              (item, index) =>
+                item?.attributes?.products?.data?.length > 0 && (
+                  <SwiperProduct categories={item} key={index} />
+                )
+            )}
         </div>
       </div>
     </>

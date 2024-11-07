@@ -37,7 +37,7 @@ function ProductComp({ product }: ProductCompProps) {
     <div className="h-[35rem] flex flex-col p-[1rem] border rounded-[0.4rem] bg-white">
       <div className="relative h-[50%]">
         <img
-          src={`${baseUrl}${product?.attributes?.avatar.data.attributes.url}`}
+          src={`${baseUrl}${product?.attributes?.avatar?.data?.attributes?.url}`}
           alt="image"
           className="h-full w-full object-cover"
         />

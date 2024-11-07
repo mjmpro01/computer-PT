@@ -1,3 +1,4 @@
+import { BaseData } from "../base/baseData";
 import { ProductType } from "./product";
 
 export type SeletionProductsType = {
@@ -7,6 +8,6 @@ export type SeletionProductsType = {
   updatedAt: string;
   publishedAt: string;
   products: {
-    data: ProductType[];
+    data: BaseData<ProductType>[];
   };
 };

@@ -17,6 +17,18 @@ const selectProductApi = {
       throw error;
     }
   },
+  async getById(id: number) {
+    try {
+      const res = await axiosClient.get<
+        BaseResponse<BaseData<SeletionProductsType>>
+      >(`${urls.PRODUCT_SELETIONS}/${id}?populate=deep,3`);
+
+      return res?.data;
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
+  },
 };
 
 export default selectProductApi;

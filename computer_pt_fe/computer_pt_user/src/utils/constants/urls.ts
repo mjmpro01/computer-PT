@@ -13,5 +13,8 @@ const urls = {
   PRODUCT_SELETIONS: "product-seletions",
   BLOGS: "blogs",
   BLOG: "blog",
+  CATEGORY: "category",
+  CATEGORY_SELECTIONS: "category-selections",
+  CATEGORY_SELECTION: "category-selection",
 };
 export default urls;

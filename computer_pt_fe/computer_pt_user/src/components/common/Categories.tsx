@@ -25,26 +25,30 @@ function CategoriesComponent() {
     };
     fetchCategories();
   }, []);
+  const category_lv1 = categories.filter(
+    (item) => item?.attributes?.level === variables.LEVEL_1
+  );
   return (
     <div className="min-w-[80rem] min-h-[30rem] flex gap-[1.2rem]">
       <ul className="flex flex-col gap-[1.2rem] w-[15rem] border-r">
-        {categories.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center gap-[0.8rem] cursor-pointer"
-          >
-            {item?.attributes?.level === variables.LEVEL_1 && (
-              <span
-                className={`text-[1.6rem] font-medium hover:text-[#1435C3] duration-300 ${
-                  selectedCategories?.id === item?.id ? "text-[#1435C3]" : ""
-                }`}
-                onClick={() => setSelectedCategories(item)}
-              >
-                {item?.attributes?.name}
-              </span>
-            )}
-          </li>
-        ))}
+        {category_lv1?.length > 0 &&
+          category_lv1.map((item, index) => (
+            <li
+              key={index}
+              className="flex items-center gap-[0.8rem] cursor-pointer"
+            >
+              {item?.attributes?.level === variables?.LEVEL_1 && (
+                <span
+                  className={`text-[1.6rem] font-medium hover:text-[#1435C3] duration-300 ${
+                    selectedCategories?.id === item?.id ? "text-[#1435C3]" : ""
+                  }`}
+                  onClick={() => setSelectedCategories(item)}
+                >
+                  {item?.attributes?.name}
+                </span>
+              )}
+            </li>
+          ))}
       </ul>
       <div className="px-[1rem]">
         <ul className="grid grid-cols-4 gap-[1.2rem]">

@@ -42,6 +42,10 @@ function ContentBuildPC() {
     window.location.reload();
   };
 
+  const category_lv1 = categories.filter(
+    (item) => item?.attributes?.level === variables.LEVEL_1
+  );
+
   return (
     <div className="mt-[2.4rem]">
       <div className="flex items-center justify-between">
@@ -64,8 +68,8 @@ function ContentBuildPC() {
         </p>
       </div>
       <div className="my-[2.4rem] flex flex-col gap-[0.4rem]">
-        {categories?.length > 0 &&
-          categories.map((category, index) =>
+        {category_lv1?.length > 0 &&
+          category_lv1.map((category, index) =>
             category?.attributes?.level === variables?.LEVEL_1 ? (
               <PcItem category={category} key={index} index={index + 1} />
             ) : null
