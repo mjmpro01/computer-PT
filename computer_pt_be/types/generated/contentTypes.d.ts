@@ -1174,7 +1174,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     shipping_method: Attribute.Enumeration<
       ['Giao h\u00E0ng qua \u0111\u1ED1i t\u00E1c']
     >;
-    payment_method: Attribute.Enumeration<['COD']>;
+    payment_method: Attribute.Enumeration<['COD', 'VNPAY']>;
     total: Attribute.BigInteger;
     status: Attribute.Enumeration<
       [
@@ -1182,7 +1182,8 @@ export interface ApiOrderOrder extends Schema.CollectionType {
         'X\u00E1c nh\u1EADn',
         '\u0110ang x\u1EED l\u00FD',
         '\u0110ang giao h\u00E0ng',
-        'Giao h\u00E0ng th\u00E0nh c\u00F4ng'
+        'Giao h\u00E0ng th\u00E0nh c\u00F4ng',
+        'Hu\u1EF7'
       ]
     > &
       Attribute.DefaultTo<'Ch\u1EDD x\u00E1c nh\u1EADn'>;
@@ -1197,6 +1198,19 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToMany',
       'api::order-detail.order-detail'
     >;
+    order_code: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[A-Z]{4}[0-9]{6}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[A-Z]{4}[0-9]{6}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

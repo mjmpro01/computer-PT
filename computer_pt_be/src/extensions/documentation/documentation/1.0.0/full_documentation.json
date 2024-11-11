@@ -9745,7 +9745,8 @@
               "payment_method": {
                 "type": "string",
                 "enum": [
-                  "COD"
+                  "COD",
+                  "VNPAY"
                 ]
               },
               "total": {
@@ -9760,7 +9761,8 @@
                   "Xác nhận",
                   "Đang xử lý",
                   "Đang giao hàng",
-                  "Giao hàng thành công"
+                  "Giao hàng thành công",
+                  "Huỷ"
                 ]
               },
               "user": {
@@ -9792,6 +9794,9 @@
                   ],
                   "example": "string or id"
                 }
+              },
+              "order_code": {
+                "type": "string"
               }
             }
           }
@@ -9873,7 +9878,8 @@
           "payment_method": {
             "type": "string",
             "enum": [
-              "COD"
+              "COD",
+              "VNPAY"
             ]
           },
           "total": {
@@ -9888,7 +9894,8 @@
               "Xác nhận",
               "Đang xử lý",
               "Đang giao hàng",
-              "Giao hàng thành công"
+              "Giao hàng thành công",
+              "Huỷ"
             ]
           },
           "user": {
@@ -11204,7 +11211,8 @@
                                     "payment_method": {
                                       "type": "string",
                                       "enum": [
-                                        "COD"
+                                        "COD",
+                                        "VNPAY"
                                       ]
                                     },
                                     "total": {
@@ -11219,7 +11227,8 @@
                                         "Xác nhận",
                                         "Đang xử lý",
                                         "Đang giao hàng",
-                                        "Giao hàng thành công"
+                                        "Giao hàng thành công",
+                                        "Huỷ"
                                       ]
                                     },
                                     "user": {
@@ -11263,6 +11272,9 @@
                                           }
                                         }
                                       }
+                                    },
+                                    "order_code": {
+                                      "type": "string"
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -11360,6 +11372,9 @@
                 }
               }
             }
+          },
+          "order_code": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -12550,7 +12565,8 @@
                       "payment_method": {
                         "type": "string",
                         "enum": [
-                          "COD"
+                          "COD",
+                          "VNPAY"
                         ]
                       },
                       "total": {
@@ -12565,7 +12581,8 @@
                           "Xác nhận",
                           "Đang xử lý",
                           "Đang giao hàng",
-                          "Giao hàng thành công"
+                          "Giao hàng thành công",
+                          "Huỷ"
                         ]
                       },
                       "user": {
@@ -12940,6 +12957,9 @@
                             }
                           }
                         }
+                      },
+                      "order_code": {
+                        "type": "string"
                       },
                       "createdAt": {
                         "type": "string",

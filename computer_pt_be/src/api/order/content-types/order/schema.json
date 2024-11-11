@@ -37,7 +37,8 @@
     "payment_method": {
       "type": "enumeration",
       "enum": [
-        "COD"
+        "COD",
+        "VNPAY"
       ]
     },
     "total": {
@@ -50,7 +51,8 @@
         "Xác nhận",
         "Đang xử lý",
         "Đang giao hàng",
-        "Giao hàng thành công"
+        "Giao hàng thành công",
+        "Huỷ"
       ],
       "default": "Chờ xác nhận"
     },
@@ -68,6 +70,13 @@
       "relation": "oneToMany",
       "target": "api::order-detail.order-detail",
       "mappedBy": "order"
+    },
+    "order_code": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^[A-Z]{4}[0-9]{6}$"
+      }
     }
   }
 }
