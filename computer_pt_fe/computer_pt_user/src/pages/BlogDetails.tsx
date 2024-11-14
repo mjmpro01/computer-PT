@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 function BlogDetails() {
   const [blog, setBlog] = useState<BaseData<BlogType>>();
   const { slug } = useParams();
-  console.log(blog);
 
   interface TextContent {
     type: "text";

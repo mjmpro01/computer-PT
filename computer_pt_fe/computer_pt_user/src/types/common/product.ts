@@ -49,7 +49,13 @@ export type ProductType = {
   total_purchase: number;
   total_view: number;
   specifications: string | null;
-  description: string | null;
+  description: Array<{
+    type: string;
+    children: Array<{
+      text: string;
+      type: string;
+    }>;
+  }>;
   rating: number;
   slug: string;
   createdAt: string;
