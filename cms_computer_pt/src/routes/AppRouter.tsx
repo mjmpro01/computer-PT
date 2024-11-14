@@ -12,6 +12,8 @@ import Home from "../page/Home";
 import Login from "../page/Login";
 import Products from "../page/Products";
 import Categories from "../page/Categories";
+import Blog from "../page/Blog";
+import BlogCategories from "../page/BlogCategories";
 
 <Navigate to={paths.LOGIN} />;
 
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
           {
             path: paths.PRODUCT_CATEGORY,
             element: <Categories />,
+          },
+          {
+            path: paths.BLOGS,
+            element: <Blog />,
+          },
+          {
+            path: paths.BLOG_CATEGORY,
+            element: <BlogCategories />,
           },
         ],
       },

@@ -5,5 +5,6 @@ const urls = {
   LOCAL: "local",
   PRODUCTS: "products",
   CATEGORIES: "categories",
+  BLOG_CATEGORIES: "blog-categories",
 };
 export default urls;
