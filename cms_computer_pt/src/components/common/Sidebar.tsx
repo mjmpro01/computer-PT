@@ -45,48 +45,83 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
     onSelected,
     activeIcon,
     path,
-  }: SidebarItemProps) => {
+    children,
+  }: SidebarItemProps & { children?: SidebarItemProps[] }) => {
+    const [isOpen, setIsOpen] = useState(false);
     const isActive = selected === path;
+
     return (
-      <button
-        className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${selected === path ? "border-r-[#B562A3] border-r-[5px] text-[#B562A3] font-bold" : "font-normal"} font-normal w-full hover:bg-[#f9e0f2] duration-300`}
-        onClick={() => {
-          if (onSelected) {
-            onSelected();
-            navigate(path);
-          }
-        }}
-      >
-        <Tooltip title={title} placement="right">
-          <div className="relative w-[20px] h-[20px]">
-            {/* Icon inactive */}
-            <img
-              src={icon}
-              alt="icon-sidebar"
-              className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
-                isActive ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            {/* Icon active */}
-            <img
-              src={activeIcon}
-              alt="active-icon-sidebar"
-              className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
-                isActive ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          </div>
-        </Tooltip>
-        {!colspan && (
-          <p
-            className={`px-[10px] text-[16px] ${selected === path ? "font-bold" : "font-normal"}`}
-          >
-            {title}
-          </p>
+      <div className="w-full">
+        <button
+          className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${
+            isActive
+              ? "border-r-[#B562A3] border-r-[5px] text-[#B562A3] font-bold"
+              : "font-normal"
+          } w-full hover:bg-[#f9e0f2] duration-300`}
+          onClick={() => {
+            if (!children && onSelected) {
+              onSelected();
+              navigate(path);
+            } else {
+              setIsOpen(!isOpen);
+            }
+          }}
+        >
+          <Tooltip title={title} placement="right">
+            <div className="relative w-[20px] h-[20px]">
+              <img
+                src={icon}
+                alt="icon-sidebar"
+                className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
+                  isActive ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <img
+                src={activeIcon}
+                alt="active-icon-sidebar"
+                className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
+                  isActive ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            </div>
+          </Tooltip>
+          {!colspan && (
+            <p
+              className={`px-[10px] text-[16px] ${isActive ? "font-bold" : "font-normal"}`}
+            >
+              {title}
+            </p>
+          )}
+          {children && (
+            <button
+              className="ml-auto p-[5px]"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <img
+                src={icons.ChevronDown}
+                alt="toggle-icon"
+                className={`${isOpen ? "rotate-0" : "rotate-[180deg]"} duration-300`}
+              />
+            </button>
+          )}
+        </button>
+        {isOpen && children && (
+          <ul className="ml-[20px]">
+            {children.map((child, index) => (
+              <li key={index}>
+                <SidebarItem
+                  {...child}
+                  selected={selected}
+                  onSelected={onSelected}
+                />
+              </li>
+            ))}
+          </ul>
         )}
-      </button>
+      </div>
     );
   };
+
   const PopoverContent = () => {
     return (
       <div className="min-w-[200px]">
@@ -132,22 +167,43 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
     {
       title: "Quản lý bài viết",
       icon: images.blog,
-      path: paths.BLOGS,
       activeIcon: images.blog,
-    },
-    {
-      title: "Quản lý danh mục bài viết",
-      icon: images.category,
-      path: paths.BLOG_CATEGORY,
-      activeIcon: images.category,
+      children: [
+        {
+          title: "Bài viết",
+          path: paths.BLOGS,
+          icon: images.blog,
+          activeIcon: images.blog,
+        },
+        {
+          title: "Danh mục bài viết",
+          path: paths.BLOG_CATEGORY,
+          icon: images.category,
+          activeIcon: images.category,
+        },
+      ],
     },
     {
       title: "Quản lý sản phẩm",
       icon: images.computer,
-      path: paths.PRODUCTS,
       activeIcon: images.computer,
+      children: [
+        {
+          title: "Sản phẩm",
+          path: paths.PRODUCTS,
+          icon: images.computer,
+          activeIcon: images.computer,
+        },
+        {
+          title: "Danh mục sản phẩm",
+          path: paths.PRODUCT_CATEGORY,
+          icon: images.category,
+          activeIcon: images.category,
+        },
+      ],
     },
   ];
+
   return (
     <>
       <div
@@ -191,8 +247,13 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
                     activeIcon={sidebar?.activeIcon}
                     title={sidebar?.title}
                     icon={sidebar?.icon}
-                    path={sidebar?.path}
-                    onSelected={() => setSelectedSideBar(sidebar?.path)}
+                    path={sidebar?.path || ""}
+                    children={sidebar?.children}
+                    onSelected={() => {
+                      if (sidebar?.path) {
+                        setSelectedSideBar(sidebar.path);
+                      }
+                    }}
                     selected={selectedSideBar}
                   />
                 </li>
