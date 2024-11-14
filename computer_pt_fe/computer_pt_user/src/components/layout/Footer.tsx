@@ -42,7 +42,7 @@ const FooterComponent = () => {
     },
   ];
   return (
-    <div className="bottom-0 w-full h-[50rem] flex flex-col items-center justify-center border-t-[#1435c3] border-t-[0.3rem] bg-white">
+    <div className="bottom-0 w-full h-[50rem] flex flex-col items-center justify-center border-t-[#B562A3] border-t-[0.3rem] bg-white">
       <div className="px-[8rem] h-full w-full max-w-[1440px]">
         <ul className="grid grid-cols-5 gap-[0.8rem] mt-[2.4rem]">
           {headers.map((item, index) => (

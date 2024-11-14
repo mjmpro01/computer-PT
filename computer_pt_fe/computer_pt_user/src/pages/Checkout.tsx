@@ -88,7 +88,7 @@ function Checkout() {
                   </p>
                 </div>
                 <Button
-                  className="h-[4rem] bg-[#1435C3] rounded-[0.4rem] mt-[2.4rem]"
+                  className="h-[4rem] bg-[#B562A3] rounded-[0.4rem] mt-[2.4rem]"
                   type="primary"
                   onClick={handleOrder}
                 >

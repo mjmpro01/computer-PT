@@ -49,7 +49,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
     const isActive = selected === path;
     return (
       <button
-        className={`whitespace-nowrap p-[10px] pl-[12px] flex items-center gap-[10px] ${selected === path ? "bg-[#fdeced] text-[#B03724] font-bold" : "font-normal"} font-normal w-full hover:bg-[#fdeced] duration-300 rounded-[10px]`}
+        className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${selected === path ? "border-r-[#B562A3] border-r-[5px] text-[#B562A3] font-bold" : "font-normal"} font-normal w-full hover:bg-[#f9e0f2] duration-300`}
         onClick={() => {
           if (onSelected) {
             onSelected();
@@ -63,7 +63,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
             <img
               src={icon}
               alt="icon-sidebar"
-              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
+              className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
                 isActive ? "opacity-0" : "opacity-100"
               }`}
             />
@@ -71,7 +71,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
             <img
               src={activeIcon}
               alt="active-icon-sidebar"
-              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
+              className={`absolute top-0 left-[50%] right-[50%] w-full h-full transition-opacity duration-300 ${
                 isActive ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -79,7 +79,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
         </Tooltip>
         {!colspan && (
           <p
-            className={`text-[16px] ${selected === path ? "font-bold" : "font-normal"}`}
+            className={`px-[10px] text-[16px] ${selected === path ? "font-bold" : "font-normal"}`}
           >
             {title}
           </p>
@@ -125,9 +125,27 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
   const sidebars = [
     {
       title: "Trang chủ",
-      icon: icons.clipBoard,
+      icon: images.home,
       path: paths.HOME,
-      activeIcon: icons.clipBoard,
+      activeIcon: images.home,
+    },
+    {
+      title: "Quản lý bài viết",
+      icon: images.blog,
+      path: paths.BLOGS,
+      activeIcon: images.blog,
+    },
+    {
+      title: "Quản lý danh mục bài viết",
+      icon: images.category,
+      path: paths.BLOG_CATEGORY,
+      activeIcon: images.category,
+    },
+    {
+      title: "Quản lý sản phẩm",
+      icon: images.computer,
+      path: paths.PRODUCTS,
+      activeIcon: images.computer,
     },
   ];
   return (
@@ -150,8 +168,8 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
                 <div
                   className={`flex flex-col ${colspan ? "hidden" : "whitespace-nowrap block"}`}
                 >
-                  <h3 className="text-[18px] font-bold m-0 text-[#B03724]">
-                    K-Tech
+                  <h3 className="text-[18px] font-bold m-0 text-[#B562A3]">
+                    Computer P&T
                   </h3>
                 </div>
               </div>
@@ -166,7 +184,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
               )}
             </div>
 
-            <ul className="flex flex-col gap-[4px] p-[10px]">
+            <ul className="flex flex-col">
               {sidebars?.map((sidebar, index) => (
                 <li key={index}>
                   <SidebarItem
@@ -193,15 +211,7 @@ function Sidebar({ colspan, setColSpan }: SidebarProps) {
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <div className="flex items-center cursor-pointer w-full">
-                  <Avatar
-                    src={
-                      typeof profile?.avatar === "object" &&
-                      profile?.avatar?.url
-                        ? profile.avatar.url
-                        : images.user
-                    }
-                    size={50}
-                  />
+                  <Avatar src={images.user} size={50} />
 
                   {!colspan && (
                     <span className="text-[16px] font-medium w-[60%] truncate">

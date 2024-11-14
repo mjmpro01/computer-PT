@@ -84,7 +84,7 @@ function BlockProduct({ product }: BlockProductProps) {
           <div className="flex items-center gap-[0.8rem]">
             {/* <p className="text-[1.4rem] text-[#82869E]">
               Thương hiệu{" "}
-              <span className="text-[#1435C3] cursor-pointer">XIGMATEK</span>
+              <span className="text-[#B562A3] cursor-pointer">XIGMATEK</span>
             </p> */}
             {/* <span>|</span> */}
             <p className="text-[1.4rem] text-[#82869E]">
@@ -93,7 +93,7 @@ function BlockProduct({ product }: BlockProductProps) {
           </div>
         </div>
         <div>
-          <p className="text-[2rem] font-bold text-[#1435C3]">
+          <p className="text-[2rem] font-bold text-[#B562A3]">
             {price !== promotionPrice && promotionPrice > 0
               ? formatMoney(promotionPrice)
               : formatMoney(price)}
@@ -101,7 +101,7 @@ function BlockProduct({ product }: BlockProductProps) {
           {price !== promotionPrice && promotionPrice > 0 && (
             <p className="text-[#82869E] text-[1.2rem]">
               <span className="line-through">{formatMoney(price)}</span>{" "}
-              <span className="text-[#1435C3]">
+              <span className="text-[#B562A3]">
                 -{percentDecrease !== 0 && percentDecrease}%
               </span>
             </p>
@@ -110,7 +110,7 @@ function BlockProduct({ product }: BlockProductProps) {
 
         <div className="grid grid-cols-2 gap-[0.4rem] py-[2.4rem] border-t border-b">
           <Button
-            className="text-white bg-[#1435C3] h-[4rem] rounded-[0.4rem]"
+            className="text-white bg-[#B562A3] h-[4rem] rounded-[0.4rem]"
             onClick={() => {
               handleAddToCart({ product });
               navigate(paths.CART);
@@ -119,7 +119,7 @@ function BlockProduct({ product }: BlockProductProps) {
             Mua ngay
           </Button>
           <Button
-            className="text-[#1435C3] border-[#1435C3] h-[4rem] rounded-[0.4rem]"
+            className="text-[#B562A3] border-[#B562A3] h-[4rem] rounded-[0.4rem]"
             onClick={() => handleAddToCart({ product })}
           >
             Thêm vào giỏ hàng
@@ -132,27 +132,27 @@ function BlockProduct({ product }: BlockProductProps) {
             <li className="text-[1.2rem]">
               Giảm thêm đến 500.000 VNĐ khi thanh toán qua thẻ tín dụng
               Sacombank{" "}
-              <span className="text-[#1435C3] cursor-pointer">
+              <span className="text-[#B562A3] cursor-pointer">
                 Xem chi tiết
               </span>
             </li>
             <li className="text-[1.2rem]">
               Giảm thêm đến 750.000 VNĐ khi thanh toán qua thẻ tín dụng
               Techcombank{" "}
-              <span className="text-[#1435C3] cursor-pointer">
+              <span className="text-[#B562A3] cursor-pointer">
                 Xem chi tiết
               </span>
             </li>
             <li className="text-[1.2rem]">
               Giảm thêm đến 750.000 VNĐ khi thanh toán qua thẻ tín dụng OCB{" "}
-              <span className="text-[#1435C3] cursor-pointer">
+              <span className="text-[#B562A3] cursor-pointer">
                 Xem chi tiết
               </span>
             </li>
             <li className="text-[1.2rem]">
               Giảm thêm đến 1.750.000 VNĐ khi thanh toán qua thẻ tín dụng MB
               bank{" "}
-              <span className="text-[#1435C3] cursor-pointer">
+              <span className="text-[#B562A3] cursor-pointer">
                 Xem chi tiết
               </span>
             </li>
