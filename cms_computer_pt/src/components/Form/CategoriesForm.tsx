@@ -12,9 +12,9 @@ import { useEffect } from "react";
 
 interface CategoriesFormProps {
   onMutate: () => void;
-  categories: BaseData<CategoriesType>[];
-  category: BaseData<CategoriesType> | null;
-  isEdit: boolean;
+  categories?: BaseData<CategoriesType>[];
+  category?: BaseData<CategoriesType> | null;
+  isEdit?: boolean;
 }
 function CategoriesForm({
   onMutate,

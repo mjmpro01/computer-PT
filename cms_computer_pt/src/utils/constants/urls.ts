@@ -6,5 +6,7 @@ const urls = {
   PRODUCTS: "products",
   CATEGORIES: "categories",
   BLOG_CATEGORIES: "blog-categories",
+  BLOGS: "blogs",
+  UPLOAD: "upload",
 };
 export default urls;
