@@ -26,10 +26,10 @@ export default function RootLayout() {
         <div className="flex items-center gap-[0.8rem]">
           <Image src={images.zalo} alt="zalo" preview={false} width={30} />
           <div>
-            <p className="text-[1.4rem] font-medium text-[#1435c3]">
+            <p className="text-[1.4rem] font-medium text-[#B562A3]">
               Chat Zalo
             </p>
-            <p className="text-[1.4rem] font-medium text-[#1435c3]">
+            <p className="text-[1.4rem] font-medium text-[#B562A3]">
               (8h - 22h30)
             </p>
           </div>
@@ -42,10 +42,10 @@ export default function RootLayout() {
         <div className="flex items-center gap-[0.8rem]">
           <Image src={images.messenger} alt="zalo" preview={false} width={30} />
           <div>
-            <p className="text-[1.4rem] font-medium text-[#1435c3]">
+            <p className="text-[1.4rem] font-medium text-[#B562A3]">
               Chat Messenger
             </p>
-            <p className="text-[1.4rem] font-medium text-[#1435c3]">
+            <p className="text-[1.4rem] font-medium text-[#B562A3]">
               (8h - 22h30)
             </p>
           </div>

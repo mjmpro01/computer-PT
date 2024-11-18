@@ -88,7 +88,7 @@ function PcItem({ category, index }: PcItemProps) {
           ) : (
             <div className="flex items-center justify-center">
               <Button
-                className="text-[#1435C3] border-[#a7a8ad] w-[20rem] h-[4rem]"
+                className="text-[#B562A3] border-[#a7a8ad] w-[20rem] h-[4rem]"
                 onClick={showModal}
               >
                 Chọn thiết bị
@@ -107,7 +107,7 @@ function PcItem({ category, index }: PcItemProps) {
         rootClassName="modal-select"
         width={800}
       >
-        <div className="bg-[#1435C3] p-[1rem_2rem] flex items-center justify-between">
+        <div className="bg-[#B562A3] p-[1rem_2rem] flex items-center justify-between">
           <h2 className="text-[2rem] font-bold text-white">Chọn linh kiện</h2>
           <div className="bg-white rounded-[0.4rem] flex items-center gap-[1rem] p-[0.5rem_1rem] w-[50rem]">
             <input

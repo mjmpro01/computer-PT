@@ -23,7 +23,7 @@ function OrderItem({ order }: OrderItemProps) {
       <div className="flex justify-between gap-[1rem] pb-[1rem]">
         <div className="flex items-center gap-[0.8rem]">
           <Image src={icons.bag} alt="icon-truck" preview={false} width={20} />
-          <p className="text-[1.2rem] text-[#1435C3] font-bold uppercase">
+          <p className="text-[1.2rem] text-[#B562A3] font-bold uppercase">
             {order?.attributes?.order_details?.data?.length} sản phẩm
           </p>
         </div>
@@ -35,7 +35,7 @@ function OrderItem({ order }: OrderItemProps) {
               preview={false}
               width={20}
             />
-            <p className="text-[1.2rem] text-[#1435C3] font-bold uppercase">
+            <p className="text-[1.2rem] text-[#B562A3] font-bold uppercase">
               Giao hàng qua đối tác
             </p>
           </div>
@@ -69,7 +69,7 @@ function OrderItem({ order }: OrderItemProps) {
                   <h3 className="text-[1.6rem] font-medium truncate">
                     {product?.attributes?.product?.data?.attributes?.name}
                   </h3>
-                  <p className="text-[1.4rem] text-[#1435C3] font-bold">
+                  <p className="text-[1.4rem] text-[#B562A3] font-bold">
                     {formatMoney(Number(product?.attributes?.unit_price))}
                   </p>
                   <p className="text-[1.4rem] text-[#999]">
@@ -80,7 +80,7 @@ function OrderItem({ order }: OrderItemProps) {
             ))}
         </div>
         <div className="flex justify-end">
-          <span className="text-[2rem] font-bold text-[#1435C3]">
+          <span className="text-[2rem] font-bold text-[#B562A3]">
             Tổng tiền: {formatMoney(totalAmount)}
           </span>
         </div>

@@ -20,7 +20,7 @@ function CartHeader() {
           />
           <span>Giỏ hàng chưa có sản phẩm nào</span>
         </div>
-        <Button className="text-white bg-[#1435C3] h-[4rem]">
+        <Button className="text-white bg-[#B562A3] h-[4rem]">
           Mua sắm ngay
         </Button>
       </div>
@@ -35,7 +35,7 @@ function CartHeader() {
         ))}
       </div>
       <Button
-        className="bg-[#1435C3] text-white"
+        className="bg-[#B562A3] text-white"
         onClick={() => navigate(paths.CART)}
       >
         Xem giỏ hàng
