@@ -1,14 +1,18 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import feedbackApi from "@/api/feedbackApi";
 import productApi from "@/api/productApi";
 import images from "@/assets/images";
-import InfoTable from "@/components/common/InfoTable";
+// import InfoTable from "@/components/common/InfoTable";
 // import SwiperProduct from "@/components/common/SwiperProduct";
 import BlockProduct from "@/components/pages/ProductDetail/BlockProduct";
 import { BaseData } from "@/types/base/baseData";
 import { ProductType } from "@/types/common/product";
-import { Breadcrumb } from "antd";
+import { FeedBackType } from "@/types/reponse/feedbacks";
+import { formatDate } from "@/utils/functions/formatDate";
+import { Avatar, Breadcrumb } from "antd";
 import React, { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
 import { useLocation } from "react-router-dom";
 
 function ProductDetails() {
@@ -16,6 +20,7 @@ function ProductDetails() {
   const currentUrl = location.pathname;
   const slug = currentUrl.split("/").pop();
   const [product, setProduct] = useState<BaseData<ProductType>>();
+  const [feedback, setFeedback] = useState<BaseData<FeedBackType>[]>();
   interface TextContent {
     type: "text";
     text: string;
@@ -107,17 +112,30 @@ function ProductDetails() {
 
   useEffect(() => {
     if (slug) {
-      const fetchProduct = async () => {
-        await productApi
-          .getBySlug(slug)
-          .then((res) => {
-            if (res) {
-              setProduct(res?.data);
+      const fetchProductAndFeedbacks = async () => {
+        try {
+          const productResponse = await productApi.getBySlug(slug);
+          if (productResponse) {
+            const fetchedProduct = productResponse.data;
+            setProduct(fetchedProduct);
+
+            // Fetch feedbacks sau khi product được cập nhật
+            if (fetchedProduct?.id) {
+              const feedbackResponse = await feedbackApi.getAll(
+                fetchedProduct.id
+              );
+              if (feedbackResponse) {
+                console.log("Feedbacks:", feedbackResponse);
+                setFeedback(feedbackResponse.data);
+              }
             }
-          })
-          .then((error) => console.log(error));
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       };
-      fetchProduct();
+
+      fetchProductAndFeedbacks();
     }
   }, [slug]);
 
@@ -171,16 +189,67 @@ function ProductDetails() {
         </div>
         <div className="mt-[2.4rem] bg-white p-[2rem] flex gap-[1.2rem]">
           <div className="flex-1">
-            <h3 className="text-[2.4rem] font-bold">Mô tả sản phẩm</h3>
-            <div>
-              {product?.attributes?.description?.map((item, index) => (
-                <div key={index}>{formatText(item)}</div>
-              ))}
+            <h3 className="text-[2.4rem] font-bold mb-[2.4rem]">
+              Feedbacks (0)
+            </h3>
+            <div className="flex flex-col gap-[1.2rem]">
+              {feedback && feedback?.length > 0 ? (
+                feedback?.map((item, index) => (
+                  <div key={index}>
+                    <div className="flex items-center gap-[1rem]">
+                      <Avatar src={images.user} size={40} />
+                      <div className="flex flex-col gap-[0.2rem]">
+                        <span className="text-[1.4rem] font-bold">
+                          {item?.attributes?.user?.data?.attributes?.fullname ||
+                            item?.attributes?.user?.data?.attributes?.email}
+                        </span>
+                        <span className="text-[1.2rem] text-[#999]">
+                          {formatDate(item?.attributes?.createdAt)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="px-[4%]">
+                      <ReactStars
+                        count={5}
+                        value={item?.attributes?.rating || 0}
+                        edit={false}
+                        // onChange={ratingChanged}
+                        size={24}
+                        activeColor="#ffd700"
+                      />
+                      <span className="text-[1.4rem]">
+                        {item?.attributes?.comment}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="flex items-center justify-center h-[30rem]">
+                  <p className="text-[16px]">Chưa có phản hồi nào</p>
+                </div>
+              )}
             </div>
           </div>
-          <div className="w-[30%]">
-            <InfoTable />
+        </div>
+        <div className="mt-[2.4rem] bg-white p-[2rem] flex gap-[1.2rem]">
+          <div className="flex-1">
+            <h3 className="text-[2.4rem] font-bold">Mô tả sản phẩm</h3>
+            <div>
+              {product && product?.attributes?.description?.length > 0 ? (
+                product?.attributes?.description?.map((item, index) => (
+                  <div key={index}>{formatText(item)}</div>
+                ))
+              ) : (
+                <div className="h-[30rem] w-full flex items-center justify-center">
+                  {" "}
+                  <p className="text-[16px] text-center">
+                    Sản phẩm chưa có mô tả
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
+          <div className="w-[30%]">{/* <InfoTable /> */}</div>
         </div>
         {/* <SwiperProduct /> */}
       </div>

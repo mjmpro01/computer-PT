@@ -11,14 +11,18 @@ export type RootLayoutContextType = {
 export default function RootLayout() {
   return (
     <div className="container-fluid p-0 flex flex-col min-h-screen relative bg-[#F8F8FC]">
-      <HeaderComponent />
-      <div className="pt-[7rem] min-h-[100vh]">
-        <Outlet
+      <div className="container-fluid flex flex-col min-h-screen bg-[#F8F8FC]">
+        {/* Header */}
+        <HeaderComponent />
 
-        //   context={{ setIsLoadingDone } satisfies RootLayoutContextType}
-        />
+        {/* Nội dung chính */}
+        <div className="flex-grow pt-[7rem]">
+          <Outlet />
+        </div>
+
+        {/* Footer */}
+        <FooterComponent />
       </div>
-      <FooterComponent />
       <a
         href="https://www.facebook.com/phuctran0211?locale=vi_VN"
         className="fixed bottom-[5%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"

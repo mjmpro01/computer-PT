@@ -13,6 +13,18 @@ const feedbackApi = {
       throw error;
     }
   },
+  async getAll(id: number) {
+    try {
+      const res = await axiosClient.get<any>(
+        `${urls.FEEDBACKS}?[filters][product]=${id}&populate=*`
+      );
+
+      return res?.data;
+    } catch (error) {
+      console.error("FEEDBACKS error:", error);
+      throw error;
+    }
+  },
 };
 
 export default feedbackApi;

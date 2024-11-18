@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
+    path: paths.BLOGS,
+    element: <Blogs />,
+  },
+  {
     path: paths.HOME,
     element: <RootLayout />,
     children: [
@@ -51,10 +55,7 @@ const router = createBrowserRouter([
         path: paths.REGISTER,
         element: <Register />,
       },
-      {
-        path: paths.BLOGS,
-        element: <Blogs />,
-      },
+
       {
         path: `${paths.BLOGS}/:slug`,
         element: <BlogDetails />,
