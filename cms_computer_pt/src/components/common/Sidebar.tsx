@@ -132,7 +132,7 @@ function Sidebar() {
                   colspan ? "hidden" : "whitespace-nowrap block"
                 }`}
               >
-                <h3 className="text-[18px] font-bold m-0 text-[#B562A3]">
+                <h3 className="text-[18px] font-bold m-0 text-[#1435C5]">
                   Computer P&T
                 </h3>
               </div>
@@ -180,7 +180,7 @@ function Sidebar() {
                             <button
                               className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${
                                 selectedSideBar === sidebar.path
-                                  ? "border-r-[#B562A3] border-r-[5px] text-[#B562A3] font-bold bg-[#f9e0f2]"
+                                  ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold bg-[#f9e0f2]"
                                   : "font-normal"
                               } w-full hover:bg-[#f9e0f2] duration-300`}
                               onClick={() => {

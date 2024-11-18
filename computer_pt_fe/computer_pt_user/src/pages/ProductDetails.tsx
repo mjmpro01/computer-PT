@@ -144,7 +144,7 @@ function ProductDetails() {
                 alt="image"
                 className="size-[7rem] object-cover"
               />
-              <p className="text-[1.6rem] font-medium hover:text-[#B562A3] cursor-pointer duration-300">
+              <p className="text-[1.6rem] font-medium hover:text-[#1435C5] cursor-pointer duration-300">
                 Công ty cổ phân thương mại dịch vụ Computer P&T
               </p>
             </div>
@@ -153,17 +153,17 @@ function ProductDetails() {
               <ul className="flex flex-col gap-[0.8rem] mt-[1.2rem]">
                 <li>
                   Miễn phí giao hàng cho đơn hàng từ 5 triệu{" "}
-                  <span className="text-[#B562A3]">Xem chi tiết</span>
+                  <span className="text-[#1435C5]">Xem chi tiết</span>
                 </li>
                 <li>Cam kết hàng chính hãng 100% </li>
                 <li>Đổi trả trong vòng 10 ngày</li>
                 <li>
                   Miễn phí giao hàng cho đơn hàng từ 5 triệu{" "}
-                  <span className="text-[#B562A3]">Xem chi tiết</span>
+                  <span className="text-[#1435C5]">Xem chi tiết</span>
                 </li>
                 <li>
                   Gói dịch vụ bảo hành/ Sửa chữa tận nơi{" "}
-                  <span className="text-[#B562A3]">Xem chi tiết</span>
+                  <span className="text-[#1435C5]">Xem chi tiết</span>
                 </li>
               </ul>
             </div>

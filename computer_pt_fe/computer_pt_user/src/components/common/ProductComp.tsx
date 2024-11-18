@@ -64,7 +64,7 @@ function ProductComp({ product }: ProductCompProps) {
           {product?.attributes?.name}
         </p>
         <div className="flex flex-col gap-[0.1rem]">
-          <p className="text-[1.6rem] font-bold text-[#B562A3]">
+          <p className="text-[1.6rem] font-bold text-[#1435C5]">
             {promotionPrice > 0 && promotionPrice !== price
               ? formatMoney(promotionPrice)
               : formatMoney(price)}
@@ -74,7 +74,7 @@ function ProductComp({ product }: ProductCompProps) {
               <p className="text-[1.4rem] text-[#ccc] line-through">
                 {formatMoney(price)}
               </p>
-              <span className="text-[1.4rem] text-[#B562A3]">
+              <span className="text-[1.4rem] text-[#1435C5]">
                 -{decreseaPercent}%
               </span>
             </div>
@@ -82,7 +82,7 @@ function ProductComp({ product }: ProductCompProps) {
         </div>
       </div>
       <Button
-        className="mt-auto w-full h-[4.2rem] text-[#B562A3] border-[#B562A3] rounded-[0.4rem]"
+        className="mt-auto w-full h-[4.2rem] text-[#1435C5] border-[#1435C5] rounded-[0.4rem]"
         onClick={() => handleAddToCart({ product })}
       >
         Thêm vào giỏ hàng

@@ -39,8 +39,8 @@ function CategoriesComponent() {
             >
               {item?.attributes?.level === variables?.LEVEL_1 && (
                 <span
-                  className={`text-[1.6rem] font-medium hover:text-[#B562A3] duration-300 ${
-                    selectedCategories?.id === item?.id ? "text-[#B562A3]" : ""
+                  className={`text-[1.6rem] font-medium hover:text-[#1435C5] duration-300 ${
+                    selectedCategories?.id === item?.id ? "text-[#1435C5]" : ""
                   }`}
                   onClick={() => setSelectedCategories(item)}
                 >
@@ -60,7 +60,7 @@ function CategoriesComponent() {
                   item?.attributes?.chid?.data?.map((item3, index3) => (
                     <span
                       key={index3}
-                      className="text-[1.2rem] hover:text-[#B562A3] duration-300 cursor-pointer"
+                      className="text-[1.2rem] hover:text-[#1435C5] duration-300 cursor-pointer"
                       onClick={() =>
                         navigate(
                           `${paths.CATEGORIES}/${item3?.attributes?.slug}`

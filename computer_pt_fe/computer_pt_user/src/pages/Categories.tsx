@@ -105,7 +105,7 @@ function Categories() {
                       <li
                         className={`text-[1.6rem] bg-[#F8F8F8] rounded-[0.4rem] border p-[0.5rem_1rem] text-nowrap cursor-pointer ${
                           id1 === item?.id
-                            ? "bg-[#F8F8F8] text-[#B562A3] border-[#B562A3]"
+                            ? "bg-[#F8F8F8] text-[#1435C5] border-[#1435C5]"
                             : "bg-[#F8F8F8]"
                         }`}
                         key={index}
@@ -127,7 +127,7 @@ function Categories() {
                       <li
                         className={`text-[1.6rem] bg-[#F8F8F8] rounded-[0.4rem] border p-[0.5rem_1rem] text-nowrap cursor-pointer ${
                           id2 === item?.id
-                            ? "bg-[#F8F8F8] text-[#B562A3] border-[#B562A3]"
+                            ? "bg-[#F8F8F8] text-[#1435C5] border-[#1435C5]"
                             : "bg-[#F8F8F8]"
                         }`}
                         key={index}
@@ -153,7 +153,7 @@ function Categories() {
                 </p>
               )}
               <Button
-                className="w-[200px] bg-[#B562A3]"
+                className="w-[200px] bg-[#1435C5]"
                 type="primary"
                 onClick={() => {
                   setID1(null);

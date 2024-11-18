@@ -25,7 +25,7 @@ function Information() {
         <h3 className="text-[2rem] font-semibold text-center">
           Thông tin địa chỉ
         </h3>
-        <div className="flex flex-col gap-[0.8rem] border border-[#B562A3] rounded-[0.8rem] p-[1rem]">
+        <div className="flex flex-col gap-[0.8rem] border border-[#1435C5] rounded-[0.8rem] p-[1rem]">
           <h3 className="text-[1.6rem] font-bold">{profile?.fullname}</h3>
           <h3 className="text-[1.4rem]">Email: {profile?.email}</h3>
           <h3 className="text-[1.4rem]">Số điện thoại: {profile?.phone}</h3>
@@ -33,7 +33,7 @@ function Information() {
         </div>
         <div className="flex justify-end">
           <Button
-            className="border-[#B562A3] text-[#B562A3] w-[20rem] h-[4rem]"
+            className="border-[#1435C5] text-[#1435C5] w-[20rem] h-[4rem]"
             onClick={showModal}
           >
             Chỉnh sửa

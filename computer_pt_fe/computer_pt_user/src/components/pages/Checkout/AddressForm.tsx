@@ -35,7 +35,7 @@ function AddressFrom() {
         <h2 className="text-[1.8rem] font-bold m-0">Thông tin nhận hàng</h2>
         <div className="grid grid-cols-2 items-center gap-[1.2rem]">
           <button
-            className="min-h-[8rem] border-[#B562A3] border-[0.1rem] rounded-[0.4rem] flex flex-col gap-[0.2rem] p-[1rem]"
+            className="min-h-[8rem] border-[#1435C5] border-[0.1rem] rounded-[0.4rem] flex flex-col gap-[0.2rem] p-[1rem]"
             onClick={showModal}
           >
             <h3 className="text-[1.6rem] font-bold">{profile?.fullname}</h3>
@@ -66,7 +66,7 @@ function AddressFrom() {
           {methods?.map((item, index) => (
             <button
               className={`flex gap-[1.2rem] h-[8rem] border-[0.1rem] rounded-[0.4rem] p-[1rem]  ${
-                selectedMethod === index ? "border-[#B562A3]" : "border-[#ccc]"
+                selectedMethod === index ? "border-[#1435C5]" : "border-[#ccc]"
               }`}
               key={index}
               onClick={() => setSelectedMethod(index)}
@@ -81,7 +81,6 @@ function AddressFrom() {
           ))}
         </div>
       </div>
-      <form className=""></form>
       <ModalAdress
         open={isModalOpen}
         handleCancel={handleCancel}

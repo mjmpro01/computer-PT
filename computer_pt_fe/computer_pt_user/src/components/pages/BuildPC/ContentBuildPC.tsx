@@ -51,13 +51,13 @@ function ContentBuildPC() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[1rem]">
           <Button
-            className="h-[4rem] bg-[#B562A3] text-white"
+            className="h-[4rem] bg-[#1435C5] text-white"
             onClick={() => window.location.reload()}
           >
             Làm mới
           </Button>
           <Button
-            className="h-[4rem] bg-[#B562A3] text-white"
+            className="h-[4rem] bg-[#1435C5] text-white"
             onClick={handleAddBuildToCart} // Use handler to add build to cart and clear storage
           >
             Thêm cấu hình vào giỏ hàng

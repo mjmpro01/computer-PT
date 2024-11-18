@@ -90,16 +90,16 @@ function Profile() {
                       icon={item.icons}
                       className={`text-[2rem] ${
                         activeTab === `${paths.PROFILE}/${item.path}`
-                          ? "text-[#B562A3]"
+                          ? "text-[#1435C5]"
                           : "text-[rgba(156,156,156,0.87)]"
-                      } group-hover:text-[#B562A3] duration-300`}
+                      } group-hover:text-[#1435C5] duration-300`}
                     />
                     <span
                       className={`text-[1.4rem] ${
                         activeTab === `${paths.PROFILE}/${item.path}`
-                          ? "text-[#B562A3]"
+                          ? "text-[#1435C5]"
                           : "text-[rgba(156,156,156,0.87)]"
-                      } group-hover:text-[#B562A3] duration-300`}
+                      } group-hover:text-[#1435C5] duration-300`}
                     >
                       {item.title}
                     </span>

@@ -47,7 +47,7 @@ function Login() {
           <div className="w-[6rem] md:w-[8rem]">
             <img src={images.logo} className="w-full h-full object-cover" />
           </div>
-          <span className="text-[24px] md:text-[32px] font-bold text-[#B562A3]">
+          <span className="text-[24px] md:text-[32px] font-bold text-[#1435C5]">
             Computer P&T
           </span>
         </div>
@@ -75,7 +75,7 @@ function Login() {
             />
             <Button
               type="primary"
-              className="h-[40px] bg-[#B562A3] hover:!bg-[#B562A3] w-full"
+              className="h-[40px] bg-[#1435C5] hover:!bg-[#1435C5] w-full"
               htmlType="submit"
             >
               <p className="text-[16px] font-medium leading-normal">

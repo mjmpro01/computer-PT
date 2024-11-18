@@ -209,14 +209,14 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
 
           <div className="flex items-center justify-end gap-[1.2rem] mt-[2.4rem]">
             <Button
-              className="h-[4rem] border-[#B562A3] text-[#B562A3]"
+              className="h-[4rem] border-[#1435C5] text-[#1435C5]"
               htmlType="button"
               onClick={handleCancel}
             >
               Hủy bỏ
             </Button>
             <Button
-              className="h-[4rem] bg-[#B562A3]"
+              className="h-[4rem] bg-[#1435C5]"
               type="primary"
               htmlType="submit"
             >
