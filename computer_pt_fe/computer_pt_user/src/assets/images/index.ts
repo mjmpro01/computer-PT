@@ -20,7 +20,11 @@ import banner4 from "./banner-4.jpg";
 import messenger from "./facebook_messenger.png";
 import zalo from "./zalo.png";
 import user from "./user.png";
+import notFound from "./404.avif";
+import success from "./success.png";
 const images = {
+  success,
+  notFound,
   user,
   messenger,
   zalo,

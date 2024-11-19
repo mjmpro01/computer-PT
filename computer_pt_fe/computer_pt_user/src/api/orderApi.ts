@@ -30,6 +30,18 @@ const orderApi = {
       throw error;
     }
   },
+  async getById(id: number) {
+    try {
+      const res = await axiosClient.get<BaseResponse<BaseData<OrderType>>>(
+        `${urls.ORDERS}/${id}?populate=*`
+      );
+
+      return res?.data;
+    } catch (error) {
+      console.error("Order error:", error);
+      throw error;
+    }
+  },
 };
 
 export default orderApi;

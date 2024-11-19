@@ -6,11 +6,12 @@ import { getUserProfile } from "@/utils/functions/getUser";
 
 interface AddressFromProps {
   setUpdate: () => void;
+  setPayment: (index: number) => void;
+  payment: number;
 }
 function AddressFrom(props: AddressFromProps) {
-  const { setUpdate } = props;
+  const { setUpdate, setPayment, payment } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMethod, setSelectedMethod] = useState<number>(0);
   const profile = getUserProfile();
 
   const showModal = () => {
@@ -74,10 +75,10 @@ function AddressFrom(props: AddressFromProps) {
           {methods?.map((item, index) => (
             <button
               className={`flex gap-[1.2rem] h-[8rem] border-[0.1rem] rounded-[0.4rem] p-[1rem]  ${
-                selectedMethod === index ? "border-[#1435C5]" : "border-[#ccc]"
+                payment === index ? "border-[#1435C5]" : "border-[#ccc]"
               }`}
               key={index}
-              onClick={() => setSelectedMethod(index)}
+              onClick={() => setPayment(index)}
             >
               <div className="flex flex-col items-start">
                 <p className="text-[1.6rem] font-bold">{item?.title}</p>

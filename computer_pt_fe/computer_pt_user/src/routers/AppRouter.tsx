@@ -13,6 +13,8 @@ import Categories from "@/pages/Categories";
 import Profile from "@/pages/Profile";
 import Blogs from "@/pages/Blogs";
 import BlogDetails from "@/pages/BlogDetails";
+import OrderSuccess from "@/pages/OrderSuccess";
+import OrderFail from "@/pages/OrderFail";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: `${paths.PROFILE}/:slug`,
         element: <Profile />,
+      },
+      {
+        path: `${paths.ORDER_SUCCESS}/:id`,
+        element: <OrderSuccess />,
+      },
+      {
+        path: `${paths.ORDER_FAIL}/:id`,
+        element: <OrderFail />,
       },
     ],
   },

@@ -12,6 +12,8 @@ const paths = {
   ADDRESS: "address",
   ORDERS: "orders",
   BLOGS: "blogs",
+  ORDER_SUCCESS: "order-success",
+  ORDER_FAIL: "order-fail",
 };
 
 export default paths;

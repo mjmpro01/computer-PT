@@ -18,5 +18,6 @@ const urls = {
   CATEGORY_SELECTION: "category-selection",
   FEEDBACKS: "feedbacks",
   ME: "me",
+  PAYMENT_CRATE: "create_payment_url",
 };
 export default urls;
