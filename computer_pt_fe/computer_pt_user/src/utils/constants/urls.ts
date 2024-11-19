@@ -17,5 +17,6 @@ const urls = {
   CATEGORY_SELECTIONS: "category-selections",
   CATEGORY_SELECTION: "category-selection",
   FEEDBACKS: "feedbacks",
+  ME: "me",
 };
 export default urls;

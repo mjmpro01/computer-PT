@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import feedbackApi from "@/api/feedbackApi";
 import TextAreaComponent from "@/components/common/TextArea";
+import { useFeedbackStore } from "@/stores/useFeedbackStore";
 import { BaseData } from "@/types/base/baseData";
 import baseUrl from "@/types/base/baseUrl";
 import { OrderDetailType } from "@/types/reponse/order";
+import variables from "@/utils/constants/variables";
 import { getUserProfile } from "@/utils/functions/getUser";
 import { Button, Image, Modal } from "antd";
 import { useState } from "react";
@@ -15,6 +16,7 @@ interface FeedbackModalProps {
   handleOk: () => void;
   handleCancel: () => void;
   products: BaseData<OrderDetailType>[];
+  orderId: number;
 }
 interface FeedbackRequestProps {
   rating: string;
@@ -25,15 +27,12 @@ function FeedbackModal({
   handleCancel,
   handleOk,
   products,
+  orderId,
 }: FeedbackModalProps) {
   const [rating, setRating] = useState<number>(0);
+  const { addFeedbackId } = useFeedbackStore();
   const profile = getUserProfile();
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FeedbackRequestProps>();
+  const { control, handleSubmit, reset } = useForm<FeedbackRequestProps>();
   const onSubmit: SubmitHandler<FeedbackRequestProps> = async (data) => {
     const productIds = products?.map(
       (item) => item?.attributes?.product?.data?.id
@@ -43,6 +42,10 @@ function FeedbackModal({
       toast.error("Không có sản phẩm nào để đánh giá");
       return;
     }
+
+    const existingOrderIds: string[] = JSON.parse(
+      localStorage.getItem(variables.FEEDBACKS) || "[]"
+    );
 
     const feedbackPromises = productIds.map((productId) => {
       const newData = {
@@ -57,9 +60,20 @@ function FeedbackModal({
       return feedbackApi
         .create(newData)
         .then(() => {
-          toast.success(`Đánh giá sản phẩm ${productId} thành công`);
+          toast.success(`Đánh giá sản phẩm thành công`);
           reset();
           handleOk();
+
+          if (orderId) {
+            if (!existingOrderIds.includes(orderId.toString())) {
+              addFeedbackId(orderId.toString());
+              existingOrderIds.push(orderId.toString());
+              localStorage.setItem(
+                variables.FEEDBACKS,
+                JSON.stringify(existingOrderIds)
+              );
+            }
+          }
         })
         .catch(() => {
           toast.error(`Đánh giá sản phẩm ${productId} thất bại`);
@@ -68,7 +82,6 @@ function FeedbackModal({
 
     try {
       await Promise.all(feedbackPromises);
-      toast.success("Tất cả đánh giá đã hoàn tất");
     } catch (error) {
       toast.error("Có lỗi xảy ra trong quá trình đánh giá");
       console.log(error);

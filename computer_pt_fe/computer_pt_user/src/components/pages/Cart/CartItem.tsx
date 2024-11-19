@@ -58,10 +58,14 @@ const CartItemComponent: React.FC<CartItemProps> = ({
         </div>
       </div>
       <div className="flex flex-col gap-[0.2rem]">
-        <p className="text-[1.6rem] font-bold">{formatMoney(price)}</p>
+        <p className="text-[1.6rem] font-bold">
+          {promotionPrice < price && promotionPrice > 0
+            ? formatMoney(promotionPrice)
+            : formatMoney(price)}
+        </p>
         {promotionPrice > 0 && (
           <p className="text-[1.3rem] line-through text-[#82869e]">
-            {formatMoney(promotionPrice)}
+            {formatMoney(price)}
           </p>
         )}
       </div>

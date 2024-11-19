@@ -1,3 +1,4 @@
+import { useState } from "react";
 import icons from "@/assets/icons";
 import FeedbackModal from "@/components/pages/Profile/FeedbackModal";
 import { BaseData } from "@/types/base/baseData";
@@ -5,14 +6,13 @@ import baseUrl from "@/types/base/baseUrl";
 import { OrderType } from "@/types/reponse/order";
 import { formatMoney } from "@/utils/functions/formatMoney";
 import { Button, Image } from "antd";
-import { useState } from "react";
+import { useFeedbackStore } from "@/stores/useFeedbackStore";
 
 interface OrderItemProps {
   order: BaseData<OrderType>;
 }
 
 function OrderItem({ order }: OrderItemProps) {
-  console.log("order", order);
   const totalAmount = order?.attributes?.order_details?.data?.reduce(
     (total, product) =>
       total +
@@ -22,11 +22,18 @@ function OrderItem({ order }: OrderItemProps) {
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { feedbackIds, addFeedbackId } = useFeedbackStore();
+
+  const isReviewed = feedbackIds.includes(order?.id?.toString());
+
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
+    if (order?.id) {
+      addFeedbackId(order.id.toString());
+    }
     setIsModalOpen(false);
   };
 
@@ -107,20 +114,24 @@ function OrderItem({ order }: OrderItemProps) {
             </span>
           </div>
         </div>
-        <div className="flex justify-end mt-[2.4rem] pt-[1rem] border-t">
-          <Button
-            className="h-[4rem] border-[#1435C5] text-[#1435C5]"
-            onClick={showModal}
-          >
-            Đánh giá sản phẩm
-          </Button>
-        </div>
+        {order?.attributes?.status === "Giao hàng thành công" &&
+          !isReviewed && (
+            <div className="flex justify-end mt-[2.4rem] pt-[1rem] border-t">
+              <Button
+                className="h-[4rem] border-[#1435C5] text-[#1435C5]"
+                onClick={showModal}
+              >
+                Đánh giá sản phẩm
+              </Button>
+            </div>
+          )}
       </div>
       <FeedbackModal
         open={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
         products={order?.attributes?.order_details?.data || []}
+        orderId={order?.id}
       />
     </>
   );

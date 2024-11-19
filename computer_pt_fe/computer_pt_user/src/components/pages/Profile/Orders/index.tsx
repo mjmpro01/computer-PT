@@ -32,9 +32,9 @@ function Orders() {
     return (
       <div className="flex flex-col gap-[1.2rem]">
         {orders?.length > 0 &&
-          orders?.map((order, index) => (
-            <OrderItem order={order} key={index} />
-          ))}
+          [...orders]
+            .reverse()
+            .map((order, index) => <OrderItem order={order} key={index} />)}
       </div>
     );
   };
@@ -68,6 +68,11 @@ function Orders() {
     {
       key: "Giao hàng thành công",
       label: "Giao hàng thành công",
+      children: <ListOrder />,
+    },
+    {
+      key: "Hủy",
+      label: "Hủy",
       children: <ListOrder />,
     },
   ];

@@ -3,6 +3,7 @@ import urls from "@/utils/constants/urls";
 import axiosClient from "./axiosClient";
 import { LoginType, RegisterType } from "@/types/request/auth";
 import { LoginResponseType } from "@/types/reponse/auth";
+import { UserType } from "@/types/common/user";
 
 const authApi = {
   async register(payload: RegisterType) {
@@ -37,6 +38,16 @@ const authApi = {
         `${urls.USERS}/${id}`,
         payload
       );
+
+      return res?.data;
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
+  },
+  async getMe() {
+    try {
+      const res = await axiosClient.get<UserType>(`${urls.USERS}/${urls.ME}`);
 
       return res?.data;
     } catch (error) {

@@ -7,6 +7,7 @@ const variables = {
   LEVEL_1: "LEVEL_1",
   LEVEL_2: "LEVEL_2",
   LEVEL_3: "LEVEL_3",
+  FEEDBACKS: "feedback-order",
 };
 
 export default variables;

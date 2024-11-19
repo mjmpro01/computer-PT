@@ -1,11 +1,14 @@
+import authApi from "@/api/authApi";
 import orderApi from "@/api/orderApi";
 import AddressFrom from "@/components/pages/Checkout/AddressForm";
 import CheckoutProductItem from "@/components/pages/Checkout/CheckoutProductItem";
 import useCartStore from "@/stores/useCartStore";
+import { UserType } from "@/types/common/user";
 import paths from "@/utils/constants/paths";
 import { formatMoney } from "@/utils/functions/formatMoney";
 import { getUserProfile } from "@/utils/functions/getUser";
 import { Button } from "antd";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -16,20 +19,35 @@ function Checkout() {
   const totalQuantity = getTotalQuantity();
   const SHIPPING_FEE = 30000;
   const profile = getUserProfile();
+  const [user, setUser] = useState<UserType>();
+  const [isUpdate, setIsUpdate] = useState<number>(0);
+  useEffect(() => {
+    const fetchMe = async () => {
+      await authApi
+        .getMe()
+        .then((res) => {
+          if (res) {
+            setUser(res);
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchMe();
+  }, [isUpdate]);
   const handleOrder = async () => {
     const newData = items?.map((item) => ({
       product_id: item?.id,
       quantity: item?.quantity,
     }));
     const data = {
-      customer_email: profile?.email,
-      customer_full_name: profile?.fullname,
-      customer_phone: profile?.phone,
-      shipping_address: profile?.address,
+      customer_email: user?.email || profile?.email,
+      customer_full_name: user?.fullname || profile?.fullname,
+      customer_phone: user?.phone || profile?.phone,
+      shipping_address: user?.address || profile?.address,
       shipping_method: "Giao hàng qua đối tác",
       payment_method: "COD",
       items: newData,
-      user: profile?.id,
+      user: user?.id || profile?.id,
     };
     await orderApi
       .create({ data })
@@ -46,7 +64,7 @@ function Checkout() {
     <div className="flex flex-col items-center justify-center">
       <div className="px-[8rem] h-full w-full max-w-[1440px]">
         <div className="grid grid-cols-[70%_30%] mt-[2.4rem] gap-[0.8rem]">
-          <AddressFrom />
+          <AddressFrom setUpdate={() => setIsUpdate(isUpdate + 1)} />
           <div className="bg-white p-[1rem]">
             <div className="flex items-center justify-between">
               <h3 className="text-[1.6rem] font-bold">Thông tin đơn hàng</h3>

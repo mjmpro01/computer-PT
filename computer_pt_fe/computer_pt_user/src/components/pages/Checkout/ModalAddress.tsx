@@ -48,7 +48,6 @@ function ModalAdress({ open, handleOk, handleCancel }: ModalAdressProps) {
         .then((res) => {
           if (res) {
             localStorage.setItem("profile", JSON.stringify(res));
-
             toast.success("Cập nhật địa chỉ thành công");
             handleOk();
           }

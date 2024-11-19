@@ -16,7 +16,7 @@ export default function RootLayout() {
         <HeaderComponent />
 
         {/* Nội dung chính */}
-        <div className="flex-grow pt-[7rem]">
+        <div className="flex-grow pt-[7rem] min-h-screen">
           <Outlet />
         </div>
 

@@ -4,16 +4,22 @@ import ModalAdress from "./ModalAddress";
 import { Radio } from "antd";
 import { getUserProfile } from "@/utils/functions/getUser";
 
-function AddressFrom() {
+interface AddressFromProps {
+  setUpdate: () => void;
+}
+function AddressFrom(props: AddressFromProps) {
+  const { setUpdate } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<number>(0);
   const profile = getUserProfile();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
+    setUpdate();
   };
 
   const handleCancel = () => {
@@ -34,14 +40,16 @@ function AddressFrom() {
       <div className="flex flex-col gap-[0.8rem]">
         <h2 className="text-[1.8rem] font-bold m-0">Thông tin nhận hàng</h2>
         <div className="grid grid-cols-2 items-center gap-[1.2rem]">
-          <button
-            className="min-h-[8rem] border-[#1435C5] border-[0.1rem] rounded-[0.4rem] flex flex-col gap-[0.2rem] p-[1rem]"
-            onClick={showModal}
-          >
-            <h3 className="text-[1.6rem] font-bold">{profile?.fullname}</h3>
-            <p className="text-[1.4rem] m-0">{profile?.phone}</p>
-            <p className="text-[1.4rem] m-0">{profile?.address}</p>
-          </button>
+          {profile?.address && (
+            <button
+              className="min-h-[8rem] border-[#1435C5] border-[0.1rem] rounded-[0.4rem] flex flex-col gap-[0.2rem] p-[1rem]"
+              onClick={showModal}
+            >
+              <h3 className="text-[1.6rem] font-bold">{profile?.fullname}</h3>
+              <p className="text-[1.4rem] m-0">{profile?.phone}</p>
+              <p className="text-[1.4rem] m-0">{profile?.address}</p>
+            </button>
+          )}
           {!profile?.address && (
             <button
               className="min-h-[11.46rem] border-[#ccc] border-[0.1rem] rounded-[0.4rem] flex items-center justify-center gap-[0.8rem]"

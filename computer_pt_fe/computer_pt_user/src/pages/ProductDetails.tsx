@@ -190,7 +190,7 @@ function ProductDetails() {
         <div className="mt-[2.4rem] bg-white p-[2rem] flex gap-[1.2rem]">
           <div className="flex-1">
             <h3 className="text-[2.4rem] font-bold mb-[2.4rem]">
-              Feedbacks (0)
+              Feedbacks ({feedback?.length || 0})
             </h3>
             <div className="flex flex-col gap-[1.2rem]">
               {feedback && feedback?.length > 0 ? (
