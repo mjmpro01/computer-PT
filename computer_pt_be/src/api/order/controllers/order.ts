@@ -68,6 +68,7 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
 
   async createPaymentUrl(ctx) {
     try {
+      console.log("hello world");
       process.env.TZ = "Asia/Ho_Chi_Minh";
 
       let date = new Date();
@@ -95,6 +96,7 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
           order_code: orderId,
         },
       });
+
       if (!order) {
         throw new ValidationError(
           `order code is not valid with id: ${orderId}`
