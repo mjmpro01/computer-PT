@@ -19,8 +19,8 @@ const orderApi = {
   async getAll(id: number, status: string) {
     try {
       const res = await axiosClient.get<BaseResponse<BaseData<OrderType>[]>>(
-        `${urls.ORDERS}/?filters[user]=${id}&populate=deep,4${
-          status === "all" ? "" : `&filters[status]=${status}&sort=id:DESC`
+        `${urls.ORDERS}?filters[user]=${id}&populate=deep,4&sort=id:ASC${
+          status === "all" ? "" : `&filters[status]=${status}`
         }`
       );
 
