@@ -1,35 +1,45 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Modal, Table } from "antd";
 import { useState } from "react";
-import { BlogCategoryType } from "../../types/commom/blog";
-import { blogCategoriesAPi } from "../../apis/axios/blogCategoriesApi";
-import { toast } from "sonner";
+import { Button, Image, Modal, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { BaseData } from "../../types/base/baseData";
 import { useFetchBlog } from "../../apis/swr/useFetchBlog";
-import BlogForm from "../../components/Form/BlogForm";
 import { useFetchBlogCategories } from "../../apis/swr/useFetchBlogCategories";
+import BlogForm from "../../components/Form/BlogForm";
 import { blogApi } from "../../apis/axios/blogApi";
+import { toast } from "sonner";
+import { BaseData } from "../../types/base/baseData";
+import { BlogType } from "../../types/commom/blog";
+import baseUrl from "../../types/base/baseUrl";
 
 function Blog() {
   const { data: dataBlog, mutate } = useFetchBlog();
   const { data: dataCate } = useFetchBlogCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editData, setEditData] = useState<BaseData<BlogType> | null>(null);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    mutate();
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
+    setEditData(null); // Clear edit data on close
   };
+
+  const handleEdit = (record: BaseData<BlogType>) => {
+    setEditData(record); // Set the data to be edited
+    showModal();
+  };
+
+  const handleDelete = async (record: BaseData<BlogType>) => {
+    await blogApi
+      .delete(record.id)
+      .then(() => {
+        toast.success("Xóa thành công");
+        mutate();
+      })
+      .catch(() => toast.error("Xóa thất bại"));
+  };
+
   const columns = [
     {
       title: "Id",
@@ -39,18 +49,38 @@ function Blog() {
     {
       title: "Tiêu đề bài viết",
       dataIndex: ["attributes", "title"],
-      key: "name",
+      key: "title",
     },
     {
-      title: "Tiêu đề bài viết",
-      dataIndex: ["attributes", "title"],
-      key: "name",
+      title: "Ảnh bài viết",
+      key: "avatar",
+      render: (record: BaseData<BlogType>) => {
+        const imageUrl = `${baseUrl}${record.attributes.avatar.data.attributes.url}`;
+        return (
+          <Image
+            src={imageUrl}
+            alt="Avatar"
+            style={{
+              width: "50px",
+              height: "50px",
+              objectFit: "cover",
+              borderRadius: "4px",
+            }}
+          />
+        );
+      },
     },
-
+    {
+      title: "Danh mục",
+      key: "category",
+      render: (record: BaseData<BlogType>) => (
+        <p>{record.attributes.blog_category?.data?.attributes?.name || ""}</p>
+      ),
+    },
     {
       title: "Hành động",
       key: "actions",
-      render: (_: any, record: BaseData<BlogCategoryType>) => (
+      render: (_: any, record: BaseData<BlogType>) => (
         <div className="flex gap-[8px]">
           <button
             className="text-blue-500 hover:underline flex items-center gap-[4px]"
@@ -71,52 +101,37 @@ function Blog() {
     },
   ];
 
-  const handleEdit = (record: BaseData<BlogCategoryType>) => {
-    showModal();
-  };
-
-  const handleDelete = async (record: BaseData<BlogCategoryType>) => {
-    await blogApi
-      .delete(record?.id)
-      .then(() => {
-        toast.success("Xóa thành công");
-        mutate();
-      })
-      .catch(() => toast.error("Xóa thất bại"));
-  };
-
   return (
-    <>
-      <div className="p-[10px]">
-        <h2 className="text-[20px] font-bold">Danh sách bài viết</h2>
-        <div className="flex justify-between">
-          <div></div>
-          <Button
-            className="w-[200px] h-[30px]"
-            type="primary"
-            onClick={showModal}
-          >
-            Thêm danh mục
-          </Button>
-        </div>
-        <Table dataSource={dataBlog?.data} columns={columns} />
+    <div className="p-[10px]">
+      <h2 className="text-[20px] font-bold">Danh sách bài viết</h2>
+      <div className="flex justify-between">
+        <div></div>
+        <Button
+          className="w-[200px] h-[30px]"
+          type="primary"
+          onClick={showModal}
+        >
+          Thêm bài viết
+        </Button>
       </div>
+      <Table dataSource={dataBlog?.data} columns={columns} rowKey="id" />
       <Modal
-        title="Danh mục bài viết"
+        title={editData ? "Chỉnh sửa bài viết" : "Thêm bài viết"}
         open={isModalOpen}
-        onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
         centered
+        width={900}
       >
         <BlogForm
           onMutate={mutate}
           categories={dataCate?.data || []}
-          category={null}
-          isEdit={false}
+          category={editData?.attributes?.blog_category || null}
+          isEdit={!!editData}
+          editData={editData}
         />
       </Modal>
-    </>
+    </div>
   );
 }
 

@@ -155,7 +155,7 @@ function Sidebar() {
                 <li key={group || "default"}>
                   {group && (
                     <button
-                      className="whitespace-nowrap p-[10px] flex items-center gap-[10px] font-bold w-full hover:bg-[#f9e0f2] duration-300"
+                      className="whitespace-nowrap p-[10px] flex items-center gap-[10px] font-bold w-full duration-300"
                       onClick={() => toggleGroup(group)}
                     >
                       <p>{group}</p>
@@ -180,15 +180,15 @@ function Sidebar() {
                             <button
                               className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${
                                 selectedSideBar === sidebar.path
-                                  ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold bg-[#f9e0f2]"
+                                  ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold"
                                   : "font-normal"
-                              } w-full hover:bg-[#f9e0f2] duration-300`}
+                              } w-full duration-300`}
                               onClick={() => {
                                 setSelectedSideBar(sidebar.path);
                                 navigate(sidebar.path);
                               }}
                             >
-                              <img
+                              {/* <img
                                 src={
                                   selectedSideBar === sidebar.path
                                     ? sidebar.activeIcon
@@ -196,7 +196,7 @@ function Sidebar() {
                                 }
                                 alt="icon-sidebar"
                                 className="w-[20px] h-[20px]"
-                              />
+                              /> */}
                               {!colspan && (
                                 <p className="px-[10px] text-[16px]">
                                   {sidebar.title}

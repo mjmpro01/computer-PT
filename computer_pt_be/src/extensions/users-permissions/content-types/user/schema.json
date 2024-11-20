@@ -73,6 +73,10 @@
     },
     "fullname": {
       "type": "string"
+    },
+    "is_admin": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

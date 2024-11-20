@@ -15,7 +15,10 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-const UploadCustom: React.FC = () => {
+interface UploadCustomProps {
+  setId: (id: number) => void;
+}
+const UploadCustom = ({ setId }: UploadCustomProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -37,8 +40,8 @@ const UploadCustom: React.FC = () => {
     try {
       const id = await uploadApi.upload(file); // Gọi API upload file và nhận `id`
       message.success(`Upload thành công! ID: ${id}`);
-
       // Cập nhật fileList với `id`
+      setId(id?.[0]?.id);
       setFileList((prevList) =>
         prevList.map((item) =>
           item.uid === file.uid

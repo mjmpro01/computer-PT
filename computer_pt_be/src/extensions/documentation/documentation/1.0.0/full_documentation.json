@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-11-19T08:36:29.036Z"
+    "x-generation-date": "2024-11-20T07:56:12.300Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5891,6 +5891,9 @@
                       "fullname": {
                         "type": "string"
                       },
+                      "is_admin": {
+                        "type": "boolean"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -6570,6 +6573,9 @@
                       },
                       "fullname": {
                         "type": "string"
+                      },
+                      "is_admin": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",
@@ -9151,6 +9157,9 @@
                                   "fullname": {
                                     "type": "string"
                                   },
+                                  "is_admin": {
+                                    "type": "boolean"
+                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -10364,6 +10373,9 @@
                       },
                       "fullname": {
                         "type": "string"
+                      },
+                      "is_admin": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",
@@ -12799,6 +12811,9 @@
                                   },
                                   "fullname": {
                                     "type": "string"
+                                  },
+                                  "is_admin": {
+                                    "type": "boolean"
                                   },
                                   "createdAt": {
                                     "type": "string",
@@ -16277,6 +16292,9 @@
                       },
                       "fullname": {
                         "type": "string"
+                      },
+                      "is_admin": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",

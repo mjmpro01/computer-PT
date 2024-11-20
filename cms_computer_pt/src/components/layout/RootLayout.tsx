@@ -19,7 +19,7 @@ const RootLayout = () => {
             />
           </button>
         )} */}
-        <div className="flex-1">
+        <div className="flex-1 bg-[#F8F8FC]">
           <div className="h-[100vh] overflow-y-auto relative">
             <Outlet />
           </div>
