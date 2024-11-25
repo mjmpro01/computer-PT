@@ -13,7 +13,7 @@ import { ProductSeletionsType } from "../../types/commom/productSeletions";
 
 interface ProductSelectionFormProps {
   handleOk: () => void;
-  productSelection: BaseData<ProductSeletionsType>;
+  productSelection?: BaseData<ProductSeletionsType>;
 }
 function ProductSelectionForm({
   handleOk,
@@ -30,14 +30,15 @@ function ProductSelectionForm({
   } = useForm<ProductSeletionRequestType>();
 
   useEffect(() => {
-    setValue("name", productSelection?.attributes?.name);
+    setValue("name", productSelection?.attributes?.name || "");
     setValue(
       "is_price_range",
       productSelection?.attributes?.is_price_range ? "true" : "false"
     );
     setValue(
       "products",
-      productSelection?.attributes?.products?.data?.map((item) => item?.id)
+      productSelection?.attributes?.products?.data?.map((item) => item?.id) ||
+        []
     );
   }, [productSelection?.id]);
   const onSubmit: SubmitHandler<ProductSeletionRequestType> = async (data) => {
@@ -45,16 +46,29 @@ function ProductSelectionForm({
       ...data,
       is_price_range: data?.is_price_range === "true",
     };
-    await productSeletionsApi
-      .create(newData)
-      .then((res) => {
-        if (res) {
-          toast.success("Lưu thành công");
-          reset();
-          handleOk();
-        }
-      })
-      .catch(() => toast.error("Lưu thất bại"));
+    if (productSelection?.id) {
+      await productSeletionsApi
+        .update(newData, productSelection?.id)
+        .then((res) => {
+          if (res) {
+            toast.success("Lưu thành công");
+            reset();
+            handleOk();
+          }
+        })
+        .catch(() => toast.error("Lưu thất bại"));
+    } else {
+      await productSeletionsApi
+        .create(newData)
+        .then((res) => {
+          if (res) {
+            toast.success("Lưu thành công");
+            reset();
+            handleOk();
+          }
+        })
+        .catch(() => toast.error("Lưu thất bại"));
+    }
   };
 
   const handlePopUpScroll = (e: React.UIEvent<HTMLDivElement>) => {

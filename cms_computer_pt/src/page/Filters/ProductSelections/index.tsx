@@ -2,20 +2,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Modal, Table, Tag } from "antd";
 
-import { formatDate } from "../../utils/functions/formatDate";
-import { useFetchProductSelection } from "../../apis/swr/useFetchProductSelection";
-import { BaseData } from "../../types/base/baseData";
-import { ProductType } from "../../types/commom/product";
-import { ProductSeletionsType } from "../../types/commom/productSeletions";
+import { formatDate } from "../../../utils/functions/formatDate";
+import { useFetchProductSelection } from "../../../apis/swr/useFetchProductSelection";
+import { BaseData } from "../../../types/base/baseData";
+import { ProductType } from "../../../types/commom/product";
+import { ProductSeletionsType } from "../../../types/commom/productSeletions";
 import { useMemo, useState } from "react";
 import {
   filterDataByNestedField,
   NestedFieldPath,
-} from "../../utils/functions/filterBaseData";
-import SearchCustom from "../../components/common/SearchCustom";
-import ProductSelectionForm from "../../components/Form/ProductSelectionsFrom";
+} from "../../../utils/functions/filterBaseData";
+import SearchCustom from "../../../components/common/SearchCustom";
+import ProductSelectionForm from "../../../components/Form/ProductSelectionsFrom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { productSeletionsApi } from "../../apis/axios/productSeletionsApi";
+import { productSeletionsApi } from "../../../apis/axios/productSeletionsApi";
 import { toast } from "sonner";
 
 function ProductSelection() {
@@ -156,12 +156,7 @@ function ProductSelection() {
         footer={null}
         centered
       >
-        {editData && (
-          <ProductSelectionForm
-            handleOk={handleOk}
-            productSelection={editData}
-          />
-        )}
+        <ProductSelectionForm handleOk={handleOk} productSelection={editData} />
       </Modal>
     </>
   );

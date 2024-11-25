@@ -10,6 +10,7 @@ const paths = {
   PRODUCT_SELECTIONS: "/product-selections",
   CHAT: "/chat",
   CUSTOMERS: "/customers",
+  FILTERS: "filters",
 };
 
 export default paths;

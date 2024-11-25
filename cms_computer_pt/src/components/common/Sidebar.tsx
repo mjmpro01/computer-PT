@@ -95,7 +95,7 @@ function Sidebar() {
     {
       group: null,
       title: "Quản lý bộ lọc",
-      path: paths.PRODUCT_SELECTIONS,
+      path: paths.FILTERS,
       icons: icons.filter,
     },
     { group: null, title: "Bài viết", path: paths.BLOGS, icons: icons.book },
