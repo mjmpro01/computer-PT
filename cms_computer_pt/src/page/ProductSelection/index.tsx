@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Table, Tag } from "antd";
+import { Button, Modal, Table, Tag } from "antd";
 
 import { formatDate } from "../../utils/functions/formatDate";
 import { useFetchProductSelection } from "../../apis/swr/useFetchProductSelection";
@@ -12,11 +13,29 @@ import {
   NestedFieldPath,
 } from "../../utils/functions/filterBaseData";
 import SearchCustom from "../../components/common/SearchCustom";
+import ProductSelectionForm from "../../components/Form/ProductSelectionsFrom";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { productSeletionsApi } from "../../apis/axios/productSeletionsApi";
+import { toast } from "sonner";
 
 function ProductSelection() {
-  const { data } = useFetchProductSelection();
+  const { data, mutate } = useFetchProductSelection();
   const [query, setQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editData, setEditData] = useState<BaseData<ProductSeletionsType>>();
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    mutate();
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const filterFields: NestedFieldPath[] = ["name"];
 
   const filteredData = useMemo(() => {
@@ -72,13 +91,79 @@ function ProductSelection() {
         return <p>{day ? formatDate(day) : "N/A"}</p>;
       },
     },
+    {
+      title: "Hành động",
+      key: "actions",
+      render: (_: any, record: BaseData<ProductSeletionsType>) => (
+        <div className="flex gap-[8px]">
+          <button
+            className="text-blue-500 hover:underline flex items-center gap-[4px]"
+            onClick={() => handleEdit(record)}
+          >
+            <EditOutlined />
+            <p>Sửa</p>
+          </button>
+          <button
+            className="text-red-500 hover:underline flex items-center gap-[4px]"
+            onClick={() => handleDelete(record)}
+          >
+            <DeleteOutlined />
+            <p>Xóa</p>
+          </button>
+        </div>
+      ),
+    },
   ];
+  const handleDelete = async (record: BaseData<ProductSeletionsType>) => {
+    await productSeletionsApi
+      .delete(record.id)
+      .then(() => {
+        toast.success("Xóa thành công");
+        mutate();
+      })
+      .catch(() => toast.error("Xóa thất bại"));
+  };
+  const handleEdit = (record: BaseData<ProductSeletionsType>) => {
+    setEditData(record);
+    showModal();
+  };
   return (
-    <div className="p-[10px] flex flex-col gap-[24px]">
-      <h2 className="text-[20px] font-bold">Danh sách danh mục</h2>
-      <SearchCustom setValue={setQuery} value={query} className="w-[300px]" />
-      <Table dataSource={filteredData} columns={columns} />
-    </div>
+    <>
+      <div className="p-[10px] flex flex-col gap-[24px]">
+        <h2 className="text-[20px] font-bold">
+          Danh sách danh mục sản phẩm được chọn
+        </h2>
+        <div className="flex items-center justify-between">
+          <SearchCustom
+            setValue={setQuery}
+            value={query}
+            className="w-[300px]"
+          />
+          <Button
+            className="w-[200px] h-[30px]"
+            type="primary"
+            onClick={showModal}
+          >
+            Thêm danh mục
+          </Button>
+        </div>
+        <Table dataSource={filteredData} columns={columns} />
+      </div>
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        centered
+      >
+        {editData && (
+          <ProductSelectionForm
+            handleOk={handleOk}
+            productSelection={editData}
+          />
+        )}
+      </Modal>
+    </>
   );
 }
 

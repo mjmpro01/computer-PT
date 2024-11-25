@@ -11,10 +11,11 @@ export const useFetchProducts = () => {
     `${urls.PRODUCTS}?populate=*`,
     fetcher
   );
-
+  const pagination = data?.meta?.pagination;
   return {
     data,
     error,
     mutate,
+    pagination,
   };
 };
