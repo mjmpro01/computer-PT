@@ -8,5 +8,9 @@ const urls = {
   BLOG_CATEGORIES: "blog-categories",
   BLOGS: "blogs",
   UPLOAD: "upload",
+  FEEDBACKS: "feedbacks",
+  ORDERS: "orders",
+  USERS: "users",
+  PRODUCT_SELETIONS: "product-seletions",
 };
 export default urls;

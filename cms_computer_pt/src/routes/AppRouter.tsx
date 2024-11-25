@@ -14,6 +14,11 @@ import Products from "../page/Products";
 import Categories from "../page/Categories";
 import Blog from "../page/Blog";
 import BlogCategories from "../page/BlogCategories";
+import Feedbacks from "../page/Feedback";
+import Orders from "../page/Order";
+import ProductSelection from "../page/ProductSelection";
+import Chat from "../page/Chat";
+import Customers from "../page/Customers";
 
 <Navigate to={paths.LOGIN} />;
 
@@ -60,6 +65,26 @@ const router = createBrowserRouter([
           {
             path: paths.BLOG_CATEGORY,
             element: <BlogCategories />,
+          },
+          {
+            path: paths.FEEDBACK,
+            element: <Feedbacks />,
+          },
+          {
+            path: paths.ORDERS,
+            element: <Orders />,
+          },
+          {
+            path: paths.PRODUCT_SELECTIONS,
+            element: <ProductSelection />,
+          },
+          {
+            path: paths.CHAT,
+            element: <Chat />,
+          },
+          {
+            path: paths.CUSTOMERS,
+            element: <Customers />,
           },
         ],
       },

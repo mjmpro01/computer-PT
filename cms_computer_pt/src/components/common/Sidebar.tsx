@@ -4,23 +4,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import paths from "../../utils/constants/paths";
-import icons from "../../assets/icons";
 import images from "../../assets/images";
 import variables from "../../utils/constants/variables";
 import { getUserProfile } from "../../utils/functions/getUser";
+import icons from "../../assets/icons";
 
 interface SidebarItemProps {
   title: string;
-  icon: string;
   path: string;
-  activeIcon: string;
   group?: string | null;
+  icons: string;
 }
-
-// interface SidebarProps {
-//   // colspan?: boolean;
-//   // setColSpan?: () => void;
-// }
 
 function Sidebar() {
   const colspan = false;
@@ -31,7 +25,7 @@ function Sidebar() {
   const [selectedSideBar, setSelectedSideBar] = useState<string>(currentPath);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // Quản lý trạng thái mở/đóng của các nhóm
+  // Manage open/close state of groups
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
 
   const handleLogOut = () => {
@@ -41,9 +35,9 @@ function Sidebar() {
     toast.success("Đăng xuất thành công");
   };
 
-  // Toggle trạng thái mở/đóng của nhóm
+  // Toggle group open/close state
   const toggleGroup = (group: string | null) => {
-    const key = group || "default"; // Sử dụng "default" cho null hoặc undefined
+    const key = group || "default";
     setOpenGroups((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -56,10 +50,9 @@ function Sidebar() {
         <ul className="flex flex-col gap-[10px] w-full">
           <li>
             <button
-              className="flex items-center gap-[10px] w-full hover:bg-[rgba(0,0,0,0.1)] duration-300 p-[5px] rounded-[10px]"
+              className="flex items-center gap-[10px] w-full hover:bg-gray-100 duration-300 p-[5px] rounded-[10px]"
               onClick={handleLogOut}
             >
-              <img src={icons.logOut} alt="log-out-icon" width={20} />
               <span>Đăng xuất</span>
             </button>
           </li>
@@ -68,43 +61,46 @@ function Sidebar() {
     );
   };
 
-  // Danh sách sidebar phẳng với nhóm
   const sidebars: SidebarItemProps[] = [
     {
-      group: "Quản lý bài viết",
-      title: "Bài viết",
-      path: paths.BLOGS,
-      icon: images.blog,
-      activeIcon: images.blog,
-    },
-    {
-      group: "Quản lý bài viết",
+      group: null,
       title: "Danh mục bài viết",
       path: paths.BLOG_CATEGORY,
-      icon: images.category,
-      activeIcon: images.category,
-    },
-    {
-      group: "Quản lý sản phẩm",
-      title: "Sản phẩm",
-      path: paths.PRODUCTS,
-      icon: images.computer,
-      activeIcon: images.computer,
-    },
-    {
-      group: "Quản lý sản phẩm",
-      title: "Danh mục sản phẩm",
-      path: paths.PRODUCT_CATEGORY,
-      icon: images.category,
-      activeIcon: images.category,
+      icons: icons.book,
     },
     {
       group: null,
-      title: "Trang chủ",
-      path: paths.HOME,
-      icon: images.home,
-      activeIcon: images.home,
+      title: "Danh mục sản phẩm",
+      path: paths.PRODUCT_CATEGORY,
+      icons: icons.grid,
     },
+    {
+      group: null,
+      title: "Quản lý feedbacks",
+      path: paths.FEEDBACK,
+      icons: icons.pen,
+    },
+    {
+      group: null,
+      title: "Quản lý đơn hàng",
+      path: paths.ORDERS,
+      icons: icons.clipBoard,
+    },
+    {
+      group: null,
+      title: "Quản lý khách hàng",
+      path: paths.CUSTOMERS,
+      icons: icons.user,
+    },
+    {
+      group: null,
+      title: "Quản lý bộ lọc",
+      path: paths.PRODUCT_SELECTIONS,
+      icons: icons.filter,
+    },
+    { group: null, title: "Bài viết", path: paths.BLOGS, icons: icons.book },
+    { group: null, title: "Sản phẩm", path: paths.PRODUCTS, icons: icons.cpu },
+    { group: null, title: "Chat", path: paths.CHAT, icons: icons.chat },
   ];
 
   return (
@@ -113,11 +109,11 @@ function Sidebar() {
         colspan
           ? "w-[70px] overflow-hidden duration-300"
           : "w-[270px] duration-300"
-      } rounded-tr-[10px] rounded-br-[10px] border-[#cccc] border`}
+      } bg-white rounded-tr-[10px] rounded-br-[10px] border border-gray-300 shadow-lg`}
     >
       <div className="w-full h-full flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between gap-[10px] p-[10px] border-b">
+          <div className="flex items-center justify-between gap-[10px] p-[10px] border-b bg-gray-50">
             <div className="flex items-center gap-[10px] whitespace-nowrap">
               <Image
                 src={images.logo}
@@ -127,50 +123,26 @@ function Sidebar() {
                 height={50}
                 className="rounded-[10px]"
               />
-              <div
-                className={`flex flex-col ${
-                  colspan ? "hidden" : "whitespace-nowrap block"
-                }`}
-              >
+              <div className={`flex flex-col ${colspan ? "hidden" : "block"}`}>
                 <h3 className="text-[18px] font-bold m-0 text-[#1435C5]">
                   Computer P&T
                 </h3>
               </div>
             </div>
-            {/* {!colspan && (
-              <button className="p-[10px]" onClick={setColSpan}>
-                <img
-                  src={icons.ChevronDown}
-                  alt="toggle-icon"
-                  className="rotate-90"
-                />
-              </button>
-            )} */}
           </div>
 
-          <ul className="flex flex-col">
-            {/* Nhóm các mục theo group */}
+          <ul className="flex flex-col mt-2">
             {Array.from(new Set(sidebars.map((item) => item.group))).map(
               (group) => (
                 <li key={group || "default"}>
                   {group && (
                     <button
-                      className="whitespace-nowrap p-[10px] flex items-center gap-[10px] font-bold w-full duration-300"
+                      className="whitespace-nowrap p-[10px] flex items-center gap-[10px] font-medium w-full hover:bg-gray-100 duration-300 rounded-lg"
                       onClick={() => toggleGroup(group)}
                     >
                       <p>{group}</p>
-                      <img
-                        src={icons.ChevronDown}
-                        alt="toggle-group-icon"
-                        className={`ml-auto ${
-                          openGroups[group || "default"]
-                            ? "rotate-0"
-                            : "rotate-[180deg]"
-                        } duration-300`}
-                      />
                     </button>
                   )}
-                  {/* Hiển thị các mục trong nhóm nếu nhóm đang mở */}
                   {(openGroups[group || "default"] || !group) && (
                     <ul className={`${group ? "ml-[20px]" : ""}`}>
                       {sidebars
@@ -178,25 +150,17 @@ function Sidebar() {
                         .map((sidebar, index) => (
                           <li key={index}>
                             <button
-                              className={`whitespace-nowrap p-[10px] flex items-center gap-[10px] ${
+                              className={`whitespace-nowrap py-[10px] flex items-center gap-[10px] pl-[10px] rounded-lg ${
                                 selectedSideBar === sidebar.path
-                                  ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold"
-                                  : "font-normal"
+                                  ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold bg-[#edf0ff]"
+                                  : "font-medium hover:bg-gray-100"
                               } w-full duration-300`}
                               onClick={() => {
                                 setSelectedSideBar(sidebar.path);
                                 navigate(sidebar.path);
                               }}
                             >
-                              {/* <img
-                                src={
-                                  selectedSideBar === sidebar.path
-                                    ? sidebar.activeIcon
-                                    : sidebar.icon
-                                }
-                                alt="icon-sidebar"
-                                className="w-[20px] h-[20px]"
-                              /> */}
+                              <img src={sidebar?.icons} alt="icon" width={20} />
                               {!colspan && (
                                 <p className="px-[10px] text-[16px]">
                                   {sidebar.title}
@@ -212,7 +176,7 @@ function Sidebar() {
             )}
           </ul>
         </div>
-        <div className="fixed bottom-0 flex items-center gap-[8px] justify-between whitespace-nowrap p-[10px] w-[270px]">
+        <div className="relative flex items-center gap-[8px] justify-between whitespace-nowrap p-[10px] w-full bg-gray-50 border-t">
           <Popover
             content={PopoverContent}
             trigger="click"
@@ -225,23 +189,10 @@ function Sidebar() {
             >
               <div className="flex items-center cursor-pointer w-full">
                 <Avatar src={images.user} size={50} />
-                {!colspan && (
-                  <span className="text-[16px] font-medium w-[60%] truncate">
-                    {profile?.fullname || profile?.email}
-                  </span>
-                )}
+                <span className="text-[16px] font-medium w-[60%] truncate">
+                  {profile?.fullname || profile?.email}
+                </span>
               </div>
-              {!colspan && (
-                <button className="p-[10px]">
-                  <img
-                    src={icons.ChevronDown}
-                    alt="arrow-icon"
-                    className={`${
-                      isOpen ? "rotate-0" : "rotate-[180deg]"
-                    } duration-300`}
-                  />
-                </button>
-              )}
             </button>
           </Popover>
         </div>
