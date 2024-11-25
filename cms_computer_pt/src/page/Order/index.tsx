@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Table, Tag } from "antd";
 import { BaseData } from "../../types/base/baseData";
 import { FeedbackType } from "../../types/commom/feedback";
@@ -5,11 +6,30 @@ import { formatDate } from "../../utils/functions/formatDate";
 import { useFetchOrders } from "../../apis/swr/useFetchOrders";
 import { OrdersType } from "../../types/commom/orders";
 import { formatMoney } from "../../utils/functions/formatMoney";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
+import { useMemo, useState } from "react";
+import SearchCustom from "../../components/common/SearchCustom";
 
 function Orders() {
   const { data } = useFetchOrders();
+  const [query, setQuery] = useState<string>("");
 
-  console.log(data?.data);
+  const filterFields: NestedFieldPath[] = [
+    "order_code",
+    "customer_email",
+    "customer_full_name",
+    "customer_phone",
+    "shipping_address",
+    "payment_method",
+    "shipping_method",
+  ];
+
+  const filteredData = useMemo(() => {
+    return data ? filterDataByNestedField(data.data, query, filterFields) : [];
+  }, [data, query, filterFields]);
   const columns = [
     {
       title: "Mã đơn hàng",
@@ -90,10 +110,15 @@ function Orders() {
     },
   ];
   return (
-    <div className="p-[10px]">
+    <div className="p-[10px] flex flex-col gap-[24px]">
       <h2 className="text-[20px] font-bold">Danh sách đơn hàng</h2>
+      <SearchCustom
+        setValue={setQuery}
+        value={query}
+        className="max-w-[300px]"
+      />
       <Table
-        dataSource={data?.data}
+        dataSource={filteredData}
         columns={columns}
         scroll={{ x: "max-content" }}
       />

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Modal, Table } from "antd";
 import { useFetchBlogCategories } from "../../apis/swr/useFetchBlogCategories";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import InputCustomComponent from "../../components/common/InputCustomComponent";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BlogCategoryType } from "../../types/commom/blog";
@@ -10,12 +10,24 @@ import { blogCategoriesAPi } from "../../apis/axios/blogCategoriesApi";
 import { toast } from "sonner";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { BaseData } from "../../types/base/baseData";
+import SearchCustom from "../../components/common/SearchCustom";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
 
 function BlogCategories() {
   const { data, mutate } = useFetchBlogCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<BaseData<BlogCategoryType>>();
+  const [query, setQuery] = useState<string>("");
+
+  const filterFields: NestedFieldPath[] = ["name"];
+
+  const filteredData = useMemo(() => {
+    return data ? filterDataByNestedField(data?.data, query, filterFields) : [];
+  }, [data, query, filterFields]);
   const {
     control,
     handleSubmit,
@@ -120,10 +132,16 @@ function BlogCategories() {
   };
   return (
     <>
-      <div className="p-[10px]">
+      <div className="p-[10px] flex flex-col gap-[24px]">
         <h2 className="text-[20px] font-bold">Danh sách danh mục sản phẩm</h2>
         <div className="flex justify-between">
-          <div></div>
+          <div>
+            <SearchCustom
+              setValue={setQuery}
+              value={query}
+              className="w-[300px]"
+            />
+          </div>
           <Button
             className="w-[200px] h-[30px]"
             type="primary"
@@ -132,7 +150,7 @@ function BlogCategories() {
             Thêm danh mục
           </Button>
         </div>
-        <Table dataSource={data?.data} columns={columns} />
+        <Table dataSource={filteredData} columns={columns} />
       </div>
       <Modal
         title="Danh mục bài viết"

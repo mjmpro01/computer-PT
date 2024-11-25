@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Table, Tag } from "antd";
 
 import { formatDate } from "../../utils/functions/formatDate";
@@ -5,10 +6,22 @@ import { useFetchProductSelection } from "../../apis/swr/useFetchProductSelectio
 import { BaseData } from "../../types/base/baseData";
 import { ProductType } from "../../types/commom/product";
 import { ProductSeletionsType } from "../../types/commom/productSeletions";
+import { useMemo, useState } from "react";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
+import SearchCustom from "../../components/common/SearchCustom";
 
 function ProductSelection() {
   const { data } = useFetchProductSelection();
-  console.log(data);
+  const [query, setQuery] = useState<string>("");
+
+  const filterFields: NestedFieldPath[] = ["name"];
+
+  const filteredData = useMemo(() => {
+    return data ? filterDataByNestedField(data?.data, query, filterFields) : [];
+  }, [data, query, filterFields]);
   const columns = [
     {
       title: "Id",
@@ -63,8 +76,8 @@ function ProductSelection() {
   return (
     <div className="p-[10px] flex flex-col gap-[24px]">
       <h2 className="text-[20px] font-bold">Danh sách danh mục</h2>
-
-      <Table dataSource={data?.data} columns={columns} />
+      <SearchCustom setValue={setQuery} value={query} className="w-[300px]" />
+      <Table dataSource={filteredData} columns={columns} />
     </div>
   );
 }

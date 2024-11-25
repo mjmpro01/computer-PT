@@ -1,14 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Avatar, Button, Image, Modal, Table } from "antd";
 import { useFetchProducts } from "../../apis/swr/useFetchProducts";
 import { ProductType } from "../../types/commom/product";
 import baseUrl from "../../types/base/baseUrl";
 import { BaseData } from "../../types/base/baseData";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
+import SearchCustom from "../../components/common/SearchCustom";
 
 function Products() {
   const { data } = useFetchProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [query, setQuery] = useState<string>("");
 
+  const filterFields: NestedFieldPath[] = [
+    "product_code",
+    "name",
+    "price",
+    "promotion_price",
+  ];
+
+  const filteredData = useMemo(() => {
+    return data ? filterDataByNestedField(data?.data, query, filterFields) : [];
+  }, [data, query, filterFields]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -89,7 +107,13 @@ function Products() {
       <div className="p-[10px] flex flex-col gap-[24px]">
         <h2 className="text-[20px] font-bold">Danh sách sản phẩm</h2>
         <div className="flex justify-between">
-          <div></div>
+          <div>
+            <SearchCustom
+              setValue={setQuery}
+              value={query}
+              className="w-[300px]"
+            />
+          </div>
           <Button
             className="w-[200px] h-[30px]"
             type="primary"
@@ -98,13 +122,7 @@ function Products() {
             Thêm sản phẩm
           </Button>
         </div>
-        <Table
-          dataSource={data?.data.map((item: any) => ({
-            ...item,
-            key: item.id,
-          }))}
-          columns={columns}
-        />
+        <Table dataSource={filteredData} columns={columns} />
       </div>
       <Modal
         title="Basic Modal"

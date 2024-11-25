@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMemo, useState } from "react";
 import { Button, Image, Modal, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useFetchBlog } from "../../apis/swr/useFetchBlog";
@@ -9,13 +11,30 @@ import { toast } from "sonner";
 import { BaseData } from "../../types/base/baseData";
 import { BlogType } from "../../types/commom/blog";
 import baseUrl from "../../types/base/baseUrl";
+import SearchCustom from "../../components/common/SearchCustom";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
 
 function Blog() {
   const { data: dataBlog, mutate } = useFetchBlog();
   const { data: dataCate } = useFetchBlogCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState<BaseData<BlogType> | null>(null);
+  const [query, setQuery] = useState<string>("");
 
+  const filterFields: NestedFieldPath[] = [
+    "title",
+    "content",
+    ["blog_category", "name"],
+  ];
+
+  const filteredData = useMemo(() => {
+    return dataBlog
+      ? filterDataByNestedField(dataBlog?.data, query, filterFields)
+      : [];
+  }, [dataBlog, query, filterFields]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -102,10 +121,16 @@ function Blog() {
   ];
 
   return (
-    <div className="p-[10px]">
+    <div className="p-[10px] flex flex-col gap-[24px]">
       <h2 className="text-[20px] font-bold">Danh sách bài viết</h2>
       <div className="flex justify-between">
-        <div></div>
+        <div>
+          <SearchCustom
+            setValue={setQuery}
+            value={query}
+            className="w-[300px]"
+          />
+        </div>
         <Button
           className="w-[200px] h-[30px]"
           type="primary"
@@ -114,7 +139,7 @@ function Blog() {
           Thêm bài viết
         </Button>
       </div>
-      <Table dataSource={dataBlog?.data} columns={columns} rowKey="id" />
+      <Table dataSource={filteredData} columns={columns} rowKey="id" />
       <Modal
         title={editData ? "Chỉnh sửa bài viết" : "Thêm bài viết"}
         open={isModalOpen}

@@ -8,7 +8,11 @@ import filter from "./filter.svg";
 import pen from "./pen-tool.svg";
 import user from "./users.svg";
 import chat from "./message-circle.svg";
+import search from "./search.svg";
+import x from "./x.svg";
 const icons = {
+  x,
+  search,
   ChevronDown,
   logOut,
   clipBoard,

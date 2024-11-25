@@ -1,20 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Modal, Table, Tag } from "antd";
 import { useFetchCategories } from "../../apis/swr/useFetchCategories";
 import { BaseData } from "../../types/base/baseData";
 import { CategoriesType } from "../../types/commom/categories";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import CategoriesForm from "../../components/Form/CategoriesForm";
 import { categoriesApi } from "../../apis/axios/categories";
 import { toast } from "sonner";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  filterDataByNestedField,
+  NestedFieldPath,
+} from "../../utils/functions/filterBaseData";
+import SearchCustom from "../../components/common/SearchCustom";
 
 function Categories() {
   const { data, mutate } = useFetchCategories();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<BaseData<CategoriesType>>();
+  const [query, setQuery] = useState<string>("");
 
+  const filterFields: NestedFieldPath[] = ["name", "level"];
+
+  const filteredData = useMemo(() => {
+    return data ? filterDataByNestedField(data?.data, query, filterFields) : [];
+  }, [data, query, filterFields]);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -111,10 +123,16 @@ function Categories() {
 
   return (
     <>
-      <div className="p-[10px]">
+      <div className="p-[10px] flex flex-col gap-[24px]">
         <h2 className="text-[20px] font-bold">Danh sách danh mục sản phẩm</h2>
         <div className="flex justify-between">
-          <div></div>
+          <div>
+            <SearchCustom
+              setValue={setQuery}
+              value={query}
+              className="w-[300px]"
+            />
+          </div>
           <Button
             className="w-[200px] h-[30px]"
             type="primary"
@@ -123,7 +141,7 @@ function Categories() {
             Thêm danh mục
           </Button>
         </div>
-        <Table dataSource={data?.data} columns={columns} />
+        <Table dataSource={filteredData} columns={columns} />
       </div>
       <Modal
         title="Danh mục sản phẩm"
