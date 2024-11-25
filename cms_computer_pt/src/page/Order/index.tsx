@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Table, Tag } from "antd";
+import { Modal, Table, Tag } from "antd";
 import { BaseData } from "../../types/base/baseData";
 import { FeedbackType } from "../../types/commom/feedback";
 import { formatDate } from "../../utils/functions/formatDate";
@@ -12,11 +13,27 @@ import {
 } from "../../utils/functions/filterBaseData";
 import { useMemo, useState } from "react";
 import SearchCustom from "../../components/common/SearchCustom";
+import OrderForm from "../../components/Form/OrderForm";
+import { EditOutlined } from "@ant-design/icons";
 
 function Orders() {
-  const { data } = useFetchOrders();
+  const { data, mutate } = useFetchOrders();
   const [query, setQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editData, setEditData] = useState<BaseData<OrdersType>>();
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    mutate();
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const filterFields: NestedFieldPath[] = [
     "order_code",
     "customer_email",
@@ -30,6 +47,14 @@ function Orders() {
   const filteredData = useMemo(() => {
     return data ? filterDataByNestedField(data.data, query, filterFields) : [];
   }, [data, query, filterFields]);
+  const statusColors: { [key: string]: string } = {
+    "Chờ xác nhận": "blue",
+    "Xác nhận": "cyan",
+    "Đang xử lý": "orange",
+    "Đang giao hàng": "gold",
+    "Giao hàng thành công": "green",
+    Hủy: "red",
+  };
   const columns = [
     {
       title: "Mã đơn hàng",
@@ -82,10 +107,12 @@ function Orders() {
     },
     {
       title: "Trạng thái",
-      key: "name",
-      render: (record: BaseData<OrdersType>) => (
-        <Tag color="green">{record?.attributes?.status}</Tag>
-      ),
+      key: "status",
+      render: (record: BaseData<OrdersType>) => {
+        const status = record?.attributes?.status;
+        const color = statusColors[status] || "default";
+        return <Tag color={color}>{status}</Tag>;
+      },
     },
     {
       title: "Phí giao hàng",
@@ -108,7 +135,26 @@ function Orders() {
         <p>{formatDate(record?.attributes?.createdAt)}</p>
       ),
     },
+    {
+      title: "Hành động",
+      key: "actions",
+      render: (_: any, record: BaseData<OrdersType>) => (
+        <div className="flex gap-[8px]">
+          <button
+            className="text-blue-500 hover:underline flex items-center gap-[4px]"
+            onClick={() => handleEdit(record)}
+          >
+            <EditOutlined />
+            <p>Sửa</p>
+          </button>
+        </div>
+      ),
+    },
   ];
+  const handleEdit = (record: BaseData<OrdersType>) => {
+    setEditData(record);
+    showModal();
+  };
   return (
     <div className="p-[10px] flex flex-col gap-[24px]">
       <h2 className="text-[20px] font-bold">Danh sách đơn hàng</h2>
@@ -122,7 +168,15 @@ function Orders() {
         columns={columns}
         scroll={{ x: "max-content" }}
       />
-      ;
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        centered
+      >
+        {editData && <OrderForm order={editData} mutate={handleOk} />}
+      </Modal>
     </div>
   );
 }

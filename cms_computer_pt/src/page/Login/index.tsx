@@ -23,11 +23,10 @@ function Login() {
   });
 
   const onSubmit: SubmitHandler<LoginRequestType> = async (formData) => {
-    console.log(formData);
     await authApi
       .login(formData)
       .then((res) => {
-        if (res) {
+        if (res?.data?.user?.is_admin) {
           toast.success("Đăng nhập thành công");
           localStorage.setItem(
             variables.PROFILE,
@@ -35,6 +34,8 @@ function Login() {
           );
           localStorage.setItem(variables.ACCESS_TOKEN, res?.data?.jwt);
           navigate("/");
+        } else {
+          toast.error("Tài khoản không phải là admin");
         }
       })
       .catch(() => toast.error("Đăng nhập thất bại"));

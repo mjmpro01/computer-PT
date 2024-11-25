@@ -150,7 +150,7 @@ function Sidebar() {
                         .map((sidebar, index) => (
                           <li key={index}>
                             <button
-                              className={`whitespace-nowrap py-[10px] flex items-center gap-[10px] pl-[10px] rounded-lg ${
+                              className={`whitespace-nowrap py-[10px] flex items-center gap-[10px] pl-[10px] ${
                                 selectedSideBar === sidebar.path
                                   ? "border-r-[#1435C5] border-r-[5px] text-[#1435C5] font-bold bg-[#edf0ff]"
                                   : "font-medium hover:bg-gray-100"

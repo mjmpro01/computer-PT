@@ -11,7 +11,7 @@ function SearchCustom({ value, setValue, className }: SearchCustomProps) {
   };
   return (
     <div
-      className={`flex items-center gap-[4px] p-[10px] rounded-[4px] border relative ${className}`}
+      className={`flex items-center gap-[4px] p-[10px] rounded-[4px] border relative  bg-white ${className}`}
     >
       <button className="w-[20px] h-[20px]">
         <img src={icons.search} alt="icon-search" />
