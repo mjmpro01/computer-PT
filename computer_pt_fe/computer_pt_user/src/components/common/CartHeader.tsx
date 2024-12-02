@@ -20,7 +20,10 @@ function CartHeader() {
           />
           <span>Giỏ hàng chưa có sản phẩm nào</span>
         </div>
-        <Button className="text-white bg-[#1435C5] h-[4rem]">
+        <Button
+          className="text-white bg-[#1435C5] h-[4rem]"
+          onClick={() => navigate("/")}
+        >
           Mua sắm ngay
         </Button>
       </div>

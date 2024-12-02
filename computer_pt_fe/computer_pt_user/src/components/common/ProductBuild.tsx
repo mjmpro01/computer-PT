@@ -33,7 +33,7 @@ function ProductBuild({ product, onRemove }: ProductBuildProps) {
   };
 
   return (
-    <div className="px-[2rem] flex gap-[1.2rem]">
+    <div className="px-[2rem] flex gap-[1.2rem] justify-between">
       <div className="w-[6rem] h-[6rem]">
         <Image
           src={`${baseUrl}${product?.avatar}`}
@@ -41,7 +41,7 @@ function ProductBuild({ product, onRemove }: ProductBuildProps) {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-[50rem]">
+      <div className="w-[40rem]">
         <p className="text-[1.4rem] font-bold truncate">{product?.name}</p>
         <p className="text-[1.2rem] text-[#99999] font-medium truncate">
           SKU: {`product-${product?.id}`}

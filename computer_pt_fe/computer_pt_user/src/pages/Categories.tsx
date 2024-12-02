@@ -26,12 +26,25 @@ function Categories() {
     useState<BaseData<SeletionProductsType> | null>(null);
   const { slug } = useParams();
 
-  const filterData = selectedRangePrice1?.attributes?.products?.data?.filter(
-    (item1) =>
-      selectedRangePrice2?.attributes?.products?.data?.some(
-        (item2) => item2?.id === item1?.id
-      )
-  );
+  const filterData = () => {
+    if (selectedRangePrice1 && selectedRangePrice2) {
+      // Khi cả 2 selectedRangePrice đều có giá trị, lọc giữa chúng
+      return selectedRangePrice1?.attributes?.products?.data?.filter((item1) =>
+        selectedRangePrice2?.attributes?.products?.data?.some(
+          (item2) => item2?.id === item1?.id
+        )
+      );
+    } else if (selectedRangePrice1) {
+      // Nếu chỉ có selectedRangePrice1, trả về tất cả sản phẩm từ selectedRangePrice1
+      return selectedRangePrice1?.attributes?.products?.data;
+    } else if (selectedRangePrice2) {
+      // Nếu chỉ có selectedRangePrice2, trả về tất cả sản phẩm từ selectedRangePrice2
+      return selectedRangePrice2?.attributes?.products?.data;
+    }
+    return []; // Trả về mảng rỗng nếu không có giá trị nào được chọn
+  };
+
+  const filterData1 = filterData();
 
   useEffect(() => {
     const fetchSelectCategory = async () => {
@@ -90,7 +103,7 @@ function Categories() {
   }, [slug, id1, id2]);
 
   const lastesData =
-    filterData && filterData?.length > 0 ? filterData : productCategory;
+    filterData1 && filterData1?.length > 0 ? filterData1 : productCategory;
   return (
     <div className="flex items-center justify-center">
       <div className="px-[8rem] h-full w-full max-w-[1440px] flex flex-col gap-[2.4rem]">

@@ -52,7 +52,10 @@ function ContentBuildPC() {
         <div className="flex items-center gap-[1rem]">
           <Button
             className="h-[4rem] bg-[#1435C5] text-white"
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              window.location.reload();
+              setItems([]);
+            }}
           >
             Làm mới
           </Button>

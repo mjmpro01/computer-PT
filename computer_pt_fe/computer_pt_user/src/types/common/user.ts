@@ -10,4 +10,5 @@ export type UserType = {
   address: string;
   phone: string;
   fullname: string;
+  is_admin: boolean;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import authApi from "@/api/authApi";
 import orderApi from "@/api/orderApi";
 import paymentApis from "@/api/paymentApi";
@@ -7,7 +8,7 @@ import useCartStore from "@/stores/useCartStore";
 import { UserType } from "@/types/common/user";
 import paths from "@/utils/constants/paths";
 import { formatMoney } from "@/utils/functions/formatMoney";
-import { getUserProfile } from "@/utils/functions/getUser";
+import { getAccessToken, getUserProfile } from "@/utils/functions/getUser";
 import { Button } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,10 +22,16 @@ function Checkout() {
   const totalQuantity = getTotalQuantity();
   const SHIPPING_FEE = 30000;
   const profile = getUserProfile();
+  const token = getAccessToken();
   const [user, setUser] = useState<UserType>();
   const [isUpdate, setIsUpdate] = useState<number>(0);
   const [payment, setPayment] = useState<number>(0);
 
+  useEffect(() => {
+    if (!token) {
+      navigate(paths.LOGIN);
+    }
+  }, []);
   useEffect(() => {
     const fetchMe = async () => {
       await authApi

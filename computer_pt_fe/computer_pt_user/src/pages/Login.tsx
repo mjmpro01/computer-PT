@@ -27,11 +27,15 @@ function Login() {
       .login(dataRegister)
       .then((res) => {
         if (res) {
-          localStorage.setItem(variables.ACCESS_TOKEN, res?.jwt);
-          localStorage.setItem(variables.PROFILE, JSON.stringify(res?.user));
-          console.log(res?.user);
-          toast.success("Đăng nhập thành công");
-          navigate(paths.HOME);
+          if (!res?.user?.is_admin) {
+            localStorage.setItem(variables.ACCESS_TOKEN, res?.jwt);
+            localStorage.setItem(variables.PROFILE, JSON.stringify(res?.user));
+            console.log(res?.user);
+            toast.success("Đăng nhập thành công");
+            navigate(paths.HOME);
+          } else {
+            toast.error("Đăng nhập thất bại");
+          }
         }
       })
       .catch(() => toast.error("Có lỗi khi đăng nhập"));
