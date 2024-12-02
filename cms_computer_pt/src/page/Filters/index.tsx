@@ -6,7 +6,7 @@ function Filters() {
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: "Danh mục sản phẩm",
+      label: "Danh mục tiêu chí",
       children: <ProductSelection />,
     },
     {

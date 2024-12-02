@@ -48,12 +48,12 @@ function ProductSelection() {
       key: "id",
     },
     {
-      title: "Tên danh mục",
+      title: "Tên tiêu chí",
       dataIndex: ["attributes", "name"],
       key: "name",
     },
     {
-      title: "Loại danh mục",
+      title: "Loại tiêu chí",
       dataIndex: ["attributes", "is_price_range"],
       key: "name",
       render: (text: boolean) => (

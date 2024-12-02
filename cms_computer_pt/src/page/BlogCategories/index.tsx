@@ -133,7 +133,7 @@ function BlogCategories() {
   return (
     <>
       <div className="p-[10px] flex flex-col gap-[24px]">
-        <h2 className="text-[20px] font-bold">Danh sách danh mục sản phẩm</h2>
+        <h2 className="text-[20px] font-bold">Danh sách danh mục bài viết</h2>
         <div className="flex justify-between">
           <div>
             <SearchCustom

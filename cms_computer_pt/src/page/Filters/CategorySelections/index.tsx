@@ -122,9 +122,7 @@ function CategoriesSelections() {
   return (
     <>
       <div className="p-[10px] flex flex-col gap-[24px]">
-        <h2 className="text-[20px] font-bold">
-          Danh sách danh mục sản phẩm được chọn
-        </h2>
+        <h2 className="text-[20px] font-bold">Danh sách danh mục tiêu chí</h2>
         <div className="flex items-center justify-between">
           <SearchCustom
             setValue={setQuery}

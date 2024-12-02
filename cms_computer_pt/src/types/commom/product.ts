@@ -2,6 +2,7 @@
 // Import the base type for data wrapping
 
 import { BaseData } from "../base/baseData";
+import { CategoriesType } from "./categories";
 
 // Define the Avatar type
 export type AvatarType = {
@@ -63,4 +64,5 @@ export type ProductType = {
   updatedAt: string;
   avatar: { data: BaseData<AvatarType> };
   gallery: { data: BaseData<AvatarType>[] };
+  categories: { data: BaseData<CategoriesType>[] };
 };

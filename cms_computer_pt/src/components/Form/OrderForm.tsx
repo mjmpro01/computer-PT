@@ -145,6 +145,7 @@ function OrderForm({ order, mutate }: OrderFormProps) {
         name="transport_fee"
         isRequired
         errors={errors.transport_fee}
+        disabled
       />
       <InputCustomComponent
         control={control}
@@ -153,6 +154,7 @@ function OrderForm({ order, mutate }: OrderFormProps) {
         name="total"
         isRequired
         errors={errors.total}
+        disabled
       />
       <SelectComponent
         containerClasName="w-full"

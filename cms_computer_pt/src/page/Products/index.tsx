@@ -11,11 +11,17 @@ import {
   NestedFieldPath,
 } from "../../utils/functions/filterBaseData";
 import SearchCustom from "../../components/common/SearchCustom";
+import ProductForm from "../../components/Form/ProductForm";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { productApi } from "../../apis/axios/product";
+import { toast } from "sonner";
 
 function Products() {
-  const { data } = useFetchProducts();
+  const { data, mutate } = useFetchProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState<string>("");
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [product, setProduct] = useState<BaseData<ProductType>>();
 
   const filterFields: NestedFieldPath[] = [
     "product_code",
@@ -33,6 +39,7 @@ function Products() {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    mutate();
   };
 
   const handleCancel = () => {
@@ -100,7 +107,44 @@ function Products() {
       dataIndex: ["attributes", "rating"],
       key: "rating",
     },
+    {
+      title: "Hành động",
+      key: "actions",
+      render: (_: any, record: BaseData<ProductType>) => (
+        <div className="flex gap-[8px]">
+          <button
+            className="text-blue-500 hover:underline flex items-center gap-[4px]"
+            onClick={() => handleEdit(record)}
+          >
+            <EditOutlined />
+            <p>Sửa</p>
+          </button>
+          <button
+            className="text-red-500 hover:underline flex items-center gap-[4px]"
+            onClick={() => handleDelete(record)}
+          >
+            <DeleteOutlined />
+            <p>Xóa</p>
+          </button>
+        </div>
+      ),
+    },
   ];
+  const handleEdit = (record: BaseData<ProductType>) => {
+    setIsEdit(true);
+    setProduct(record);
+    showModal();
+  };
+
+  const handleDelete = async (record: BaseData<ProductType>) => {
+    await productApi
+      .delete(record?.id)
+      .then(() => {
+        toast.success("Xóa thành công");
+        mutate();
+      })
+      .catch(() => toast.error("Xóa thất bại"));
+  };
 
   return (
     <>
@@ -125,14 +169,13 @@ function Products() {
         <Table dataSource={filteredData} columns={columns} />
       </div>
       <Modal
-        title="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
+        centered
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <ProductForm handleOk={handleOk} product={product} isEdit={isEdit} />
       </Modal>
     </>
   );
