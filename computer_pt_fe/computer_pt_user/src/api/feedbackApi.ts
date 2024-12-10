@@ -16,7 +16,7 @@ const feedbackApi = {
   async getAll(id: number) {
     try {
       const res = await axiosClient.get<any>(
-        `${urls.FEEDBACKS}?[filters][product]=${id}&populate=*`
+        `${urls.FEEDBACKS}?[filters][product]=${id}&[filters][is_deleted]=false&populate=*`
       );
 
       return res?.data;

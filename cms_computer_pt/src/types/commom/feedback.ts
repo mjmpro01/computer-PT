@@ -13,4 +13,5 @@ export type FeedbackType = {
   product: {
     data: BaseData<ProductType>;
   };
+  is_deleted: boolean;
 };

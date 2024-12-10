@@ -6,6 +6,7 @@ import { BaseData } from "@/types/base/baseData";
 import { ProductType } from "@/types/common/product";
 import { SeletionProductsType } from "@/types/common/seletProducts";
 import { CategorySelectionType } from "@/types/reponse/selectCategory";
+import { splitCategories } from "@/utils/functions/splitCategories";
 import { Button } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -123,7 +124,7 @@ function Categories() {
                         key={index}
                         onClick={() => setID1(item?.id)}
                       >
-                        {item?.attributes?.name}
+                        {splitCategories(item?.attributes?.name)}
                       </li>
                     )
                 )}
@@ -145,7 +146,7 @@ function Categories() {
                         key={index}
                         onClick={() => setID2(item?.id)}
                       >
-                        {item?.attributes?.name}
+                        {splitCategories(item?.attributes?.name)}
                       </li>
                     )
                 )}
@@ -156,12 +157,12 @@ function Categories() {
             <div className="flex items-center gap-[1.2rem]">
               {selectedRangePrice1 && (
                 <p className="bg-[#F8F8F8] text-[1.4rem] w-fit rounded-[0.4rem] border p-[0.5rem_1rem]">
-                  {selectedRangePrice1?.attributes?.name}
+                  {splitCategories(selectedRangePrice1?.attributes?.name)}
                 </p>
               )}
               {selectedRangePrice2 && (
                 <p className="bg-[#F8F8F8] text-[1.4rem] w-fit rounded-[0.4rem] border p-[0.5rem_1rem]">
-                  {selectedRangePrice2?.attributes?.name}
+                  {splitCategories(selectedRangePrice2?.attributes?.name)}
                 </p>
               )}
               <Button

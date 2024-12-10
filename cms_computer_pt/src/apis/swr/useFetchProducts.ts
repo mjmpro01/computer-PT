@@ -8,7 +8,7 @@ import { BaseResponse } from "../../types/base/baseResponse";
 
 export const useFetchProducts = () => {
   const { data, error, mutate } = useSWR<BaseResponse<BaseData<ProductType>[]>>(
-    `${urls.PRODUCTS}?populate=*`,
+    `${urls.PRODUCTS}?populate=*&sort=id:ASC`,
     fetcher
   );
   const pagination = data?.meta?.pagination;

@@ -53,6 +53,7 @@ function Customers() {
       ...data,
       role: "Authenticated",
     };
+    console.log(newData);
     if (!isEdit) {
       await userApi
         .create(newData)
@@ -168,7 +169,7 @@ function Customers() {
 
   return (
     <div className="p-[10px] flex flex-col gap-[24px]">
-      <h2 className="text-[20px] font-bold">Danh sách khách hàng</h2>
+      <h2 className="text-[20px] font-bold">Danh sách tài khoản</h2>
 
       <div className="flex items-center justify-between">
         <SearchCustom
@@ -176,13 +177,22 @@ function Customers() {
           value={query}
           className="max-w-[300px]"
         />
-        <Button
-          className="w-[200px] h-[30px]"
-          type="primary"
-          onClick={showModal}
-        >
-          Thêm khách hàng
-        </Button>
+        <div className="flex items-center gap-[10px]">
+          <Button
+            className="w-[150px] h-[40px]"
+            type="primary"
+            onClick={() => window.location.reload()}
+          >
+            Làm mới
+          </Button>
+          <Button
+            className="w-[150px] h-[40px]"
+            type="primary"
+            onClick={showModal}
+          >
+            Thêm tài khoản
+          </Button>
+        </div>
       </div>
       <Table dataSource={filteredData} columns={columns} />
       <Modal
@@ -193,7 +203,7 @@ function Customers() {
         centered
       >
         <h2 className="text-[20px] font-bold text-center">
-          Thêm khách hàng mới
+          Thêm tài khoản mới
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}

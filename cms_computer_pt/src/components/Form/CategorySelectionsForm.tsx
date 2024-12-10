@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "antd";
 import SelectComponent from "../common/SelectCustomConponent";
-import InputCustomComponent from "../common/InputCustomComponent";
+// import InputCustomComponent from "../common/InputCustomComponent";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CategorySelectionsRequestType } from "../../types/request/categorySelections";
 import { useFetchCategories } from "../../apis/swr/useFetchCategories";
@@ -30,7 +31,11 @@ function CategorySelectionsForm({
 
   useEffect(() => {
     setValue("name", category_selections?.attributes?.name || "");
-    setValue("category", category_selections?.attributes?.category?.id || 0);
+    setValue(
+      "category",
+      category_selections?.attributes?.category?.data?.id as number
+    );
+
     setValue(
       "product_seletions",
       category_selections?.attributes?.product_seletions?.data?.map(
@@ -51,7 +56,6 @@ function CategorySelectionsForm({
           if (res) {
             toast.success("Lưu thành công");
             reset();
-            handleOk();
           }
         });
     } else {
@@ -71,19 +75,19 @@ function CategorySelectionsForm({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-[12px]"
       >
-        <InputCustomComponent
+        {/* <InputCustomComponent
           control={control}
           label="Tên danh mục"
           placeholder="Tên danh mục"
           name="name"
           isRequired
           errors={errors.name}
-        />
+        /> */}
 
         <SelectComponent
           containerClasName="w-full"
           control={control}
-          label="Danh mục sản phẩm (categories)"
+          label="Tên danh mục tiêu chí"
           name="category"
           isRequired
           options={dataCate?.data?.map((item) => ({
@@ -94,7 +98,7 @@ function CategorySelectionsForm({
         <SelectComponent
           containerClasName="w-full"
           control={control}
-          label="Danh mục sản phẩm (product_selections)"
+          label="Danh mục tiêu chí"
           name="product_seletions"
           isRequired
           mode="multiple"

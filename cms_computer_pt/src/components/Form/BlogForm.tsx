@@ -100,10 +100,10 @@ function BlogForm({ onMutate, categories, isEdit, editData }: BlogFormProps) {
         toast.success("Cập nhật thành công");
       } else {
         await blogApi.create(newData);
+        reset();
         toast.success("Thêm thành công");
       }
       onMutate();
-      reset();
     } catch (error) {
       toast.error("Lưu thất bại");
     }

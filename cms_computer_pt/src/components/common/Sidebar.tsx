@@ -88,7 +88,7 @@ function Sidebar() {
     },
     {
       group: null,
-      title: "Quản lý khách hàng",
+      title: "Quản lý tài khoản",
       path: paths.CUSTOMERS,
       icons: icons.user,
     },

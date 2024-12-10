@@ -52,7 +52,6 @@ function ProductSelectionForm({
         .then((res) => {
           if (res) {
             toast.success("Lưu thành công");
-            reset();
             handleOk();
           }
         })
@@ -89,8 +88,8 @@ function ProductSelectionForm({
     >
       <InputCustomComponent
         control={control}
-        label="Tên danh mục"
-        placeholder="Tên danh mục"
+        label="Tên tiêu chí"
+        placeholder="Tên tiêu chí"
         name="name"
         isRequired
         errors={errors.name}
@@ -98,7 +97,7 @@ function ProductSelectionForm({
       <SelectComponent
         containerClasName="w-full"
         control={control}
-        label="Trạng thái đơn hàng"
+        label="Loại tiêu chí"
         name="is_price_range"
         isRequired
         errors={errors.is_price_range}

@@ -130,22 +130,29 @@ function ProductSelection() {
   return (
     <>
       <div className="p-[10px] flex flex-col gap-[24px]">
-        <h2 className="text-[20px] font-bold">
-          Danh sách danh mục sản phẩm được chọn
-        </h2>
+        <h2 className="text-[20px] font-bold">Danh sách tiêu chí</h2>
         <div className="flex items-center justify-between">
           <SearchCustom
             setValue={setQuery}
             value={query}
             className="w-[300px]"
           />
-          <Button
-            className="w-[200px] h-[30px]"
-            type="primary"
-            onClick={showModal}
-          >
-            Thêm danh mục
-          </Button>
+          <div className="flex items-center gap-[10px]">
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={() => window.location.reload()}
+            >
+              Làm mới
+            </Button>
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={showModal}
+            >
+              Thêm danh mục
+            </Button>
+          </div>
         </div>
         <Table dataSource={filteredData} columns={columns} />
       </div>

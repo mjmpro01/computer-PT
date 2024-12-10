@@ -131,13 +131,22 @@ function Blog() {
             className="w-[300px]"
           />
         </div>
-        <Button
-          className="w-[200px] h-[30px]"
-          type="primary"
-          onClick={showModal}
-        >
-          Thêm bài viết
-        </Button>
+        <div className="flex items-center gap-[10px]">
+          <Button
+            className="w-[150px] h-[40px]"
+            type="primary"
+            onClick={() => window.location.reload()}
+          >
+            Làm mới
+          </Button>
+          <Button
+            className="w-[150px] h-[40px]"
+            type="primary"
+            onClick={showModal}
+          >
+            Thêm bài viết
+          </Button>
+        </div>
       </div>
       <Table dataSource={filteredData} columns={columns} rowKey="id" />
       <Modal

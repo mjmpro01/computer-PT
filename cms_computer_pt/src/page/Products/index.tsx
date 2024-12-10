@@ -70,25 +70,24 @@ function Products() {
       key: "attributes",
       render: (_: any, record: BaseData<ProductType>) => (
         <>
-          {record?.attributes?.gallery?.data?.length > 0 ? (
-            record?.attributes?.gallery?.data
-              ?.slice(0, 1)
-              ?.map((item, index) => (
-                <div className="flex items-center gap-[12px]">
+          <div className="flex items-center gap-[10px]">
+            {record?.attributes?.gallery?.data?.length > 0 ? (
+              record?.attributes?.gallery?.data?.map((item, index) => (
+                <div
+                  className="flex items-center gap-[12px]"
+                  key={item?.id || index}
+                >
                   <Image
                     src={`${baseUrl}${item?.attributes?.url}`}
                     alt="avatar"
                     width={40}
-                    key={index}
                   />
-                  <span>
-                    +{record?.attributes?.gallery?.data?.length - 1} ảnh
-                  </span>
                 </div>
               ))
-          ) : (
-            <p>-</p>
-          )}
+            ) : (
+              <p>-</p>
+            )}
+          </div>
         </>
       ),
     },
@@ -158,15 +157,30 @@ function Products() {
               className="w-[300px]"
             />
           </div>
-          <Button
-            className="w-[200px] h-[30px]"
-            type="primary"
-            onClick={showModal}
-          >
-            Thêm sản phẩm
-          </Button>
+          <div className="flex items-center gap-[10px]">
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={() => window.location.reload()}
+            >
+              Làm mới
+            </Button>
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={showModal}
+            >
+              Thêm sản phẩm
+            </Button>
+          </div>
         </div>
-        <Table dataSource={filteredData} columns={columns} />
+        <Table
+          dataSource={filteredData}
+          columns={columns}
+          scroll={{
+            x: "max-content",
+          }}
+        />
       </div>
       <Modal
         open={isModalOpen}
@@ -175,7 +189,12 @@ function Products() {
         footer={null}
         centered
       >
-        <ProductForm handleOk={handleOk} product={product} isEdit={isEdit} />
+        <ProductForm
+          handleOk={handleOk}
+          product={product}
+          isEdit={isEdit}
+          mutate={mutate}
+        />
       </Modal>
     </>
   );

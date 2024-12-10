@@ -75,7 +75,7 @@ function OrderForm({ order, mutate }: OrderFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[12px]"
     >
-      <h2 className="text-[16px] font-medium">Thông tin khách hàng</h2>
+      <h2 className="text-[16px] font-medium">Thông tin tài khoản</h2>
       <div className="grid grid-cols-2 gap-[12px]">
         <InputCustomComponent
           control={control}

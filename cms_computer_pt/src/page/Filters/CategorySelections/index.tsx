@@ -46,20 +46,18 @@ function CategoriesSelections() {
       dataIndex: "id",
       key: "id",
     },
+    // {
+    //   title: "Tên danh mục",
+    //   dataIndex: ["attributes", "name"],
+    //   key: "name",
+    // },
     {
-      title: "Tên danh mục",
-      dataIndex: ["attributes", "name"],
+      title: "Tên danh mục tiêu chí",
       key: "name",
+      dataIndex: ["attributes", "category", "data", "attributes", "name"],
     },
     {
-      title: "Tên danh mục sản phẩm",
-      key: "name",
-      render: (record: BaseData<CategorySelectionsType>) => (
-        <p>{record?.attributes?.name}</p>
-      ),
-    },
-    {
-      title: "Danh mục sản phẩm",
+      title: "Danh mục tiêu chí",
       key: "product_seletions",
       render: (product_seletions: BaseData<CategorySelectionsType>) => (
         <div className="flex flex-col gap-[8px]">
@@ -129,13 +127,22 @@ function CategoriesSelections() {
             value={query}
             className="w-[300px]"
           />
-          <Button
-            className="w-[200px] h-[30px]"
-            type="primary"
-            onClick={showModal}
-          >
-            Thêm danh mục
-          </Button>
+          <div className="flex items-center gap-[10px]">
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={() => window.location.reload()}
+            >
+              Làm mới
+            </Button>
+            <Button
+              className="w-[150px] h-[40px]"
+              type="primary"
+              onClick={showModal}
+            >
+              Thêm danh mục
+            </Button>
+          </div>
         </div>
         <Table dataSource={filteredData} columns={columns} />
       </div>

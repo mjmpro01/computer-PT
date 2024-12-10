@@ -1062,6 +1062,7 @@ export interface ApiFeedbackFeedback extends Schema.CollectionType {
       > &
       Attribute.DefaultTo<5>;
     comment: Attribute.Text;
+    is_deleted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

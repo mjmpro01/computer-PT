@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Image, Upload, message } from "antd";
+import { Upload, message } from "antd";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import uploadApi from "../../apis/axios/uploadApi";
 
@@ -19,8 +19,8 @@ interface UploadCustomProps {
   setId: (id: number) => void;
 }
 const UploadCustom = ({ setId }: UploadCustomProps) => {
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
+  // const [previewOpen, setPreviewOpen] = useState(false);
+  // const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handlePreview = async (file: UploadFile) => {
@@ -28,8 +28,8 @@ const UploadCustom = ({ setId }: UploadCustomProps) => {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
 
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
+    // setPreviewImage(file.url || (file.preview as string));
+    // setPreviewOpen(true);
   };
 
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
@@ -39,7 +39,7 @@ const UploadCustom = ({ setId }: UploadCustomProps) => {
   const customRequest = async ({ file, onSuccess, onError }: any) => {
     try {
       const id = await uploadApi.upload(file); // Gọi API upload file và nhận `id`
-      message.success(`Upload thành công! ID: ${id}`);
+      message.success(`Upload thành công!`);
       // Cập nhật fileList với `id`
       setId(id?.[0]?.id);
       setFileList((prevList) =>
@@ -81,7 +81,7 @@ const UploadCustom = ({ setId }: UploadCustomProps) => {
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
-      {previewImage && (
+      {/* {previewImage && (
         <Image
           wrapperStyle={{ display: "none" }}
           preview={{
@@ -91,7 +91,7 @@ const UploadCustom = ({ setId }: UploadCustomProps) => {
           }}
           src={previewImage}
         />
-      )}
+      )} */}
     </>
   );
 };

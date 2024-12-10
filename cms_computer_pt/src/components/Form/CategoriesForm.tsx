@@ -48,7 +48,6 @@ function CategoriesForm({
         .then((res) => {
           if (res) {
             toast.success("Lưu thành công");
-            reset();
             onMutate();
           }
         })
