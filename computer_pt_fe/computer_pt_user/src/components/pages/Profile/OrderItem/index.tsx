@@ -5,8 +5,10 @@ import { BaseData } from "@/types/base/baseData";
 import baseUrl from "@/types/base/baseUrl";
 import { OrderType } from "@/types/reponse/order";
 import { formatMoney } from "@/utils/functions/formatMoney";
-import { Button, Image } from "antd";
+import { Button, Image, Modal } from "antd";
 import { useFeedbackStore } from "@/stores/useFeedbackStore";
+import orderApi from "@/api/orderApi";
+import { toast } from "sonner";
 
 interface OrderItemProps {
   order: BaseData<OrderType>;
@@ -20,25 +22,48 @@ function OrderItem({ order }: OrderItemProps) {
         Number(product?.attributes?.quantity),
     0
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Feedback modal
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false); // Cancel confirmation modal
 
   const { feedbackIds, addFeedbackId } = useFeedbackStore();
 
   const isReviewed = feedbackIds.includes(order?.id?.toString());
 
-  const showModal = () => {
+  const showFeedbackModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleFeedbackOk = () => {
     if (order?.id) {
       addFeedbackId(order.id.toString());
     }
     setIsModalOpen(false);
   };
 
-  const handleCancel = () => {
+  const handleFeedbackCancel = () => {
     setIsModalOpen(false);
+  };
+
+  // Cancel order modal handlers
+  const showCancelModal = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const handleCancelOk = async () => {
+    setIsCancelModalOpen(false);
+    const newData = {
+      status: "Huỷ",
+    };
+    const res = await orderApi.cancel(order?.id, newData);
+    if (res) {
+      toast.success("Hủy đơn hàng thành công");
+    } else {
+      toast.error("Hủy đơn hàng thất bại");
+    }
+  };
+
+  const handleCancelCancel = () => {
+    setIsCancelModalOpen(false);
   };
 
   return (
@@ -114,25 +139,53 @@ function OrderItem({ order }: OrderItemProps) {
             </span>
           </div>
         </div>
+
+        {/* Button to show cancel modal if order status is 'Chờ xác nhận' */}
+        {order?.attributes?.status === "Chờ xác nhận" && (
+          <div className="flex justify-end mt-[2.4rem] pt-[1rem] border-t">
+            <Button
+              className="h-[4rem] border-[#1435C5] text-[#1435C5]"
+              onClick={showCancelModal}
+            >
+              Hủy đặt
+            </Button>
+          </div>
+        )}
+
+        {/* Button to show feedback modal if order is delivered and not reviewed */}
         {order?.attributes?.status === "Giao hàng thành công" &&
           !isReviewed && (
             <div className="flex justify-end mt-[2.4rem] pt-[1rem] border-t">
               <Button
                 className="h-[4rem] border-[#1435C5] text-[#1435C5]"
-                onClick={showModal}
+                onClick={showFeedbackModal}
               >
                 Đánh giá sản phẩm
               </Button>
             </div>
           )}
       </div>
+
+      {/* Feedback Modal */}
       <FeedbackModal
         open={isModalOpen}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
+        handleOk={handleFeedbackOk}
+        handleCancel={handleFeedbackCancel}
         products={order?.attributes?.order_details?.data || []}
         orderId={order?.id}
       />
+
+      {/* Cancel Confirmation Modal */}
+      <Modal
+        title="Xác nhận hủy đặt"
+        open={isCancelModalOpen}
+        onOk={handleCancelOk}
+        onCancel={handleCancelCancel}
+        okText="Xác nhận"
+        cancelText="Hủy"
+      >
+        <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+      </Modal>
     </>
   );
 }

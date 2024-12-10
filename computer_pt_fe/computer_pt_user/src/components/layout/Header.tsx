@@ -75,7 +75,7 @@ const HeaderComponent = () => {
   };
 
   return (
-    <div className="border-b fixed w-full flex items-center justify-center bg-white z-50">
+    <div className="border-b fixed w-full flex items-center justify-center z-50 bg-[#1435C5]">
       <div className="max-w-[1440px] px-[8rem] h-[7rem] w-full flex justify-between items-center">
         <div
           className="flex items-center gap-[0.8rem] cursor-pointer"
@@ -86,7 +86,7 @@ const HeaderComponent = () => {
             alt="logo"
             className="w-[5rem] h-[5rem] object-cover"
           />
-          <p className="text-black text-[2rem] font-medium">Computer P&T</p>
+          <p className="text-white text-[2rem] font-medium">Computer P&T</p>
         </div>
 
         <div className="flex items-center gap-[1.2rem] flex-1 px-[4rem] relative">
@@ -96,8 +96,8 @@ const HeaderComponent = () => {
             placement="bottomLeft"
           >
             <div className="flex items-center gap-[0.8rem] text-[1.2rem] text-[#808080] border rounded-[0.4rem] p-[1rem] h-[4rem] cursor-pointer hover:bg-[rgba(0,0,0,0.1)] duration-300">
-              <FontAwesomeIcon icon={faList} />
-              <p className="text-[#808080] text-[1.2rem] font-medium">
+              <FontAwesomeIcon icon={faList} className="text-white" />
+              <p className="text-white text-[1.2rem] font-medium">
                 Danh mục sản phẩm
               </p>
             </div>
@@ -152,9 +152,9 @@ const HeaderComponent = () => {
           >
             <FontAwesomeIcon
               icon={faComputer}
-              className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+              className="font-normal text-[2rem] text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300"
             />
-            <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
+            <p className="text-[1.2rem] font-medium text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300">
               Xây dựng cấu hình
             </p>
           </div>
@@ -167,9 +167,9 @@ const HeaderComponent = () => {
             <div className="group flex items-center cursor-pointer flex-col">
               <FontAwesomeIcon
                 icon={faCartShopping}
-                className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+                className="font-normal text-[2rem] text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300"
               />
-              <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">{` Giỏ hàng (${totalQuantity})`}</p>
+              <p className="text-[1.2rem] font-medium text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300">{` Giỏ hàng (${totalQuantity})`}</p>
             </div>
           </Popover>
           <div
@@ -178,9 +178,9 @@ const HeaderComponent = () => {
           >
             <FontAwesomeIcon
               icon={faNewspaper}
-              className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+              className="font-normal text-[2rem] text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300"
             />
-            <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
+            <p className="text-[1.2rem] font-medium text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300">
               Tin tức công nghệ
             </p>
           </div>
@@ -190,9 +190,9 @@ const HeaderComponent = () => {
           >
             <FontAwesomeIcon
               icon={faUser}
-              className="font-normal text-[2rem] text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300"
+              className="font-normal text-[2rem] text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300"
             />
-            <p className="text-[1.2rem] font-medium text-[#808080] group-hover:text-[#1435C5] group-hover:duration-300">
+            <p className="text-[1.2rem] font-medium text-[#fff] group-hover:text-[#d2d3d3] group-hover:duration-300">
               {profile?.id
                 ? profile?.fullname || profile?.email
                 : "Đăng nhập/ Đăng ký"}

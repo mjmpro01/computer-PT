@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import categoriesApi from "@/api/categoriesApi";
 import selectCategoryApi from "@/api/selectCategoryApi";
 import selectProductApi from "@/api/selectProductApi";

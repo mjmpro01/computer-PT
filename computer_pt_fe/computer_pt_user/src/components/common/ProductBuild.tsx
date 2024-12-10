@@ -41,11 +41,11 @@ function ProductBuild({ product, onRemove }: ProductBuildProps) {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-[40rem]">
-        <p className="text-[1.4rem] font-bold truncate">{product?.name}</p>
-        <p className="text-[1.2rem] text-[#99999] font-medium truncate">
+      <div className="w-[50rem]">
+        <p className="text-[1.4rem] font-bold">{product?.name}</p>
+        {/* <p className="text-[1.2rem] text-[#99999] font-medium ">
           SKU: {`product-${product?.id}`}
-        </p>
+        </p> */}
       </div>
       <div className="flex items-center gap-[1.2rem]">
         <p className="font-medium text-[1.2rem]">

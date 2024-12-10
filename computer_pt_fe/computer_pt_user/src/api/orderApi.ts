@@ -5,6 +5,9 @@ import { BaseResponse } from "@/types/base/baseResponse";
 import { BaseData } from "@/types/base/baseData";
 import { OrderType } from "@/types/reponse/order";
 
+interface OrderEditProps {
+  status: string;
+}
 const orderApi = {
   async create(payload: any) {
     try {
@@ -34,6 +37,19 @@ const orderApi = {
     try {
       const res = await axiosClient.get<BaseResponse<BaseData<OrderType>>>(
         `${urls.ORDERS}/${id}?populate=*`
+      );
+
+      return res?.data;
+    } catch (error) {
+      console.error("Order error:", error);
+      throw error;
+    }
+  },
+  async cancel(id: number, payload: OrderEditProps) {
+    try {
+      const res = await axiosClient.put<BaseResponse<BaseData<OrderType>>>(
+        `${urls.ORDERS}/${id}?populate=*`,
+        { data: payload }
       );
 
       return res?.data;

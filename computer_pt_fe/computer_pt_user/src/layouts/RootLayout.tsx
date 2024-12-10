@@ -24,7 +24,7 @@ export default function RootLayout() {
         <FooterComponent />
       </div>
       <a
-        href="https://www.facebook.com/phuctran0211?locale=vi_VN"
+        href="https://zalo.me/0916903060"
         className="fixed bottom-[5%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"
       >
         <div className="flex items-center gap-[0.8rem]">

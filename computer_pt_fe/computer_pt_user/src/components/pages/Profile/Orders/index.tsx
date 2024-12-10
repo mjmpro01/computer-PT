@@ -71,8 +71,8 @@ function Orders() {
       children: <ListOrder />,
     },
     {
-      key: "Hủy",
-      label: "Hủy",
+      key: "Huỷ",
+      label: "Huỷ",
       children: <ListOrder />,
     },
   ];

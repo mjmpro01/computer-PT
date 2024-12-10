@@ -55,8 +55,8 @@ function OrderForm({ order, mutate }: OrderFormProps) {
       value: "Giao hàng thành công",
     },
     {
-      label: "Hủy",
-      value: "Hủy",
+      label: "Huỷ",
+      value: "Huỷ",
     },
   ];
   const onSubmit: SubmitHandler<OrdersType> = async (data) => {
