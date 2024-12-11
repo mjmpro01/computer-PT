@@ -19,5 +19,7 @@ const urls = {
   FEEDBACKS: "feedbacks",
   ME: "me",
   PAYMENT_CRATE: "create_payment_url",
+  ROOM_CHATS: "room-chats",
+  MESSAGES: "messages",
 };
 export default urls;

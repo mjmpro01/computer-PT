@@ -10,9 +10,12 @@ import { useEffect, useState } from "react";
 import { BaseData } from "@/types/base/baseData";
 import categoriesApi from "@/api/categoriesApi";
 import { CategoriesType } from "@/types/common/categories";
+import socket from "@/api/socket";
+import { getUserProfile } from "@/utils/functions/getUser";
 
 const Home = () => {
   const [categories, setCategories] = useState<BaseData<CategoriesType>[]>([]);
+  const dataUser = getUserProfile();
   useEffect(() => {
     const fetchCategories = async () => {
       await categoriesApi
@@ -26,6 +29,7 @@ const Home = () => {
     };
     fetchCategories();
   }, []);
+
   const banners = [
     {
       name: "banner-1",
