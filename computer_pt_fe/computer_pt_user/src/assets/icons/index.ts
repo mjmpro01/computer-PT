@@ -7,7 +7,22 @@ import box from "./archive.svg";
 import truck from "./truck.svg";
 import bag from "./shopping-bag.svg";
 import logOut from "./log-out.svg";
-
-const icons = { minus, plus, trash, xIcon, search, box, truck, bag, logOut };
+import arrowRight from "./arrow-right.svg";
+import send from "./send.svg";
+import chat from "./chat.svg";
+const icons = {
+  minus,
+  plus,
+  trash,
+  xIcon,
+  search,
+  box,
+  truck,
+  bag,
+  logOut,
+  arrowRight,
+  send,
+  chat,
+};
 
 export default icons;

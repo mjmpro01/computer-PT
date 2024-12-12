@@ -1,4 +1,5 @@
 import images from "@/assets/images";
+import ChatWidget from "@/components/chatWidget";
 import FooterComponent from "@/components/layout/Footer";
 import HeaderComponent from "@/components/layout/Header";
 import { Image } from "antd";
@@ -55,6 +56,8 @@ export default function RootLayout() {
           </div>
         </div>
       </a>
+
+      <ChatWidget />
     </div>
   );
 }
