@@ -45,7 +45,6 @@ const ChatFrame = () => {
   }, [room_id]);
 
   const handleSendMessage = () => {
-    console.log("handleSendMessage", message);
     socket.emit(socketEvent.PRIVATE_MESSAGE, {
       content: message || undefined,
       to: room_id,

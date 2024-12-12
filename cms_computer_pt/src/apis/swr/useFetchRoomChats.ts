@@ -6,10 +6,10 @@ import { RoomChatType } from "../../types/commom/roomChat";
 import useSWR from "swr";
 
 export const useFetchRoomChats = (query?: string) => {
-  const { data, error, mutate, isLoading } = useSWR<
+  const { data, error, mutate, isLoading, isValidating } = useSWR<
     BaseResponse<BaseData<RoomChatType>[]>
   >(`${urls.ROOM_CHATS}?${query}`, fetcher, {
-    refreshInterval: 2 * 60 * 1000,
+    refreshInterval: 1000 * 60,
   });
   const pagination = data?.meta?.pagination;
   return {
@@ -18,5 +18,6 @@ export const useFetchRoomChats = (query?: string) => {
     mutate,
     pagination,
     isLoading,
+    isValidating,
   };
 };
