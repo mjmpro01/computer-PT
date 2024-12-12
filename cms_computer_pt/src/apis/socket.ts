@@ -8,13 +8,13 @@ socket.onAny((event, ...args) => {
   console.log(event, args);
 });
 
-socket.on(socketEvent.NEW_USER_JOIN_ROOM, () => {
-  mutate(`${urls.ROOM_CHATS}?sort[updatedAt]=desc&populate=deep,3`);
-});
+// socket.on(socketEvent.NEW_USER_JOIN_ROOM, () => {
+//   mutate(`${urls.ROOM_CHATS}?sort[updatedAt]=desc&populate=deep,3`);
+// });
 
-socket.on(socketEvent.PRIVATE_MESSAGE, () => {
-  mutate(`${urls.ROOM_CHATS}?sort[updatedAt]=desc&populate=deep,3`);
-});
+// socket.on(socketEvent.PRIVATE_MESSAGE, () => {
+//   mutate(`${urls.ROOM_CHATS}?sort[updatedAt]=desc&populate=deep,3`);
+// });
 
 // Event listeners for debugging
 socket.on(socketEvent.CONNECT_ERROR, (error) => {

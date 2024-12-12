@@ -6,7 +6,7 @@ import { fetcher } from "./fetcher";
 import urls from "../../utils/constants/urls";
 
 export const useFetchMessages = (query?: string) => {
-  const { data, error, mutate, isLoading } = useSWR<
+  const { data, error, mutate, isLoading, isValidating } = useSWR<
     BaseResponse<BaseData<MessageType>[]>
   >(`${urls.MESSAGES}?${query}`, fetcher, { revalidateOnFocus: false });
 
@@ -18,5 +18,6 @@ export const useFetchMessages = (query?: string) => {
     mutate,
     pagination,
     isLoading,
+    isValidating,
   };
 };

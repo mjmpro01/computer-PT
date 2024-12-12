@@ -32,6 +32,14 @@ const MessageWrapper = (props: IMessageWrapperProps) => {
       if (page < (paginationMessage?.pageCount || 0)) {
         setPage(page + 1);
       }
+
+      // const isAtBottom =
+      //   target.clientHeight + target.scrollTop + 1 >= target.scrollHeight;
+
+      // console.log(isAtBottom);
+      // if (isAtBottom && page > 1) {
+      //   setPage(page - 1);
+      // }
     }
   };
   return (

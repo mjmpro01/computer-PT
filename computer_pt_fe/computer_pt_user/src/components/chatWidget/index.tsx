@@ -37,14 +37,15 @@ const ChatWidget = () => {
               user: dataUser.id.toString(),
               seen_status: false,
             });
+
             dataRoom = {
-              id: res.data.id,
-              room_id: res.data.attributes.room_id,
+              id: res?.data?.data?.id,
+              room_id: res?.data?.data?.attributes?.room_id,
             };
 
             localStorage.setItem(
               variables.ROOM_ID,
-              res.data.attributes.room_id
+              res?.data?.data?.attributes?.room_id
             );
           } catch (error) {
             console.log("error create room chat", error);

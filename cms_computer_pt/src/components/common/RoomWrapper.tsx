@@ -15,8 +15,8 @@ const RoomWrapper = (props: RoomWrapperProps) => {
   const [currentRoomChat, setCurrentRoomChat] = useState<
     BaseData<RoomChatType>[]
   >([]);
-  const { data, pagination, isLoading } = useFetchRoomChats(
-    `sort[updatedAt]=desc&populate=deep,3&pagination[pageSize]=11&pagination[page]=${page}`
+  const { data, pagination, isLoading, isValidating } = useFetchRoomChats(
+    `sort[updatedAt]=desc&populate=deep,3&pagination[pageSize]=200&pagination[page]=${page}`
   );
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
@@ -31,10 +31,13 @@ const RoomWrapper = (props: RoomWrapperProps) => {
   };
 
   useEffect(() => {
-    if (!isLoading) {
-      setCurrentRoomChat((prev) => [...prev, ...data]);
+    setCurrentRoomChat([]);
+  }, []);
+  useEffect(() => {
+    if (!isLoading && !isValidating) {
+      setCurrentRoomChat(data);
     }
-  }, [isLoading]);
+  }, [isLoading, isValidating]);
   return (
     <div className="min-w-[300px] w-[300px] py-[24px]">
       <p className="text-center">Danh sách tin nhắn</p>

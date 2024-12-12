@@ -35,9 +35,9 @@ const ChatFrame = (props: IChatFrameProps) => {
 
   const {
     data: messagesData,
-    mutate: mutateMessages,
     pagination: paginationMessage,
     isLoading: isLoadingMessage,
+    isValidating: isValidatingMessage,
   } = useFetchMessages(
     `filters[room][room_id]=${roomSelected?.attributes?.room_id}&sort[id]=desc&populate=deep,3&pagination[page]=${page}`
   );
@@ -48,6 +48,7 @@ const ChatFrame = (props: IChatFrameProps) => {
   useEffect(() => {
     if (roomSelected?.attributes?.room_id) {
       setPage(1);
+      setListMessage([]);
       setCurrentMessages([]);
       mutateRoomChats();
       socket.auth = {
@@ -90,11 +91,17 @@ const ChatFrame = (props: IChatFrameProps) => {
         socket.emit(socketEvent.ADMIN_JOIN_ROOM);
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const handleMessage = () => {
-        console.log("handleMessage");
-        setCurrentMessages([]);
+      const handleMessage = (message: any) => {
+        const newMsg = {
+          sender: {
+            id: message?.from === userData.id ? userData.id : -1,
+            name: message?.from === userData.id ? userData.username : "admin",
+          },
+          content: message.content || undefined,
+          createdAt: new Date(),
+        };
+        setCurrentMessages((prev) => [...prev, newMsg]);
         setTimeout(() => {
-          mutateMessages();
           mutateRoomChats();
         }, 300);
       };
@@ -110,10 +117,10 @@ const ChatFrame = (props: IChatFrameProps) => {
   }, [roomSelected?.attributes?.room_id]);
 
   useEffect(() => {
-    if (!isLoadingMessage) {
-      setListMessage((prev) => [...prev, ...messagesData]);
+    if (!isLoadingMessage && !isValidatingMessage) {
+      setListMessage((prev) => [...messagesData, ...prev]);
     }
-  }, [isLoadingMessage, messagesData]);
+  }, [page, isLoadingMessage, isValidatingMessage]);
 
   if (!roomSelected)
     return (
