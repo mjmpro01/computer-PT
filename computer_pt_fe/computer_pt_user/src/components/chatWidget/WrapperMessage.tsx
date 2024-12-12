@@ -4,7 +4,6 @@ import NewMessage from "@/components/chatWidget/NewMessage";
 import { BaseData } from "@/types/base/baseData";
 import { MessageResponseType } from "@/types/reponse/message";
 import { Spin } from "antd";
-import clsx from "clsx";
 import { useEffect, useRef } from "react";
 
 interface IWrapperMessageProps {
@@ -18,7 +17,6 @@ const WrapperMessage = (props: IWrapperMessageProps) => {
 
   useEffect(() => {
     if (isReadyChat) {
-      console.log("wrapperMessageRef.current!.scrollIntoView()");
       wrapperMessageRef.current!.scrollTo({
         top: wrapperMessageRef.current!.scrollHeight || 450,
         behavior: "smooth",

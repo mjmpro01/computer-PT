@@ -10,6 +10,7 @@ import user from "./users.svg";
 import chat from "./message-circle.svg";
 import search from "./search.svg";
 import x from "./x.svg";
+import send from "./send.svg";
 const icons = {
   x,
   search,
@@ -23,5 +24,6 @@ const icons = {
   pen,
   user,
   chat,
+  send,
 };
 export default icons;

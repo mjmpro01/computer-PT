@@ -14,5 +14,7 @@ const urls = {
   PRODUCT_SELETIONS: "product-seletions",
   CATEGORY_SELECTIONS: "category-selections",
   REGISTER: "register",
+  ROOM_CHATS: "room-chats",
+  MESSAGES: "messages",
 };
 export default urls;
