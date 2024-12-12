@@ -1,4 +1,5 @@
 import chatApi from "@/api/chatApi";
+import { roomChatApi } from "@/api/roomChatApi";
 import socket from "@/api/socket";
 import icons from "@/assets/icons";
 import ChatFrame from "@/components/chatWidget/ChatFrame";
@@ -12,21 +13,46 @@ const ChatWidget = () => {
 
   const dataUser = getUserProfile();
   useEffect(() => {
+    if (!openChat) return;
     let dataRoom: {
       id: number;
       room_id: string;
     } = { id: -1, room_id: "" };
     const fetchUserRoom = async () => {
-      const res = await chatApi
-        .getUserRoom(dataUser.id)
-        .then((res) => res.data);
-      const data = res.data?.[0];
-      dataRoom = {
-        id: data.id,
-        room_id: data.attributes.room_id,
-      };
+      try {
+        const res = await chatApi
+          .getUserRoom(dataUser.id)
+          .then((res) => res.data);
+        if (res.data?.length > 0) {
+          const data = res.data?.[0];
+          dataRoom = {
+            id: data.id,
+            room_id: data.attributes.room_id,
+          };
 
-      localStorage.setItem(variables.ROOM_ID, data.attributes.room_id);
+          localStorage.setItem(variables.ROOM_ID, data.attributes.room_id);
+        } else {
+          try {
+            const res = await roomChatApi.create({
+              user: dataUser.id.toString(),
+              seen_status: false,
+            });
+            dataRoom = {
+              id: res.data.id,
+              room_id: res.data.attributes.room_id,
+            };
+
+            localStorage.setItem(
+              variables.ROOM_ID,
+              res.data.attributes.room_id
+            );
+          } catch (error) {
+            console.log("error create room chat", error);
+          }
+        }
+      } catch (error) {
+        console.log("fetchUserRoom error", error);
+      }
     };
 
     fetchUserRoom();
@@ -40,7 +66,7 @@ const ChatWidget = () => {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [dataUser.id, openChat]);
 
   return (
     <Popover
