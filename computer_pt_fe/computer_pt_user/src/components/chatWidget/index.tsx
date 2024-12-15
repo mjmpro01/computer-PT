@@ -93,7 +93,7 @@ const ChatWidget = () => {
       }
     >
       <div
-        className="fixed bottom-[180px] right-[16px] w-[48px] h-[48px] p-[4px] z-[100] flex justify-center items-center rounded-full cursor-pointe bg-white"
+        className="fixed bottom-[25%] border-[0.1rem] border-[#3333] shadow-md right-[2%] w-[48px] h-[48px] p-[4px] z-[100] flex justify-center items-center rounded-full cursor-pointe bg-white"
         onClick={() => setOpenChat(!openChat)}
       >
         <img src={icons.chat} className="w-full h-full" />

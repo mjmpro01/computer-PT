@@ -26,7 +26,7 @@ export default function RootLayout() {
       </div>
       <a
         href="https://zalo.me/0916903060"
-        className="fixed bottom-[5%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"
+        className="fixed z-50 bottom-[5%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"
       >
         <div className="flex items-center gap-[0.8rem]">
           <Image src={images.zalo} alt="zalo" preview={false} width={30} />
@@ -42,7 +42,7 @@ export default function RootLayout() {
       </a>
       <a
         href="https://www.facebook.com/phuctran0211?locale=vi_VN"
-        className="fixed bottom-[15%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"
+        className="fixed z-50 bottom-[15%] right-[2%] bg-white p-[1rem] shadow-md rounded-[0.8rem] border-[0.1rem] border-[#3333] w-[18rem] cursor-pointer"
       >
         <div className="flex items-center gap-[0.8rem]">
           <Image src={images.messenger} alt="zalo" preview={false} width={30} />
