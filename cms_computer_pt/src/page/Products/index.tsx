@@ -21,7 +21,7 @@ function Products() {
   const params = {
     page,
   };
-  const { data, mutate } = useFetchProducts(params);
+  const { data, mutate, pagination } = useFetchProducts(params);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState<string>("");
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -187,7 +187,7 @@ function Products() {
           pagination={{
             current: page,
             pageSize: 10,
-            total: data?.data?.length,
+            total: pagination?.total,
             onChange: (page) => {
               setPage(page);
             },
