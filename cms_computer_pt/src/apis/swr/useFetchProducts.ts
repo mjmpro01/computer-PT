@@ -11,7 +11,7 @@ interface ProductProps {
 }
 export const useFetchProducts = ({ page }: ProductProps) => {
   const { data, error, mutate } = useSWR<BaseResponse<BaseData<ProductType>[]>>(
-    `${urls.PRODUCTS}?populate=*&sort=id:ASC&page=${page}&pageSize=${10}`,
+    `${urls.PRODUCTS}?populate=*&sort=id:ASC&pagination[pageSize]=10&pagination[page]=${page}`,
     fetcher
   );
   const pagination = data?.meta?.pagination;
