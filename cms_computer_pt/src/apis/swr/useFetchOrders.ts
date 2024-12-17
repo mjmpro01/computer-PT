@@ -8,7 +8,7 @@ import { OrdersType } from "../../types/commom/orders";
 
 export const useFetchOrders = () => {
   const { data, error, mutate } = useSWR<BaseResponse<BaseData<OrdersType>[]>>(
-    `${urls.ORDERS}?populate=*&sort=id:DESC`,
+    `${urls.ORDERS}?populate=deep,6&sort=id:DESC`,
     fetcher
   );
 

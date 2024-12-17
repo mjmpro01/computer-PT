@@ -51,6 +51,7 @@ function Customers() {
   const onSubmit: SubmitHandler<UserRequestType> = async (data) => {
     const newData = {
       ...data,
+      username: data?.email,
       role: "Authenticated",
     };
     console.log(newData);
@@ -209,7 +210,7 @@ function Customers() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-[12px]"
         >
-          <div className="grid grid-cols-2 gap-[12px]">
+          <div className="grid grid-cols-1 gap-[12px]">
             <InputCustomComponent
               control={control}
               label="Tên khách hàng"
@@ -218,14 +219,14 @@ function Customers() {
               isRequired
               errors={errors.fullname}
             />
-            <InputCustomComponent
+            {/* <InputCustomComponent
               control={control}
               label="Tên đăng nhập"
               placeholder="Nhập Tên đăng nhập"
               name="username"
               isRequired
               errors={errors.username}
-            />
+            /> */}
           </div>
           <div className="grid grid-cols-2 gap-[12px]">
             <InputCustomComponent

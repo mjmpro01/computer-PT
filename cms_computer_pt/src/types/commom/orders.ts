@@ -1,4 +1,5 @@
 import { BaseData } from "../base/baseData";
+import { ProductType } from "./product";
 import { UserType } from "./user";
 
 export type OrderDetailType = {
@@ -6,6 +7,7 @@ export type OrderDetailType = {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  product: { data: BaseData<ProductType> };
 };
 export type OrdersType = {
   customer_email: string;
@@ -24,6 +26,6 @@ export type OrdersType = {
     data: BaseData<UserType>;
   };
   order_details: {
-    data: OrderDetailType[];
+    data: BaseData<OrderDetailType>[];
   };
 };

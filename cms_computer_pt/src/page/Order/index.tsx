@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Modal, Table, Tag } from "antd";
+import { Image, Modal, Table, Tag } from "antd";
 import { BaseData } from "../../types/base/baseData";
 import { FeedbackType } from "../../types/commom/feedback";
 import { formatDate } from "../../utils/functions/formatDate";
@@ -15,6 +15,7 @@ import { useMemo, useState } from "react";
 import SearchCustom from "../../components/common/SearchCustom";
 import OrderForm from "../../components/Form/OrderForm";
 import { EditOutlined } from "@ant-design/icons";
+import baseUrl from "../../types/base/baseUrl";
 
 function Orders() {
   const { data, mutate } = useFetchOrders();
@@ -99,12 +100,35 @@ function Orders() {
       ),
     },
     {
-      title: "Phương thức giao hàng",
+      title: "Sản phẩm",
       key: "name",
       render: (record: BaseData<OrdersType>) => (
-        <p>{record?.attributes?.shipping_method}</p>
+        <div className="flex flex-col gap-[12px]">
+          {record?.attributes?.order_details?.data?.map((item, index) => {
+            const avatarUrl =
+              item?.attributes?.product?.data?.attributes?.avatar?.data
+                ?.attributes?.url;
+            const productName =
+              item?.attributes?.product?.data?.attributes?.name;
+
+            if (!avatarUrl || !productName) return null;
+
+            return (
+              <div className="flex items-center gap-[8px]" key={index}>
+                <Image
+                  src={`${baseUrl}${avatarUrl}`}
+                  alt={productName}
+                  width={50}
+                  height={50}
+                />
+                <p>{productName}</p>
+              </div>
+            );
+          })}
+        </div>
       ),
     },
+
     {
       title: "Trạng thái",
       key: "status",

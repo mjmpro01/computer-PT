@@ -1,19 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button } from "antd";
+import { Button, Image } from "antd";
 import { BaseData } from "../../types/base/baseData";
 import { OrdersType } from "../../types/commom/orders";
 import InputCustomComponent from "../common/InputCustomComponent";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SelectComponent from "../common/SelectCustomConponent";
 import { orderApi } from "../../apis/axios/orderApi";
 import { toast } from "sonner";
+import { ProductType } from "../../types/commom/product";
+import baseUrl from "../../types/base/baseUrl";
 
 interface OrderFormProps {
   order: BaseData<OrdersType>;
   mutate: () => void;
 }
 function OrderForm({ order, mutate }: OrderFormProps) {
+  const [products, setProducts] = useState<BaseData<ProductType>[]>([]);
   const {
     control,
     handleSubmit,
@@ -32,6 +35,11 @@ function OrderForm({ order, mutate }: OrderFormProps) {
     setValue("status", order?.attributes?.status);
     setValue("total", order?.attributes?.total);
     setValue("transport_fee", order?.attributes?.transport_fee);
+    setProducts(
+      order?.attributes?.order_details?.data?.map(
+        (item) => item?.attributes?.product?.data
+      )
+    );
   }, [order?.id]);
   const options = [
     {
@@ -75,7 +83,7 @@ function OrderForm({ order, mutate }: OrderFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[12px]"
     >
-      <h2 className="text-[16px] font-medium">Thông tin tài khoản</h2>
+      <h2 className="text-[16px] font-medium">Thông tin đơn hàng</h2>
       <div className="grid grid-cols-2 gap-[12px]">
         <InputCustomComponent
           control={control}
@@ -156,6 +164,20 @@ function OrderForm({ order, mutate }: OrderFormProps) {
         errors={errors.total}
         disabled
       />
+      <h3 className="font-semibold">Sản phẩm</h3>
+      {products?.length > 0 &&
+        products?.map((product, index) => (
+          <div className="flex items-center gap-[10px]" key={index}>
+            <div className="size-[50px]">
+              <Image
+                src={`${baseUrl}${product?.attributes?.avatar?.data?.attributes?.url}`}
+                alt="image"
+                className="size-[50px]"
+              />
+            </div>
+            <p>{product?.attributes?.name}</p>
+          </div>
+        ))}
       <SelectComponent
         containerClasName="w-full"
         control={control}
