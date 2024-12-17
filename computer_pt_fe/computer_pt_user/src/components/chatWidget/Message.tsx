@@ -27,7 +27,7 @@ const Message = (props: IMessageProps) => {
     <div className="w-full flex justify-end items-center">
       <p
         className={clsx(
-          "text-[14px] w-fit p-[4px_8px] text-[#FFFFFF] bg-black rounded-[12px]"
+          "text-[14px] w-fit p-[4px_8px] text-[#FFFFFF] bg-[#1435C5] rounded-[12px]"
         )}
       >
         {data.attributes.content}

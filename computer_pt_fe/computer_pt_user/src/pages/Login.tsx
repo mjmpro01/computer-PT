@@ -34,11 +34,11 @@ function Login() {
             toast.success("Đăng nhập thành công");
             navigate(paths.HOME);
           } else {
-            toast.error("Đăng nhập thất bại");
+            toast.error("Tài khoản này không có quyền đăng nhập");
           }
         }
       })
-      .catch(() => toast.error("Có lỗi khi đăng nhập"));
+      .catch(() => toast.error("Sai tài khoản hoặc mật khẩu!"));
   };
 
   return (

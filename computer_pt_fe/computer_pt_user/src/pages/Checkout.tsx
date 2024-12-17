@@ -46,6 +46,9 @@ function Checkout() {
     fetchMe();
   }, [isUpdate]);
   const handleOrder = async () => {
+    if (!profile?.address) {
+      toast.error("Vui lòng hoàn tất thông tin địa chỉ giao hàng để tiếp tục");
+    }
     const newData = items?.map((item) => ({
       product_id: item?.id,
       quantity: item?.quantity,

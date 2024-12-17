@@ -81,6 +81,7 @@ function OrderItem({ order }: OrderItemProps) {
               {order?.attributes?.order_details?.data?.length} sản phẩm
             </p>
           </div>
+
           <div className="flex items-center gap-[1.2rem]">
             <div className="flex items-center gap-[0.8rem]">
               <Image
@@ -107,6 +108,9 @@ function OrderItem({ order }: OrderItemProps) {
           </div>
         </div>
         <div className="">
+          <h3 className="text-[#1435C5] font-bold">
+            Mã đơn hàng : {order?.id}
+          </h3>
           <div className="flex flex-col gap-[1rem] w-[100%]">
             {order?.attributes?.order_details?.data?.length > 0 &&
               order?.attributes?.order_details?.data?.map((product, index) => (
