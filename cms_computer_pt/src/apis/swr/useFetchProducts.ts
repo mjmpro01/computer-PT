@@ -6,9 +6,12 @@ import { ProductType } from "../../types/commom/product";
 import { BaseData } from "../../types/base/baseData";
 import { BaseResponse } from "../../types/base/baseResponse";
 
-export const useFetchProducts = () => {
+interface ProductProps {
+  page?: number;
+}
+export const useFetchProducts = ({ page }: ProductProps) => {
   const { data, error, mutate } = useSWR<BaseResponse<BaseData<ProductType>[]>>(
-    `${urls.PRODUCTS}?populate=*&sort=id:ASC`,
+    `${urls.PRODUCTS}?populate=*&sort=id:ASC&page=${page}&pageSize=${10}`,
     fetcher
   );
   const pagination = data?.meta?.pagination;

@@ -17,7 +17,11 @@ import { productApi } from "../../apis/axios/product";
 import { toast } from "sonner";
 
 function Products() {
-  const { data, mutate } = useFetchProducts();
+  const [page, setPage] = useState<number>(1);
+  const params = {
+    page,
+  };
+  const { data, mutate } = useFetchProducts(params);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState<string>("");
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -179,6 +183,14 @@ function Products() {
           columns={columns}
           scroll={{
             x: "max-content",
+          }}
+          pagination={{
+            current: page,
+            pageSize: 10,
+            total: data?.data?.length,
+            onChange: (page) => {
+              setPage(page);
+            },
           }}
         />
       </div>
