@@ -19,7 +19,11 @@ import { productSeletionsApi } from "../../../apis/axios/productSeletionsApi";
 import { toast } from "sonner";
 
 function ProductSelection() {
-  const { data, mutate } = useFetchProductSelection();
+  const [page, setPage] = useState<number>(1);
+  const params = {
+    page,
+  };
+  const { data, mutate, pagination } = useFetchProductSelection(params);
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState<BaseData<ProductSeletionsType>>();
@@ -154,7 +158,18 @@ function ProductSelection() {
             </Button>
           </div>
         </div>
-        <Table dataSource={filteredData} columns={columns} />
+        <Table
+          dataSource={filteredData}
+          columns={columns}
+          pagination={{
+            current: page,
+            pageSize: 10,
+            total: pagination?.total,
+            onChange: (page) => {
+              setPage(page);
+            },
+          }}
+        />
       </div>
       <Modal
         open={isModalOpen}

@@ -18,7 +18,11 @@ import { EditOutlined } from "@ant-design/icons";
 import baseUrl from "../../types/base/baseUrl";
 
 function Orders() {
-  const { data, mutate } = useFetchOrders();
+  const [page, setPage] = useState<number>(1);
+  const params = {
+    page,
+  };
+  const { data, mutate, pagination } = useFetchOrders(params);
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState<BaseData<OrdersType>>();
@@ -191,6 +195,14 @@ function Orders() {
         dataSource={filteredData}
         columns={columns}
         scroll={{ x: "max-content" }}
+        pagination={{
+          current: page,
+          pageSize: 10,
+          total: pagination?.total,
+          onChange: (page) => {
+            setPage(page);
+          },
+        }}
       />
       <Modal
         open={isModalOpen}
