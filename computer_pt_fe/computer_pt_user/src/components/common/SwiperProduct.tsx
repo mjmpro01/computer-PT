@@ -8,11 +8,14 @@ import ProductComp from "./ProductComp";
 import { BaseData } from "@/types/base/baseData";
 import { CategoriesType } from "@/types/common/categories";
 import variables from "@/utils/constants/variables";
+import { useNavigate } from "react-router-dom";
+import paths from "@/utils/constants/paths";
 
 interface SwiperProductProps {
   categories: BaseData<CategoriesType>;
 }
 function SwiperProduct({ categories }: SwiperProductProps) {
+  const navigate = useNavigate();
   return (
     <>
       {categories?.attributes?.level === variables.LEVEL_1 && (
@@ -21,13 +24,18 @@ function SwiperProduct({ categories }: SwiperProductProps) {
             <h3 className="text-[2rem] font-bold uppercase">
               {categories?.attributes?.name}
             </h3>
-            <div className="flex items-center gap-[0.4rem] cursor-pointer">
+            <button
+              className="flex items-center gap-[0.4rem] cursor-pointer"
+              onClick={() =>
+                navigate(`${paths.CATEGORIES}/${categories?.attributes?.slug}`)
+              }
+            >
               <p className="text-[1.6rem]">Xem tất cả</p>
               <FontAwesomeIcon
                 icon={faChevronRight}
                 className="text-[1.4rem]"
               />
-            </div>
+            </button>
           </div>
           <div>
             <Swiper
