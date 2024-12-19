@@ -20,10 +20,8 @@ import { toast } from "sonner";
 
 function ProductSelection() {
   const [page, setPage] = useState<number>(1);
-  const params = {
-    page,
-  };
-  const { data, mutate, pagination } = useFetchProductSelection(params);
+
+  const { data, mutate, pagination } = useFetchProductSelection({ page });
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editData, setEditData] = useState<BaseData<ProductSeletionsType>>();

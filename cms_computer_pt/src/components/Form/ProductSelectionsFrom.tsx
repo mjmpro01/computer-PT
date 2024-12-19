@@ -4,7 +4,7 @@ import SelectComponent from "../common/SelectCustomConponent";
 import InputCustomComponent from "../common/InputCustomComponent";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ProductSeletionRequestType } from "../../types/request/productSeletions";
-import { useFetchProducts } from "../../apis/swr/useFetchProducts";
+import { useFetchProductsNopaging } from "../../apis/swr/useFetchProducts";
 import { productSeletionsApi } from "../../apis/axios/productSeletionsApi";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ function ProductSelectionForm({
   handleOk,
   productSelection,
 }: ProductSelectionFormProps) {
-  const { data } = useFetchProducts();
+  const { data } = useFetchProductsNopaging();
   const [query, setQuery] = useState<string>("");
   const [filterData, setFilterData] = useState<BaseData<ProductType>[]>([]);
   const [selected, setSelected] = useState<BaseData<ProductType>[]>([]);

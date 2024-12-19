@@ -15,6 +15,7 @@ import { ProductType } from "../../types/commom/product";
 import { convertContentToHtml } from "./BlogForm";
 import baseUrl from "../../types/base/baseUrl";
 import { DeleteOutlined } from "@ant-design/icons";
+import { parseEditorValueToContent } from "../../utils/functions/formattedContent";
 
 interface ProductFormProps {
   handleOk: () => void;
@@ -46,11 +47,13 @@ function ProductForm({ handleOk, product, isEdit, mutate }: ProductFormProps) {
   } = useForm<ProductRequestType>();
 
   const onSubmit: SubmitHandler<ProductRequestType> = async (data) => {
+    const parsedContent = parseEditorValueToContent(editorValue);
+
     const newData = {
       ...data,
       avatar: avatarId, // ID ảnh đại diện
       gallery: avatarIds, // Mảng ảnh bộ sưu tập
-      description: editorValue,
+      description: parsedContent,
     };
 
     if (!isEdit) {

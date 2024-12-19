@@ -7,15 +7,31 @@ import { BaseResponse } from "../../types/base/baseResponse";
 import { ProductSeletionsType } from "../../types/commom/productSeletions";
 
 interface productSelectionProps {
-  page: number;
+  page?: number;
 }
-export const useFetchProductSelection = ({ page }: productSelectionProps) => {
+export const useFetchProductSelection = ({
+  page = 1,
+}: productSelectionProps) => {
   const { data, error, mutate } = useSWR<
     BaseResponse<BaseData<ProductSeletionsType>[]>
   >(
     `${urls.PRODUCT_SELETIONS}?populate=*&sort=id:DESC&pagination[pageSize]=10&pagination[page]=${page}`,
     fetcher
   );
+
+  const pagination = data?.meta?.pagination;
+  return {
+    data,
+    error,
+    mutate,
+    pagination,
+  };
+};
+
+export const useFetchProductSelectionNoPaging = () => {
+  const { data, error, mutate } = useSWR<
+    BaseResponse<BaseData<ProductSeletionsType>[]>
+  >(`${urls.PRODUCT_SELETIONS}?populate=*&sort=id:DESC`, fetcher);
 
   const pagination = data?.meta?.pagination;
   return {

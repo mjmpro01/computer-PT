@@ -1,3 +1,5 @@
+import { Content } from "../commom/content";
+
 export type ProductRequestType = {
   name: string;
   promotion_price: string;
@@ -5,5 +7,5 @@ export type ProductRequestType = {
   avatar: number;
   gallery: number[];
   categories: number[];
-  description: string;
+  description: Content[];
 };

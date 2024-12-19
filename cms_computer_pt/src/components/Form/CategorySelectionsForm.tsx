@@ -6,7 +6,7 @@ import SelectComponent from "../common/SelectCustomConponent";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CategorySelectionsRequestType } from "../../types/request/categorySelections";
 import { useFetchCategories } from "../../apis/swr/useFetchCategories";
-import { useFetchProductSelection } from "../../apis/swr/useFetchProductSelection";
+import { useFetchProductSelectionNoPaging } from "../../apis/swr/useFetchProductSelection";
 import { categorySelectionsApi } from "../../apis/axios/categorySelections";
 import { toast } from "sonner";
 import { BaseData } from "../../types/base/baseData";
@@ -44,7 +44,7 @@ function CategorySelectionsForm({
     );
   }, [category_selections?.id]);
   const { data: dataCate } = useFetchCategories();
-  const { data: productData } = useFetchProductSelection();
+  const { data: productData } = useFetchProductSelectionNoPaging();
   const onSubmit: SubmitHandler<CategorySelectionsRequestType> = async (
     data
   ) => {

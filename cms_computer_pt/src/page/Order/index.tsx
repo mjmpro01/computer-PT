@@ -64,9 +64,7 @@ function Orders() {
     {
       title: "Mã đơn hàng",
       key: "name",
-      render: (record: BaseData<OrdersType>) => (
-        <p>{record?.attributes?.order_code}</p>
-      ),
+      render: (record: BaseData<OrdersType>) => <p>{record?.id}</p>,
     },
     {
       title: "Email",

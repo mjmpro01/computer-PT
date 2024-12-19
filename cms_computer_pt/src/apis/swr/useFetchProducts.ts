@@ -22,3 +22,17 @@ export const useFetchProducts = ({ page }: ProductProps) => {
     pagination,
   };
 };
+
+export const useFetchProductsNopaging = () => {
+  const { data, error, mutate } = useSWR<BaseResponse<BaseData<ProductType>[]>>(
+    `${urls.PRODUCTS}?populate=*&sort=id:ASC`,
+    fetcher
+  );
+  const pagination = data?.meta?.pagination;
+  return {
+    data,
+    error,
+    mutate,
+    pagination,
+  };
+};
